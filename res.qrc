@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/arc.png</file>
+        <file>image/asave.png</file>
+        <file>image/copy.png</file>
+        <file>image/cut.png</file>
+        <file>image/editor.png</file>
+        <file>image/ellipse.png</file>
+        <file>image/find.png</file>
+        <file>image/line.png</file>
+        <file>image/new.png</file>
+        <file>image/open.png</file>
+        <file>image/pallet.png</file>
+        <file>image/pallete.png</file>
+        <file>image/paste.png</file>
+        <file>image/pencapstyle.png</file>
+        <file>image/polygon.png</file>
+        <file>image/polyline.png</file>
+        <file>image/print.png</file>
+        <file>image/qux.png</file>
+        <file>image/quxian.png</file>
+        <file>image/rdrect.png</file>
+        <file>image/rect.png</file>
+        <file>image/rectangle.png</file>
+        <file>image/redo.png</file>
+        <file>image/sanjiaox.png</file>
+        <file>image/save.png</file>
+        <file>image/select.png</file>
+        <file>image/text.png</file>
+        <file>image/undo.png</file>
+        <file>image/xuanze.png</file>
+        <file>image/th.jpg</file>
+        <file>image/circle.PNG</file>
+        <file>image/hand.jpg</file>
+        <file>image/down.png</file>
+        <file>image/up.png</file>
+        <file>image/zoomin.png</file>
+        <file>image/zoomone.png</file>
+        <file>image/zoomout.png</file>
+        <file>image/expand.jpg</file>
+        <file>image/5624330_201027415000_2.jpg</file>
+    </qresource>
+</RCC>
