@@ -11,3 +11,4 @@ Can save shape file as .xml format<br />
 可以把图形保存为.xml格式。
 
 https://raw.githubusercontent.com/iynaur/iynaur-s-vector-drawing/master/screenshot/shot1.PNG
+[image]（https://raw.githubusercontent.com/iynaur/iynaur-s-vector-drawing/master/screenshot/shot1.PNG）
