@@ -9,3 +9,5 @@ Can save shape file as .xml format<br />
 矢量绘图<br />
 基于Qt5实现。<br />
 可以把图形保存为.xml格式。
+
+![image]（https://raw.githubusercontent.com/iynaur/iynaur-s-vector-drawing/master/screenshot/shot1.PNG）
