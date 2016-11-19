@@ -39,5 +39,8 @@
         <file>image/zoomout.png</file>
         <file>image/expand.jpg</file>
         <file>image/5624330_201027415000_2.jpg</file>
+        <file>image/divide.jpg</file>
+        <file>image/dividetoend.jpg</file>
+        <file>image/combine.jpg</file>
     </qresource>
 </RCC>

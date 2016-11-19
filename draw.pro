@@ -31,7 +31,11 @@ SOURCES += main.cpp\
     closecurve.cpp \
     generalshape.cpp \
     combo.cpp \
-    scroll.cpp
+    scroll.cpp \
+    abstractaction.cpp \
+    addaction.cpp \
+    deleteaction.cpp \
+    editaction.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -49,7 +53,11 @@ HEADERS  += mainwindow.h \
     closecurve.h \
     generalshape.h \
     combo.h \
-    scroll.h
+    scroll.h \
+    abstractaction.h \
+    addaction.h \
+    deleteaction.h \
+    editaction.h
 
 FORMS    += mainwindow.ui \
     gettextdialog.ui

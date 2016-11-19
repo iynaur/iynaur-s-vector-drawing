@@ -25,6 +25,10 @@ public:
         tmp->brush=brush;
         return tmp;
     }
+    bool virtual isEmpty(){
+        if (points.at(0)==points.at(1)) return true;
+        else return false;
+    }
     //void addPoint(QPointF point);
     void drag(QPointF point);
     void virtual draw(QPainter &painter,qreal zoomRatio);

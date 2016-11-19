@@ -1,0 +1,12 @@
+#include "addaction.h"
+AddAction::AddAction(){
+    actiontype=Add;
+
+}
+
+AddAction::AddAction(GeneralShape *sp)
+{
+    actiontype=Add;
+    shapes.append(sp);
+
+}

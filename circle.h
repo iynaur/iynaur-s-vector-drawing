@@ -38,6 +38,12 @@ public:
     double virtual getsy(){
         return sx;
     }
+    bool  isEmpty(){
+        if (points.at(0)==points.at(1))
+            return true;
+        else
+            return false;
+    }
 
 protected:
 
