@@ -42,6 +42,8 @@ void DrawAreaWidget::init()
     previouszoomRatio=1;
     backcolor=Qt::white;
     currentMouseHanded=None;
+    actionList.clear();
+    actionindex=0;
 }
 
 void DrawAreaWidget::combination(){
@@ -138,6 +140,8 @@ QList<GeneralShape *> DrawAreaWidget::cut(){
             copiedshapes.append(tmp);
         }
         foreach(GeneralShape* sp,pickedShapes){
+            AbstractAction *action=new DeleteAction(sp,shapes.indexOf(sp));
+            addaction(action);
             del(sp);
         }
         pickedShapes.clear();
@@ -150,15 +154,19 @@ QList<GeneralShape *> DrawAreaWidget::cut(){
 void DrawAreaWidget::paste(QList<GeneralShape *>*copyShapes){
     if (copyShapes->size()>0) {
         QList<GeneralShape *> copiedshapes;
+        AbstractAction *action=new AddAction();
         for(int i=1;i<=copyShapes->size();i++){
             GeneralShape *tmp=copyShapes->at(i-1)->copyPaste();
             tmp->drag(QPointF(10,10));
             shapes.append(tmp);
+            action->shapes.append(tmp);
+
             copiedshapes.append(tmp);
             copyShapes->removeAt(i-1);
             copyShapes->insert(i-1,tmp);
             //sp=tmp;
         }
+        addaction(action);
 //        foreach(GeneralShape* sp,*copyShapes){
 //            GeneralShape *tmp=sp->copyPaste();
 //            tmp->drag(QPointF(10,10));
@@ -669,6 +677,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
                 qDebug()<<"rotate pickedShape";
                 currentMouseHanded=RotationPoint;
                 endPoint=startPoint=realPoint;
+                pickedShapestartRotationangle=pickedShapes.at(0)->Rotationangle;
                 break;
 
             }
@@ -773,6 +782,14 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 
 
 }
+void DrawAreaWidget::addaction(AbstractAction* act){
+    while (actionList.size()> actionindex){
+        actionList.pop_back();
+    }
+    actionList.append( act);
+    actionindex++;
+    qDebug()<<"add action";
+}
 
 void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 {
@@ -786,7 +803,15 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
     case CurveCategory:{
         //currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
-        if (currentShape->isEmpty()) shapes.removeLast();
+        if (currentShape->isEmpty()){ shapes.removeLast();}
+        else{
+            AbstractAction *action=new AddAction(currentShape);
+            addaction(action);
+//            while (actionList.size()> actionindex){
+//                actionList.pop_back();
+//            }
+//            actionList.append( action);
+        }
         currentShape = NULL;
         break;
     }
@@ -810,7 +835,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         update();
         if (event->button()==Qt::RightButton){//end one Polyline
             currentShape->removeLastPoint();
-            if (currentShape->isEmpty()) shapes.removeLast();
+            if (currentShape->isEmpty()){ shapes.removeLast();}
+            else{
+                AbstractAction *action=new AddAction(currentShape);
+                addaction(action);
+            }
             currentShape = NULL;
             //currentCategory = PolylineCategory;
             isLeftButtonPressed = false;
@@ -837,7 +866,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         update();
         if (event->button()==Qt::RightButton){//end one Polyline
             currentShape->removeLastPoint();
-            if (currentShape->isEmpty()) shapes.removeLast();
+            if (currentShape->isEmpty()){ shapes.removeLast();}
+            else{
+                AbstractAction *action=new AddAction(currentShape);
+                addaction(action);
+            }
             currentShape = NULL;
             //currentCategory = PolylineCategory;
             isLeftButtonPressed = false;
@@ -867,14 +900,83 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 
                 update();
             }
+            break;
+        }
+        if (currentMouseHanded==RotationPoint){//Rotation
+            qDebug()<<"RotationPoint";
+            QPointF centralpoint=QPointF((pickedShapes.at(0)->minx+pickedShapes.at(0)->maxx)/2,
+                                         (pickedShapes.at(0)->miny+pickedShapes.at(0)->maxy)/2);
+
+            qreal sita=acos( -(realPoint.y()-centralpoint.y()) / sqrt(
+                       (realPoint.x()-centralpoint.x())*
+                       (realPoint.x()-centralpoint.x())+
+                       (realPoint.y()-centralpoint.y())*
+                       (realPoint.y()-centralpoint.y()) ) );
+            if (realPoint.x()-centralpoint.x()<0){
+                sita=-sita;
+            }
+            if (pickedShapes.at(0)->getsy()<0){
+                sita=sita+M_PI;//解决图形倒置时的bug
+            }
+            pickedShapes.at(0)->setRotationangle(sita/M_PI*180);
+
+            EditAction* action = new EditAction();
+            action->shapes.append(pickedShapes.at(0));
+            action->oldRotationangle=pickedShapestartRotationangle;
+            action->newRotationangle=pickedShapes.at(0)->Rotationangle;
+            AbstractAction* tmp=static_cast<AbstractAction*>(action);
+            addaction(tmp);
+            //expand();
+            update();
+            break;
+        }
+        if (currentMouseHanded==ScalePoint){//scale,NEED REWRITE!!!
+            qDebug()<<"ScalePoint";
+            endPoint=realPoint;
+//            pickedShapes.at(0)->sx=pickedShapes.at(0)->sx*(1+(endPoint-startPoint).x()*zoomRatio/100);
+//            pickedShapes.at(0)->sy=pickedShapes.at(0)->sy*(1+(endPoint-startPoint).y()*zoomRatio/100);
+            QPointF centralpoint=QPointF((pickedShapes.at(0)->minx+pickedShapes.at(0)->maxx)/2,
+                                         (pickedShapes.at(0)->miny+pickedShapes.at(0)->maxy)/2);
+            QPointF p=startPoint-centralpoint;
+            QPointF p1=endPoint-centralpoint;
+            p=rotated(p,pickedShapes.at(0)->Rotationangle/180*M_PI);//计算机绘图坐标系，点逆时针旋转（或坐标系顺时针旋转），弧度制！！！
+            p1=rotated(p1,pickedShapes.at(0)->Rotationangle/180*M_PI);
+            pickedShapes.at(0)->setsx(pickedShapestartsx*p1.x()/p.x());
+            pickedShapes.at(0)->setsy(pickedShapestartsy*p1.y()/p.y());
+
+
+            EditAction* action = new EditAction();
+            action->shapes.append(pickedShapes.at(0));
+            action->dsx=pickedShapes.at(0)->sx/pickedShapestartsx;
+            action->dsy=pickedShapes.at(0)->sy/pickedShapestartsy;
+            //action->oldRotationangle=pickedShapestartRotationangle;
+            //action->newRotationangle=pickedShapes.at(0)->Rotationangle;
+            AbstractAction* tmp=static_cast<AbstractAction*>(action);
+            addaction(tmp);
+
+            //expand();
+            update();
             return;
         }
-        endPoint=realPoint;
-        //qDebug()<<endPoint-startPoint;
-        startPoint=endPoint;
-        pickedShapes.at(0)->drag(endPoint-startPoint);
+        if (pickedShapes.size()>0){
+            //startPoint=endPoint;
 
-        update();
+            //pickedShapes->drag(endPoint-startPoint);
+            foreach(GeneralShape* sp,pickedShapes){
+                sp->drag(realPoint-endPoint);
+
+            }
+            EditAction* action = new EditAction();
+            action->shapes=pickedShapes;
+            action->dpoint=realPoint-startPoint;
+            AbstractAction* tmp=static_cast<AbstractAction*>(action);
+            addaction(tmp);
+            endPoint=realPoint;
+            //expand();
+            update();
+            break;
+        }
+
         break;
     }
     case CircleCategory:
@@ -882,6 +984,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         currentShape->removeLastPoint();
         currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
+        if (currentShape->isEmpty()){ shapes.removeLast();}
+        else{
+            AbstractAction *action=new AddAction(currentShape);
+            addaction(action);
+        }
         currentShape = NULL;
         update();
         break;
@@ -902,6 +1009,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             }
             //currentShape->setText(currentText );
         }
+        if (currentShape->isEmpty()){ shapes.removeLast();}
+        else{
+            AbstractAction *action=new AddAction(currentShape);
+            addaction(action);
+        }
         currentShape = NULL;
         expand();update();
         break;
@@ -919,6 +1031,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         currentShape->removeLastPoint();
         currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
+        if (currentShape->isEmpty()){ shapes.removeLast();}
+        else{
+            AbstractAction *action=new AddAction(currentShape);
+            addaction(action);
+        }
         currentShape = NULL;
         update();
         break;
@@ -929,9 +1046,14 @@ void DrawAreaWidget::keyPressEvent(QKeyEvent *event){
     if (event->key()==Qt::Key_Delete){
 
         if (pickedShapes.size()>0){
+            DeleteAction *action=new DeleteAction();
             foreach(GeneralShape* sp,pickedShapes){
+
+                action->shapes.append(sp);
+                action->indexOfShapes.append(shapes.indexOf(sp));
                 del(sp);
             }
+            addaction(static_cast<AbstractAction*>(action));
             pickedShapes.clear();
             update();
         }
@@ -1072,12 +1194,13 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
             return;
         }
         if (pickedShapes.size()>0){
-            startPoint=endPoint;
-            endPoint=realPoint;
+            //startPoint=endPoint;
+
             //pickedShapes->drag(endPoint-startPoint);
             foreach(GeneralShape* sp,pickedShapes){
-                sp->drag(endPoint-startPoint);
+                sp->drag(realPoint-endPoint);
             }
+            endPoint=realPoint;
             //expand();
             update();
             break;
@@ -1200,7 +1323,81 @@ bool DrawAreaWidget::isRotationHandlePoint(QPointF realPoint,GeneralShape* picke
     if (abs(x-realPoint.x())*zoomRatio<3 && abs(y-realPoint.y())*zoomRatio<3) return true;
     else return false;
 }
+void DrawAreaWidget::undo(){
+    if (actionindex==0) return;
+    AbstractAction* action=actionList.at(actionindex-1);
+    switch (action->actiontype){
+    case Add:{
+        foreach (GeneralShape*sp,action->shapes){
+        del(sp);
+        pickedShapes.removeOne(sp);
+        }
 
+        actionindex--;
+        update();
+        break;
+    }
+    case Delete:{
+        DeleteAction* tmp=static_cast<DeleteAction*>(action);
+        for (int i=0;i<action->shapes.size();i++){
+        shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
+        }
+        actionindex--;
+        update();
+        break;
+    }
+    case Edit:{
+        EditAction* tmp=static_cast<EditAction*>(action);
+        foreach (GeneralShape*sp,tmp->shapes){
+        sp->drag(-tmp->dpoint);
+        if (tmp->newRotationangle!=tmp->oldRotationangle){
+            sp->setRotationangle(tmp->oldRotationangle);
+        }
+        sp->sx=tmp->shapes.at(0)->sx/tmp->dsx;
+        sp->sy=tmp->shapes.at(0)->sy/tmp->dsy;
+        }
+        actionindex--;
+        update();
+        break;
+    }
+    }
+}
+void DrawAreaWidget::redo(){
+    if (actionindex==actionList.size()) return;
+    AbstractAction* action=actionList.at(actionindex);
+    switch (action->actiontype){
+    case Add:{
+        foreach (GeneralShape*sp,action->shapes){
+        addshape(sp);
+        }
+        actionindex++;
+        update();
+        break;
+    }
+    case Delete:{
+        foreach(GeneralShape*sp,action->shapes){
+        del(sp);
+        }
+        actionindex++;
+        update();
+        break;
+    }
+    case Edit:{
+        EditAction* tmp=static_cast<EditAction*>(action);
+        foreach (GeneralShape*sp,tmp->shapes){
+        sp->drag(tmp->dpoint);
+        if (tmp->newRotationangle!=tmp->oldRotationangle){
+            sp->setRotationangle(tmp->newRotationangle);
+        }
+        sp->sx=tmp->shapes.at(0)->sx*tmp->dsx;
+        sp->sy=tmp->shapes.at(0)->sy*tmp->dsy;
+        }
+        actionindex++;
+        update();
+        break;
+    }
+    }
+}
 void DrawAreaWidget::expand(){
     foreach(GeneralShape* sp,shapes){
         sp->updateBand();

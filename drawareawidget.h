@@ -19,6 +19,9 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include "combo.h"
+#include "addaction.h"
+#include "deleteaction.h"
+#include "editaction.h"
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
                RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
@@ -56,6 +59,9 @@ public:
     void openold();
     void zoomone();
     void dozoom();
+    void undo();
+    void redo();
+    void addaction(AbstractAction* act);
     void openfile(QString file);
 
     void changeToClose();
@@ -75,6 +81,8 @@ public:
     QScrollBar *hBar, *vBar;
     qreal zoomRatio,previouszoomRatio;
     double windowwidth,windowheight;
+    QList <AbstractAction*> actionList;
+    int actionindex;
 public slots:
     void moveToTop();
     void moveToBottom();
@@ -107,6 +115,7 @@ private:
     bool openasadd;
     bool changed;
     qreal pickedShapestartsx,pickedShapestartsy;
+    qreal pickedShapestartRotationangle;
     QColor backcolor;
     QAction*  actionMoveToTop;
     QAction* actionMoveToBottom;

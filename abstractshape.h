@@ -110,7 +110,7 @@ public:
         }
         updateRange();
     }
-    bool virtual isEmpty(){
+    bool  isEmpty(){
         return false;
     }
 //    qreal rotationangle(){

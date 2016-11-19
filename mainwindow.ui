@@ -85,6 +85,8 @@
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
    </widget>
    <widget class="QMenu" name="menuTest">
     <property name="title">
@@ -93,12 +95,12 @@
     <addaction name="actionTest"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuDraw"/>
    <addaction name="menuPick"/>
    <addaction name="menuFix"/>
    <addaction name="menuCombination"/>
    <addaction name="menuZoom"/>
-   <addaction name="menuEdit"/>
    <addaction name="menuTest"/>
   </widget>
   <widget class="QToolBar" name="toolBar_0">
@@ -149,6 +151,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionPick"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
@@ -158,6 +162,9 @@
    <addaction name="actionZoomIn"/>
    <addaction name="actionZoomOut"/>
    <addaction name="actionZoomOne"/>
+   <addaction name="actionCombination"/>
+   <addaction name="actionDivide"/>
+   <addaction name="actionDivideToEnd"/>
    <addaction name="actionPalm"/>
   </widget>
   <action name="actionCurve">
@@ -264,6 +271,10 @@
    </property>
   </action>
   <action name="actionCombination">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/combine.jpg</normaloff>:/image/combine.jpg</iconset>
+   </property>
    <property name="text">
     <string>Combination</string>
    </property>
@@ -337,11 +348,19 @@
    </property>
   </action>
   <action name="actionDivide">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/divide.jpg</normaloff>:/image/divide.jpg</iconset>
+   </property>
    <property name="text">
     <string>Divide</string>
    </property>
   </action>
   <action name="actionDivideToEnd">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/dividetoend.jpg</normaloff>:/image/dividetoend.jpg</iconset>
+   </property>
    <property name="text">
     <string>DivideToEnd</string>
    </property>
@@ -394,6 +413,24 @@
    </property>
    <property name="text">
     <string>Cut</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/undo.png</normaloff>:/image/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/redo.png</normaloff>:/image/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
    </property>
   </action>
  </widget>

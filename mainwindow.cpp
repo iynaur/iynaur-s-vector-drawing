@@ -230,3 +230,13 @@ void MainWindow::on_actionExpand_triggered()
     scrollArea->drawAreaWidget->expand();
 }
 
+
+void MainWindow::on_actionUndo_triggered()
+{
+    scrollArea->drawAreaWidget->undo();
+}
+
+void MainWindow::on_actionRedo_triggered()
+{
+    scrollArea->drawAreaWidget->redo();
+}
