@@ -35,7 +35,9 @@ SOURCES += main.cpp\
     abstractaction.cpp \
     addaction.cpp \
     deleteaction.cpp \
-    editaction.cpp
+    editaction.cpp \
+    combineaction.cpp \
+    divideaction.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -57,7 +59,9 @@ HEADERS  += mainwindow.h \
     abstractaction.h \
     addaction.h \
     deleteaction.h \
-    editaction.h
+    editaction.h \
+    combineaction.h \
+    divideaction.h
 
 FORMS    += mainwindow.ui \
     gettextdialog.ui

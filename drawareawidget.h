@@ -22,6 +22,8 @@
 #include "addaction.h"
 #include "deleteaction.h"
 #include "editaction.h"
+#include "combineaction.h"
+#include "divideaction.h"
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
                RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
@@ -55,8 +57,8 @@ public:
     void rotate();
     bool isRotationHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
     bool isScaleHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
-    void openOldFileFormat();
-    void openold();
+//    void openOldFileFormat();
+//    void openold();
     void zoomone();
     void dozoom();
     void undo();
@@ -71,10 +73,12 @@ public:
     void paste(QList<GeneralShape *> *copyShapes);
     void combination();
     void divide();
+    void divide(GeneralShape* shape);
     void divideToEnd();
     void divideToEnd(GeneralShape* shape);
     void test();
     void getOutOfCombo(GeneralShape* sp,Combo* tmp);
+    void getIntoCombo(GeneralShape* sp,Combo* tmp);
 
     //void closeEvent(QCloseEvent *event);
 
@@ -83,6 +87,7 @@ public:
     double windowwidth,windowheight;
     QList <AbstractAction*> actionList;
     int actionindex;
+    void setBrush(GeneralShape* sp);
 public slots:
     void moveToTop();
     void moveToBottom();

@@ -7,4 +7,6 @@ bug//minx,,,top,,,等变量的状态可能未更新,例如一个新的对象在�
 实现多窗口文档界面mdi
 增加鼠标样式改变，界面更符合直观
 增加undo redo功能（不完善）
-为了完善undo redo功能，//把所有操作都封装成action
+为了完善undo redo功能，把所有操作都封装成action
+增加组合的undo，redo
+当dividetoend采用广度优先时可能会改变层次的上下顺序。

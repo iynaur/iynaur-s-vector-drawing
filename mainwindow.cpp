@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowState(Qt::WindowMaximized);
 
     on_actionNew_triggered();
-
+    //copyShapes=new QList<GeneralShape *>;
 
 
     //ui->setupUi(this);
@@ -180,15 +180,16 @@ void MainWindow::on_actionCut_triggered()
     QList<GeneralShape *>* tmp=new QList<GeneralShape *>;
     *tmp=scrollArea->drawAreaWidget->cut();
     if((*tmp).size()>0){
-        *copyShapes=*tmp;
+        copyShapes=tmp;
     }
 }
 
 void  MainWindow::on_actionCopy_triggered(){
     QList<GeneralShape *>* tmp=new QList<GeneralShape *>;
     *tmp=scrollArea->drawAreaWidget->copy();
-    if((*tmp).size()>0){
-        *copyShapes=*tmp;
+    //qDebug()<<"---";
+    if(tmp->size()>0){
+        copyShapes=tmp;
     }
     //*copyShapes=scrollArea->drawAreaWidget->copy();
 }

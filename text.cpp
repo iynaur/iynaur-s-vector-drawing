@@ -5,20 +5,19 @@ Text::Text()
 {
     name="Text";
 
-    mytext="hello world!";
+    mytext="";
     myfont=QFont("Times", 20, QFont::Normal);
 }
 
-//void Text::addPoint(QPoint point)
-//{
-//    this->points.append(point);
-//    updateRange();
-//}
+
 void Text::setText(QString text){
     mytext=text;
     updateRange();
 }
-
+bool Text::isEmpty(){
+    if (mytext=="") return true;
+    else return false;
+}
 
 
 void Text::draw(QPainter &painter, qreal zoomRatio)
@@ -42,30 +41,16 @@ void Text::draw(QPainter &painter, qreal zoomRatio)
     //tmp->drag(QPoint(dx,dy)/zoomRatio);
     painter.scale(zoomRatio,zoomRatio);
 
-    QGraphicsTextItem *item;
-    QFont font=myfont;
-    item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
-    int i=0;
-    do {
-        i++;
-        font.setPointSize(i);
-        item->setFont(font);//为文本设置字体
-        item->setHtml(mytext);
-    }
-    while(item->boundingRect().width()<(maxx-minx)*abs(sx));
-    font.setPointSize(i-1);
-    painter.setFont(font);
+
+    painter.setFont(myfont);
     //drag(QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
-    painter.drawText(-item->boundingRect().width()/2 , item->boundingRect().height()/2 , mytext);
+    painter.drawText(-(maxx-minx)/2*abs(sx) , (maxy-miny)/2*abs(sx) , mytext);
     //drag(-QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
     painter.scale(1/zoomRatio,1/zoomRatio);
     painter.rotate( -sita );
     painter.translate(-((left+right)/2*zoomRatio), -((top+bottom)/2)*zoomRatio);
 
 }
-//void Text::removeLastPoint(){
-//    points.removeLast();
-//}
 double Text::minDistance(QPointF point){
 
     double x0=(maxx+minx)/2;
@@ -108,8 +93,8 @@ void Text::updateRange(){
     //qDebug()<<"Text::updateRange()";
     QGraphicsTextItem *item;
     item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
-
-    item->setFont(myfont);//为文本设置字体
+    QFont stand=QFont("Times", 20, QFont::Normal);
+    item->setFont(stand);//为文本设置字体
 
 
     item->setHtml(mytext);
@@ -128,4 +113,137 @@ bool Text::inRange(QPoint p0,QPoint p1){
     else return false;
 }
 
+QString  Text::qStringFromThis(){
+    //qDebug()<<"name="<<metaObject()->className();
+    return "Text"+qStringFromPoints()+mytext;
+}
+ Text *  Text::copyPaste(){
+    Text* tmp=new Text;
+    tmp->points=points;
+    tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
+    tmp->mytext=mytext;
+    tmp->myfont=myfont;
+    tmp->updateRange();//这一步不能少！！！！！！
+    return tmp;
+
+}
+
+void Text::setFont(QFont font){
+    myfont=font;
+    updateRange();
+}
+QString Text::text(){
+    return mytext;
+}
+void Text::drawClosure(QPainter &painter, qreal zoomRatio){
+    QPen qpen=pen;
+    //qpen.setColor(brush.color());
+    painter.setPen(qpen);
+    painter.setBrush(brush);
+
+
+    double left=minx;
+    double right=maxx;
+    double top=miny;
+    double bottom=maxy;
+
+    double sita=Rotationangle;
+    if (sx<0) sita=sita+180;
+    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
+    painter.rotate( sita );
+
+    //tmp->drag(QPoint(dx,dy)/zoomRatio);
+    painter.scale(zoomRatio,zoomRatio);
+
+
+    painter.setFont(myfont);
+    //drag(QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
+    painter.drawText(-(maxx-minx)/2*abs(sx) , (maxy-miny)/2*abs(sx) , mytext);
+    //drag(-QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
+    painter.scale(1/zoomRatio,1/zoomRatio);
+    painter.rotate( -sita );
+    painter.translate(-((left+right)/2*zoomRatio), -((top+bottom)/2)*zoomRatio);
+
+    QPen pen;  // creates a default pen
+
+    pen.setStyle(Qt::DashDotLine);
+    painter.setPen(pen);
+    painter.setBrush( QBrush( Qt::NoBrush ));
+
+    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
+    painter.rotate( Rotationangle );
+
+    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sx,
+                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sx);
+    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sx) ,
+                     QPointF(0,(top-bottom)/2*zoomRatio*sx-sx/abs(sx)*lenthOfRotationHandleLine));
+    painter.setPen(QPen(Qt::black,3));
+    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sx);
+    painter.setPen(pen);
+    painter.rotate( -Rotationangle );
+    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
+}
+QPointF Text::rotationHandlePoint(){
+        double left=minx;
+        double right=maxx;
+        double top=miny;
+        double bottom=maxy;
+    //double x=0;
+    double y=(top-bottom)/2*sx;
+    double x1=-y*sin(Rotationangle/180*M_PI);
+    double y1=y*cos(Rotationangle/180*M_PI);
+    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
+
+}
+QPointF Text::scaleHandlePoint(){
+        double left=minx;
+        double right=maxx;
+        double top=miny;
+        double bottom=maxy;
+    double x=(left-right)/2*sx;
+    double y=(top-bottom)/2*sx;
+    double sita=Rotationangle/180*M_PI;
+    double x1=x*cos(sita)-y*sin(sita);
+    double y1=x*sin(sita)+y*cos(sita);
+    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
+}
+void  Text::setsx(double x){
+    sx=x;
+    sy=x;
+
+
+    QGraphicsTextItem *item;
+    //QFont font=myfont;
+    item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+    int i=0;
+    do {
+        i++;
+        myfont.setPointSize(i);
+        item->setFont(myfont);//为文本设置字体
+        item->setHtml(mytext);
+    }
+    while(item->boundingRect().width()<(maxx-minx)*abs(sx));
+    myfont.setPointSize(i-1);
+}
+void  Text::setsy(double y){
+    //do nothing
+}
+double  Text::getsy(){
+    return sx;
+}
+void  Text::zoom(qreal zoomratio){
+    for (int i=0;i<points.size();i++){
+        points[i].setX((points.at(i).x()+0.5*(maxx-minx))*zoomratio-0.5*(maxx-minx));
+        points[i].setY((points.at(i).y()-0.5*(maxy-miny))*zoomratio+0.5*(maxy-miny));
+
+    }
+
+    setsx(sx*zoomratio);
+    updateRange();
+}
 

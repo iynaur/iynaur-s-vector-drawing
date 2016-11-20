@@ -3,7 +3,7 @@
 #include "GeneralShape.h"
 #include <QList>
 
-enum ActionType {Add,Delete,Edit};
+enum ActionType {Add,Delete,Edit,Combine,Divide};
 
 class AbstractAction
 {

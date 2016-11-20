@@ -23,17 +23,7 @@ public:
  
     explicit GeneralShape(QWidget *parent = 0);
     virtual GeneralShape *  copyPaste()=0;
-//    virtual AbstractShape *  copyPaste(){
-//        AbstractShape* tmp;
-//        tmp->points=points;
-//        tmp->name=name;
-//        tmp->pen=pen;
-//        tmp->Rotationangle=Rotationangle;
-//        tmp->sx=sx;
-//        tmp->sy=sy;
-//        tmp->brush=brush;
-//        return tmp;
-//    }
+
 
     QString virtual qStringFromPoints()=0;
     void virtual fromline(QString line){
@@ -124,6 +114,7 @@ public:
     }
     void setRotationangle(qreal angle){
         Rotationangle=angle;
+        updateBand();
     }
     void virtual addPoint(QPointF point)=0;
     void virtual removeLastPoint()=0;
@@ -131,9 +122,11 @@ public:
     void virtual setBrush(const QBrush &brush)=0;
     void virtual setsx(double x){
         sx=x;
+        updateBand();
     }
     void virtual setsy(double y){
         sy=y;
+        updateBand();
     }
     double virtual getsy(){
         return sy;
@@ -141,20 +134,7 @@ public:
     double virtual getsx(){
         return sx;
     }
-//    void virtual times(double a){
-////        foreach(QPointF p,points){
-////            p*=a;
-////        }//no effect,why??????
-//        for (int i=0;i<points.size();i++){
-//            points[i].setX(points.at(i).x()*a);
-//            points[i].setY(points.at(i).y()*a);
 
-//        }
-//        updateRange();
-
-////        sx=sx*a;
-////        sy=sy*a;
-//    }
 
 protected:    
     QPen pen;

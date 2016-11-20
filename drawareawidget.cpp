@@ -49,39 +49,60 @@ void DrawAreaWidget::init()
 void DrawAreaWidget::combination(){
     if (pickedShapes.size()<=1) return;
     Combo* tmp=new Combo;
+    CombineAction* action=new CombineAction();
     foreach(GeneralShape * sp,pickedShapes){
         tmp->shapes.append(sp);
+        action->shapes.append(sp);
+        action->indexOfShapes.append(shapes.indexOf(sp));
         del(sp);
     }
+    action->com=tmp;
+    addaction(static_cast<AbstractAction*>(action));
+    //actionList.append(static_cast<AbstractAction*>(action));
     tmp->updateRange();
     pickedShapes.clear();
+    pickedShapes.append(tmp);
     shapes.append(tmp);
     update();
 
 }
 void DrawAreaWidget::divide(){
     if (pickedShapes.size()!=1 || pickedShapes.at(0)->name!="Combo") return;
-    Combo* tmp=dynamic_cast<Combo* >(pickedShapes.at(0));
-    foreach(GeneralShape * sp,tmp->shapes){
-
-        getOutOfCombo(sp,tmp);
-    }
-    del(pickedShapes.at(0));
-    pickedShapes.removeAt(0);
+    GeneralShape* tmp=pickedShapes.at(0);
+    pickedShapes.clear();
+    divide(tmp);
+    del(tmp);
     update();
 }
+void DrawAreaWidget::divide(GeneralShape* shape){
+    Combo* tmp=dynamic_cast<Combo* >(shape);
+    DivideAction* action=new DivideAction();
+    action->com=tmp;
+    foreach(GeneralShape * sp,tmp->shapes){
+        action->shapes.append(sp);
+        getOutOfCombo(sp,tmp);
+    }
+    addaction(static_cast<AbstractAction*>(action));
+    pickedShapes.operator +=(tmp->shapes);
+}
+
 void DrawAreaWidget::divideToEnd(){
-    divideToEnd(pickedShapes.at(0));
-    pickedShapes.removeAt(0);
+    if (pickedShapes.size()!=1 || pickedShapes.at(0)->name!="Combo") return;
+    GeneralShape* tmp=pickedShapes.at(0);
+    pickedShapes.clear();
+
+    divideToEnd(tmp);
     update();
 
 }
 void DrawAreaWidget::divideToEnd(GeneralShape* shape){
     if (shape->name!="Combo") return;
+    pickedShapes.removeOne(shape);
     Combo* tmp=dynamic_cast<Combo* >(shape);
+    divide(shape);
     foreach(GeneralShape * sp,tmp->shapes){
 
-        getOutOfCombo(sp,tmp);
+        //getOutOfCombo(sp,tmp);
         divideToEnd(sp);
 
     }
@@ -98,6 +119,23 @@ void DrawAreaWidget::getOutOfCombo(GeneralShape* sp,Combo* tmp){
     sp->zoom(tmp->sx);
     sp->drag(tmp->centralPoint());//scale done
     shapes.append(sp);
+}
+
+void DrawAreaWidget::getIntoCombo(GeneralShape* sp,Combo* tmp){
+//    QPointF spcentralPoint=sp->centralPoint();
+//    sp->drag(-spcentralPoint);
+//    sp->Rotationangle=sp->Rotationangle+tmp->Rotationangle;
+//    sp->drag(rotated(spcentralPoint-tmp->centralPoint(),-tmp->Rotationangle/180*M_PI));//rotate done
+//    sp->zoom(tmp->sx);
+//    sp->drag(tmp->centralPoint());//scale done
+    //shapes.append(sp);
+
+    QPointF spcentralPoint=sp->centralPoint();
+    sp->drag(-spcentralPoint);
+    sp->drag(rotated(spcentralPoint-tmp->centralPoint(),tmp->Rotationangle/180*M_PI));
+    sp->zoom(1/tmp->sx);
+    sp->Rotationangle=sp->Rotationangle-tmp->Rotationangle;
+    sp->drag(tmp->centralPoint());
 }
 
 void DrawAreaWidget::copyPaste(){
@@ -133,17 +171,16 @@ QList<GeneralShape *> DrawAreaWidget::copy(){
 QList<GeneralShape *> DrawAreaWidget::cut(){
     QList<GeneralShape *> copiedshapes;
     if (pickedShapes.size()>0) {
-
+        DeleteAction *action=new DeleteAction();
         foreach(GeneralShape* sp,pickedShapes){
             GeneralShape *tmp=sp->copyPaste();
-
+            action->shapes.append(sp);
+            action->indexOfShapes.append(shapes.indexOf(sp));
             copiedshapes.append(tmp);
-        }
-        foreach(GeneralShape* sp,pickedShapes){
-            AbstractAction *action=new DeleteAction(sp,shapes.indexOf(sp));
-            addaction(action);
+
             del(sp);
         }
+        addaction(static_cast<AbstractAction*>(action));
         pickedShapes.clear();
         update();
 
@@ -233,10 +270,10 @@ void DrawAreaWidget::opennew(){
     openasadd=false;
     open();
 }
-void DrawAreaWidget::openOldFileFormat(){
-    openasadd=false;
-    openold();
-}
+//void DrawAreaWidget::openOldFileFormat(){
+//    openasadd=false;
+//    openold();
+//}
 
 void DrawAreaWidget::addshape(GeneralShape * shape){
     shapes.append(shape);
@@ -284,35 +321,35 @@ bool DrawAreaWidget::maybeSave(){//成功保存，或明确放弃保存，或根
     }
     return true;
 }
-void DrawAreaWidget::openold(){
-    if (!openasadd){
-        if (!maybeSave()) return;
-    }
+//void DrawAreaWidget::openold(){
+//    if (!openasadd){
+//        if (!maybeSave()) return;
+//    }
 
 
 
-    QStringList files;
-    QFileDialog dlg(this,"Open file");
-    dlg.setAcceptMode(QFileDialog::AcceptOpen);
-    dlg.setNameFilter("INI (*.ini   *.inf)");
-    dlg.exec();
-    if (dlg.result()==QDialog::Accepted)
-        files = dlg.selectedFiles();
-    else
-        return;
-    if(files.isEmpty())
-        return;
-    if (!openasadd) init();
-    QFile openFile(files.at(0));
-    openFile.open(QFile::ReadOnly | QFile::Text);
-    QTextStream in(&openFile);
-    QString line;
-    while(!in.atEnd())
-    {
-        line=in.readLine();
-        add(line);
-    }
-}
+//    QStringList files;
+//    QFileDialog dlg(this,"Open file");
+//    dlg.setAcceptMode(QFileDialog::AcceptOpen);
+//    dlg.setNameFilter("INI (*.ini   *.inf)");
+//    dlg.exec();
+//    if (dlg.result()==QDialog::Accepted)
+//        files = dlg.selectedFiles();
+//    else
+//        return;
+//    if(files.isEmpty())
+//        return;
+//    if (!openasadd) init();
+//    QFile openFile(files.at(0));
+//    openFile.open(QFile::ReadOnly | QFile::Text);
+//    QTextStream in(&openFile);
+//    QString line;
+//    while(!in.atEnd())
+//    {
+//        line=in.readLine();
+//        add(line);
+//    }
+//}
 
 void DrawAreaWidget::openfile(QString file){
     QFile openFile(file);
@@ -524,12 +561,14 @@ void DrawAreaWidget::paintEvent(QPaintEvent *)
 
     foreach(GeneralShape* sp,pickedShapes){
         sp->setPen(QPen(Qt::red,3));
+        //if(sp->name=="Text") sp->setBrush();
     }
     foreach(GeneralShape* sp,shapes){
         sp->draw(painter,zoomRatio);
     }
 
     foreach(GeneralShape* sp,pickedShapes){
+        //if(sp->name=="Text") sp->setBrush();
         sp->drawClosure(painter,zoomRatio);
     }
 
@@ -592,16 +631,7 @@ void DrawAreaWidget::mouseDoubleClickEvent(QMouseEvent *event){
             }
 
 
-            QColorDialog* gtd=new QColorDialog;
-            //qDebug()<<pickedShapes.at(0)->brush;
-            if (pickedShapes.at(0)->brush.style()!=Qt::NoBrush){
-                gtd->setCurrentColor(pickedShapes.at(0)->brush.color());
-            }
-            if (gtd->exec()==QDialog::Accepted){
-                pickedShapes.at(0)->setBrush(gtd->selectedColor() );
-            }
-            //pickedShapes.at(0)->setBrush(gtd->getColor());
-            expand();update();
+            setBrush(pickedShapes.at(0));
 
 
         }
@@ -619,18 +649,24 @@ void DrawAreaWidget::mouseDoubleClickEvent(QMouseEvent *event){
 }
 void DrawAreaWidget::setBrush(){
     if ( pickedShapes.size()==1 ){
-        QColorDialog* gtd=new QColorDialog;
-        //qDebug()<<pickedShapes.at(0)->brush;
-        if (pickedShapes.at(0)->brush.style()!=Qt::NoBrush){
-            gtd->setCurrentColor(pickedShapes.at(0)->brush.color());
-        }
-        if (gtd->exec()==QDialog::Accepted){
-            pickedShapes.at(0)->setBrush(gtd->selectedColor() );
-        }
-        //pickedShapes.at(0)->setBrush(gtd->getColor());
-        expand();update();
+        setBrush(pickedShapes.at(0));
     }
 }
+
+void DrawAreaWidget::setBrush(GeneralShape* sp){
+    QColorDialog* gtd=new QColorDialog;
+    //qDebug()<<pickedShapes.at(0)->brush;
+    //gtd->setCurrentColor(sp->brush.color());
+    if (sp->brush.style()!=Qt::NoBrush){
+        gtd->setCurrentColor(sp->brush.color());
+    }
+    if (gtd->exec()==QDialog::Accepted){
+        sp->setBrush(gtd->selectedColor() );
+    }
+    //pickedShapes.at(0)->setBrush(gtd->getColor());
+    update();
+}
+
 void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 {
     //qDebug()<<"mousePressEvent";
@@ -692,7 +728,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
             }
             currentMouseHanded=None;
 
-            qDebug()<<"nothing pickedShape";
+            //qDebug()<<"nothing pickedShape";
         }
         if (pickedShapes.size()>0){
             if (inRange(realPoint,pickedShapes)){//drag mode
@@ -788,7 +824,7 @@ void DrawAreaWidget::addaction(AbstractAction* act){
     }
     actionList.append( act);
     actionindex++;
-    qDebug()<<"add action";
+    qDebug()<<"add action"<<act->actiontype;
 }
 
 void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -959,9 +995,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             return;
         }
         if (pickedShapes.size()>0){
-            //startPoint=endPoint;
 
-            //pickedShapes->drag(endPoint-startPoint);
             foreach(GeneralShape* sp,pickedShapes){
                 sp->drag(realPoint-endPoint);
 
@@ -970,7 +1004,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             action->shapes=pickedShapes;
             action->dpoint=realPoint-startPoint;
             AbstractAction* tmp=static_cast<AbstractAction*>(action);
-            addaction(tmp);
+            if (action->dpoint!=QPointF(0,0)) addaction(tmp);
             endPoint=realPoint;
             //expand();
             update();
@@ -1256,10 +1290,7 @@ void DrawAreaWidget::finishcurrentShape(){
     update();
 }
 QList<GeneralShape *> DrawAreaWidget::pickShape(QPointF point){
-//    foreach(GeneralShape* sp,shapes){//这种方式选取顺序为从底下往上面。
-//        if (sp->minDistance(point)*zoomRatio<4) return sp;
-//    }
-//    return NULL;
+
     QList<GeneralShape *> tmp;
     for(int i=shapes.size()-1;i>=0;i--){//这种方式选取顺序为从上面往底下。
         if (shapes.at(i)->minDistance(point)*zoomRatio<4) {
@@ -1339,7 +1370,7 @@ void DrawAreaWidget::undo(){
     }
     case Delete:{
         DeleteAction* tmp=static_cast<DeleteAction*>(action);
-        for (int i=0;i<action->shapes.size();i++){
+        for (int i=tmp->shapes.size()-1;i>=0;i--){
         shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
         }
         actionindex--;
@@ -1356,6 +1387,32 @@ void DrawAreaWidget::undo(){
         sp->sx=tmp->shapes.at(0)->sx/tmp->dsx;
         sp->sy=tmp->shapes.at(0)->sy/tmp->dsy;
         }
+        actionindex--;
+        update();
+        break;
+    }
+    case Combine:{
+        CombineAction* tmp=static_cast<CombineAction*>(action);
+        for(int i=tmp->shapes.size()-1;i>=0;i--){
+            shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
+        }
+        qDebug()<<shapes.indexOf(tmp->com)<<shapes.size();
+        shapes.removeOne(tmp->com);
+        actionindex--;
+        pickedShapes=tmp->shapes;
+        update();
+        break;
+    }
+    case Divide:{
+        DivideAction* tmp=static_cast<DivideAction*>(action);
+        for(int i=0;i<tmp->shapes.size();i++){
+            shapes.removeOne(tmp->shapes.at(i));
+            getIntoCombo(tmp->shapes.at(i),tmp->com);
+
+        }
+        shapes.append(tmp->com);
+        pickedShapes.clear();
+        pickedShapes.append(tmp->com);
         actionindex--;
         update();
         break;
@@ -1396,6 +1453,33 @@ void DrawAreaWidget::redo(){
         update();
         break;
     }
+    case Combine:{
+        CombineAction* tmp=static_cast<CombineAction*>(action);
+        foreach(GeneralShape * sp,tmp->shapes){
+            del(sp);
+        }
+        pickedShapes.clear();
+        pickedShapes.append(tmp->com);
+        shapes.append(tmp->com);
+
+        actionindex++;
+        update();
+        break;
+    }
+    case Divide:{
+        DivideAction* tmp=static_cast<DivideAction*>(action);
+        for(int i=0;i<tmp->shapes.size();i++){
+
+            getOutOfCombo(tmp->shapes.at(i),tmp->com);
+            //shapes.append(tmp->shapes.at(i));
+
+        }
+        del(tmp->com);
+        pickedShapes=tmp->shapes;
+        actionindex++;
+        update();
+        break;
+    }
     }
 }
 void DrawAreaWidget::expand(){
@@ -1420,12 +1504,10 @@ void DrawAreaWidget::expand(){
         if (sp->bottom*zoomRatio+dy > height()) setFixedHeight(sp->bottom*zoomRatio+dy);
     }
 }
-//void DrawAreaWidget::onscrollDone(){
-//    isScrolling=false;
-//}
+
 bool DrawAreaWidget::inRange(QPointF Point, QList<GeneralShape *> sps){
     foreach(GeneralShape* sp,sps){
-        if (Point.x()>sp->left && Point.x()<sp->right && Point.y()>sp->top && Point.y()<sp->bottom) return true;
+        if (sp->minDistance(Point)*zoomRatio<4) return true;
 
     }
 

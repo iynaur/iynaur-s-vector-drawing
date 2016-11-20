@@ -130,11 +130,11 @@ void Rect::updateRange(){
     updateBand();
 }
 bool Rect::inRange(QPointF p0,QPointF p1){
-    double left=min(p0.x(),p1.x());
-    double right=max(p0.x(),p1.x());
-    double top=min(p0.y(),p1.y());
-    double bottom=max(p0.y(),p1.y());
-    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
+    double Left=min(p0.x(),p1.x());
+    double Right=max(p0.x(),p1.x());
+    double Top=min(p0.y(),p1.y());
+    double Bottom=max(p0.y(),p1.y());
+    if (left>Left && right<Right && top>Top && bottom<Bottom) return true;
     else return false;
 }
 

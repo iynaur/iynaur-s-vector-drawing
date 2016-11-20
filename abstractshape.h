@@ -17,22 +17,9 @@ class AbstractShape : public GeneralShape
  
 public:
     AbstractShape();
-//    qreal minx,miny,maxx,maxy;
-//    QString name;
- 
-//    explicit AbstractShape(QWidget *parent = 0);
+
     virtual AbstractShape *  copyPaste()=0;
-//    virtual AbstractShape *  copyPaste(){
-//        AbstractShape* tmp;
-//        tmp->points=points;
-//        tmp->name=name;
-//        tmp->pen=pen;
-//        tmp->Rotationangle=Rotationangle;
-//        tmp->sx=sx;
-//        tmp->sy=sy;
-//        tmp->brush=brush;
-//        return tmp;
-//    }
+
 
     QString qStringFromPoints(){
         QString tmp="";
