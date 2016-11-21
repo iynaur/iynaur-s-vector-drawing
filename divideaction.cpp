@@ -2,5 +2,9 @@
 
 DivideAction::DivideAction()
 {
-    actiontype=Divide;
+    //actiontype=Divide;
+}
+
+ActionType DivideAction::actiontype(){
+    return Divide;
 }

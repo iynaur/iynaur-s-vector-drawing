@@ -2,5 +2,8 @@
 
 CombineAction::CombineAction()
 {
-    actiontype=Combine;
+    //actiontype=Combine;
+}
+ActionType CombineAction::actiontype(){
+    return Combine;
 }

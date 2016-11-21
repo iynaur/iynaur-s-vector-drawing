@@ -44,7 +44,7 @@ private slots:
     void on_actionAdd_triggered();
     void  on_actionZoomIn_triggered();
     void  on_actionZoomOut_triggered();
-    void on_actionRotate_triggered();
+    //void on_actionRotate_triggered();
     void  on_actionPalm_triggered();
     //void  on_actionOpenOldFileFormat_triggered();
     void  on_actionZoomOne_triggered();

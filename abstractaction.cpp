@@ -2,5 +2,4 @@
 
 AbstractAction::AbstractAction()
 {
-
 }

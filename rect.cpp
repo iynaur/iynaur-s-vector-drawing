@@ -3,7 +3,11 @@
 
 Rect::Rect()
 {
-    name="Rect";
+   // name="Rect";
+
+}
+QString Rect::name(){
+    return "Rect";
 
 }
 
@@ -137,4 +141,22 @@ bool Rect::inRange(QPointF p0,QPointF p1){
     if (left>Left && right<Right && top>Top && bottom<Bottom) return true;
     else return false;
 }
-
+//QString Rect:: qStringFromThis(){
+//    //qDebug()<<"name="<<metaObject()->className();
+//    return "Rect"+qStringFromPoints();
+//}
+ Rect * Rect:: copyPaste(){
+    Rect* tmp=new Rect;
+    tmp->points=points;
+    //tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
+    return tmp;
+}
+bool Rect:: isEmpty(){
+    if (points.size()>1 && points.at(0)!=points.at(1)) return false;
+    else return true;
+}

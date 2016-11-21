@@ -6,18 +6,13 @@ class CloseCurve : public Polygon
 {
 public:
     CloseCurve();
+    QString name();
 
-    QString virtual qStringFromThis(){
-        //qDebug()<<"name="<<metaObject()->className();
-        return "CloseCurve"+qStringFromPoints();
-    }
+    //QString virtual qStringFromThis();
 
     //void draw(QPainter &painter,qreal zoomRatio);
 
-    bool virtual isEmpty(){
-        if (points.size()<3) return true;
-        else return false;
-    }
+    bool virtual isEmpty();
 };
 
 #endif // CLOSECURVE_H

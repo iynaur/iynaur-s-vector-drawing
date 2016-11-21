@@ -10,7 +10,7 @@ class Text : public Rect
 {
 public:
     Text();
-    QString virtual qStringFromThis();
+    //QString virtual qStringFromThis();
     virtual Text *  copyPaste();
     void drag(QPointF point);
     void draw(QPainter &painter,qreal zoomRatio);
@@ -28,6 +28,7 @@ public:
     void virtual setsy(double y);
     double virtual getsy();
     void  zoom(qreal zoomratio);
+    QString name();
 
 protected:
 

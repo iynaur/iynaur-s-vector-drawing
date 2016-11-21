@@ -24,6 +24,10 @@
 #include "editaction.h"
 #include "combineaction.h"
 #include "divideaction.h"
+#include "topaction.h"
+#include "bottomaction.h"
+
+
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
                RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
@@ -54,7 +58,7 @@ public:
     bool maybeSave();
     void addshape(GeneralShape * shape);
     void zoom(double ratio);
-    void rotate();
+    //void rotate();
     bool isRotationHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
     bool isScaleHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
 //    void openOldFileFormat();

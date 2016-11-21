@@ -10,25 +10,10 @@ class Rect : public AbstractShape
 {
 public:
     Rect();
-    QString virtual qStringFromThis(){
-        //qDebug()<<"name="<<metaObject()->className();
-        return "Rect"+qStringFromPoints();
-    }
-    virtual Rect *  copyPaste(){
-        Rect* tmp=new Rect;
-        tmp->points=points;
-        tmp->name=name;
-        tmp->pen=pen;
-        tmp->Rotationangle=Rotationangle;
-        tmp->sx=sx;
-        tmp->sy=sy;
-        tmp->brush=brush;
-        return tmp;
-    }
-    bool virtual isEmpty(){
-        if (points.at(0)==points.at(1)) return true;
-        else return false;
-    }
+    //QString virtual qStringFromThis();
+    QString name();
+    virtual Rect *  copyPaste();
+    bool virtual isEmpty();
     //void addPoint(QPointF point);
     void drag(QPointF point);
     void virtual draw(QPainter &painter,qreal zoomRatio);

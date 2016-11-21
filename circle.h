@@ -10,21 +10,9 @@ class Circle : public AbstractShape
 {
 public:
     Circle();
-    QString virtual qStringFromThis(){
-        //qDebug()<<"name="<<metaObject()->className();
-        return "Circle"+qStringFromPoints();
-    }
-    virtual Circle *  copyPaste(){
-        Circle* tmp=new Circle;
-        tmp->points=points;
-        tmp->name=name;
-        tmp->pen=pen;
-        tmp->Rotationangle=Rotationangle;
-        tmp->sx=sx;
-        tmp->sy=sy;
-        tmp->brush=brush;
-        return tmp;
-    }
+    //QString  qStringFromThis();
+    QString name();
+    virtual Circle *  copyPaste();
     //void addPoint(QPointF point);
     void drag(QPointF point);
     void draw(QPainter &painter,qreal zoomRatio);
@@ -33,17 +21,10 @@ public:
     void updateRange();
     bool inRange(QPoint p0,QPoint p1);
     void  drawClosure(QPainter &painter,qreal zoomRatio);
-    QPointF virtual rotationHandlePoint(){ return points.at(0);}
+    QPointF virtual rotationHandlePoint();
     QPointF  scaleHandlePoint();
-    double virtual getsy(){
-        return sx;
-    }
-    bool  isEmpty(){
-        if (points.at(0)==points.at(1))
-            return true;
-        else
-            return false;
-    }
+    double virtual getsy();
+    bool  isEmpty();
 
 protected:
 

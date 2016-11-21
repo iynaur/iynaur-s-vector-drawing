@@ -3,14 +3,15 @@
 #include "GeneralShape.h"
 #include <QList>
 
-enum ActionType {Add,Delete,Edit,Combine,Divide};
+enum ActionType {Add,Delete,Edit,Combine,Divide,Top,Bottom};
 
 class AbstractAction
 {
 public:
     AbstractAction();
     QList<GeneralShape *> shapes;
-    ActionType actiontype;
+    virtual ActionType actiontype()=0;
+
 };
 
 #endif // DRAWACTION_H

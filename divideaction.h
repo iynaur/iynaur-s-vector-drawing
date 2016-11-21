@@ -7,6 +7,8 @@ class DivideAction : public AbstractAction
 public:
     DivideAction();
     Combo* com;
+    ActionType actiontype();
+    int indexOfCom;
 };
 
 #endif // DIVIDEACTION_H

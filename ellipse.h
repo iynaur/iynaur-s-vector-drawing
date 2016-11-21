@@ -10,26 +10,10 @@ class Ellipse : public AbstractShape
 {
 public:
     Ellipse();
-    QString virtual qStringFromThis(){
-        //qDebug()<<"name="<<metaObject()->className();
-        return "Ellipse"+qStringFromPoints();
-    }
-    virtual Ellipse *  copyPaste(){
-        Ellipse* tmp=new Ellipse;
-        tmp->points=points;
-        tmp->name=name;
-        tmp->pen=pen;
-        tmp->Rotationangle=Rotationangle;
-        tmp->sx=sx;
-        tmp->sy=sy;
-        tmp->brush=brush;
-        return tmp;
-    }
-    bool virtual isEmpty(){
-        if (points.at(0)==points.at(1)) return true;
-        else return false;
-    }
-    //void addPoint(QPoint point);
+    //QString virtual qStringFromThis();
+    QString name();
+    virtual Ellipse *  copyPaste();
+    bool virtual isEmpty();
     void drag(QPoint point);
     void draw(QPainter &painter,qreal zoomRatio);
     void removeLastPoint();

@@ -4,7 +4,14 @@ using namespace std;
  
 Curve::Curve()
 {
-    name="Curve";
+    //name="Curve";
 }
  
  
+QString Curve::name(){
+    return "Curve";
+}
+//QString Curve:: qStringFromThis(){
+//    //qDebug()<<"name="<<metaObject()->className();
+//    return "Curve"+qStringFromPoints();
+//}

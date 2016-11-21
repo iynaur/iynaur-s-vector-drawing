@@ -3,7 +3,7 @@
 #include <QGraphicsTextItem>
 Text::Text()
 {
-    name="Text";
+    //name="Text";
 
     mytext="";
     myfont=QFont("Times", 20, QFont::Normal);
@@ -113,14 +113,14 @@ bool Text::inRange(QPoint p0,QPoint p1){
     else return false;
 }
 
-QString  Text::qStringFromThis(){
-    //qDebug()<<"name="<<metaObject()->className();
-    return "Text"+qStringFromPoints()+mytext;
-}
+//QString  Text::qStringFromThis(){
+//    //qDebug()<<"name="<<metaObject()->className();
+//    return "Text"+qStringFromPoints()+mytext;
+//}
  Text *  Text::copyPaste(){
     Text* tmp=new Text;
     tmp->points=points;
-    tmp->name=name;
+    //tmp->name=name;
     tmp->pen=pen;
     tmp->Rotationangle=Rotationangle;
     tmp->sx=sx;
@@ -212,6 +212,11 @@ QPointF Text::scaleHandlePoint(){
     double y1=x*sin(sita)+y*cos(sita);
     return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
 }
+
+QString  Text::name(){
+    return "Text";
+}
+
 void  Text::setsx(double x){
     sx=x;
     sy=x;

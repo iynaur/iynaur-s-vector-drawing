@@ -12,6 +12,7 @@ public:
     qreal oldRotationangle,newRotationangle;
     qreal dsx,dsy;
     QBrush oldbrush,newbrush;
+    ActionType actiontype();
 
 };
 

@@ -3,10 +3,11 @@
 
 Circle::Circle()
 {
-    name="Circle";
+    //name="Circle";
 }
 
-
+QString Circle::name()
+{ return "Circle";}
 
 void Circle::draw(QPainter &painter, qreal zoomRatio)
 {
@@ -87,4 +88,30 @@ bool Circle::inRange(QPoint p0,QPoint p1){
     int bottom=max(p0.y(),p1.y());
     if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
     else return false;
+}
+//QString Circle:: qStringFromThis(){
+//    //qDebug()<<"name="<<metaObject()->className();
+//    return "Circle"+qStringFromPoints();
+//}
+ Circle *  Circle::copyPaste(){
+    Circle* tmp=new Circle;
+    tmp->points=points;
+    //tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
+    return tmp;
+}
+
+QPointF Circle:: rotationHandlePoint(){ return points.at(0);}
+double Circle:: getsy(){
+    return sx;
+}
+bool  Circle::isEmpty(){
+    if (points.at(0)==points.at(1))
+        return true;
+    else
+        return false;
 }

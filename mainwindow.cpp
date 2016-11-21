@@ -161,9 +161,9 @@ void  MainWindow::on_actionPalm_triggered(){
     currentCategory=PalmCategory;
     scrollArea->drawAreaWidget->setCategory(PalmCategory);
 }
-void MainWindow::on_actionRotate_triggered(){
-    scrollArea->drawAreaWidget->rotate();
-}
+//void MainWindow::on_actionRotate_triggered(){
+//    scrollArea->drawAreaWidget->rotate();
+//}
 void  MainWindow::on_actionMoveToTop_triggered(){
     scrollArea->drawAreaWidget->moveToTop();
 }

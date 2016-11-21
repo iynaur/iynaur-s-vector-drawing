@@ -8,6 +8,7 @@ public:
     CombineAction();
     QList<int> indexOfShapes;
     Combo* com;
+    ActionType actiontype();
 };
 
 #endif // COMBINEACTION_H

@@ -3,7 +3,10 @@
 //#define PI 3.14159265
 Ellipse::Ellipse()
 {
-    name="Ellipse";
+    //name="Ellipse";
+}
+QString Ellipse::name(){
+    return "Ellipse";
 }
 
 //void Ellipse::addPoint(QPoint point)
@@ -141,4 +144,22 @@ bool Ellipse::inRange(QPoint p0,QPoint p1){
     else return false;
 }
 
-
+//QString Ellipse:: qStringFromThis(){
+//    //qDebug()<<"name="<<metaObject()->className();
+//    return "Ellipse"+qStringFromPoints();
+//}
+ Ellipse * Ellipse:: copyPaste(){
+    Ellipse* tmp=new Ellipse;
+    tmp->points=points;
+    //tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
+    return tmp;
+}
+bool Ellipse:: isEmpty(){
+    if (points.at(0)==points.at(1)) return true;
+    else return false;
+}

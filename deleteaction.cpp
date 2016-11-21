@@ -2,11 +2,14 @@
 
 DeleteAction::DeleteAction()
 {
-    actiontype=Delete;
+    //actiontype=Delete;
 
 }
-DeleteAction::DeleteAction(GeneralShape* sp, int index){
-    actiontype=Delete;
-    shapes.append(sp);
-    indexOfShapes.append(index);
+//DeleteAction::DeleteAction(GeneralShape* sp, int index){
+//    actiontype=Delete;
+//    shapes.append(sp);
+//    indexOfShapes.append(index);
+//}
+ActionType DeleteAction::actiontype(){
+    return Delete;
 }

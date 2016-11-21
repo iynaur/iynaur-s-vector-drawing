@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     ellipse.cpp \
     text.cpp \
     gettextdialog.cpp \
-    poly.cpp \
     closecurve.cpp \
     generalshape.cpp \
     combo.cpp \
@@ -37,7 +36,9 @@ SOURCES += main.cpp\
     deleteaction.cpp \
     editaction.cpp \
     combineaction.cpp \
-    divideaction.cpp
+    divideaction.cpp \
+    topaction.cpp \
+    bottomaction.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -51,7 +52,6 @@ HEADERS  += mainwindow.h \
     ellipse.h \
     text.h \
     gettextdialog.h \
-    poly.h \
     closecurve.h \
     generalshape.h \
     combo.h \
@@ -61,7 +61,9 @@ HEADERS  += mainwindow.h \
     deleteaction.h \
     editaction.h \
     combineaction.h \
-    divideaction.h
+    divideaction.h \
+    topaction.h \
+    bottomaction.h
 
 FORMS    += mainwindow.ui \
     gettextdialog.ui

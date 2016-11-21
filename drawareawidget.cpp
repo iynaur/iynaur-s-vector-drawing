@@ -67,7 +67,7 @@ void DrawAreaWidget::combination(){
 
 }
 void DrawAreaWidget::divide(){
-    if (pickedShapes.size()!=1 || pickedShapes.at(0)->name!="Combo") return;
+    if (pickedShapes.size()!=1 || pickedShapes.at(0)->name()!="Combo") return;
     GeneralShape* tmp=pickedShapes.at(0);
     pickedShapes.clear();
     divide(tmp);
@@ -78,6 +78,7 @@ void DrawAreaWidget::divide(GeneralShape* shape){
     Combo* tmp=dynamic_cast<Combo* >(shape);
     DivideAction* action=new DivideAction();
     action->com=tmp;
+    action->indexOfCom=shapes.indexOf(shape);
     foreach(GeneralShape * sp,tmp->shapes){
         action->shapes.append(sp);
         getOutOfCombo(sp,tmp);
@@ -87,7 +88,7 @@ void DrawAreaWidget::divide(GeneralShape* shape){
 }
 
 void DrawAreaWidget::divideToEnd(){
-    if (pickedShapes.size()!=1 || pickedShapes.at(0)->name!="Combo") return;
+    if (pickedShapes.size()!=1 || pickedShapes.at(0)->name()!="Combo") return;
     GeneralShape* tmp=pickedShapes.at(0);
     pickedShapes.clear();
 
@@ -96,7 +97,7 @@ void DrawAreaWidget::divideToEnd(){
 
 }
 void DrawAreaWidget::divideToEnd(GeneralShape* shape){
-    if (shape->name!="Combo") return;
+    if (shape->name()!="Combo") return;
     pickedShapes.removeOne(shape);
     Combo* tmp=dynamic_cast<Combo* >(shape);
     divide(shape);
@@ -110,6 +111,7 @@ void DrawAreaWidget::divideToEnd(GeneralShape* shape){
 
 }
 void DrawAreaWidget::getOutOfCombo(GeneralShape* sp,Combo* tmp){
+    int index=shapes.indexOf(static_cast<GeneralShape*> (tmp));
     QPointF spcentralPoint=sp->centralPoint();
     sp->drag(-spcentralPoint);
     sp->Rotationangle=sp->Rotationangle+tmp->Rotationangle;
@@ -118,7 +120,8 @@ void DrawAreaWidget::getOutOfCombo(GeneralShape* sp,Combo* tmp){
     //sp->drag(-tmp->centralPoint());
     sp->zoom(tmp->sx);
     sp->drag(tmp->centralPoint());//scale done
-    shapes.append(sp);
+    //shapes.append(sp);
+    shapes.insert(index,sp);
 }
 
 void DrawAreaWidget::getIntoCombo(GeneralShape* sp,Combo* tmp){
@@ -217,35 +220,48 @@ void DrawAreaWidget::paste(QList<GeneralShape *>*copyShapes){
     }
 }
 
-void DrawAreaWidget::rotate(){
-//    if (pickedShapes.size()!=1) return;
-//    pickedShapes.at(0)->setRotationangle( pickedShapes.at(0)->rotationangle()+10);
-//    expand();update();
+//void DrawAreaWidget::rotate(){
+////    if (pickedShapes.size()!=1) return;
+////    pickedShapes.at(0)->setRotationangle( pickedShapes.at(0)->rotationangle()+10);
+////    expand();update();
 
-}
+//}
 void DrawAreaWidget::moveToTop(){
-    if (pickedShapes.size()!=1) return;
-    del(pickedShapes.at(0));
-    shapes.append(pickedShapes.at(0));
+    if (pickedShapes.size()==0) return;
+    TopAction* action=new TopAction();
+    foreach(GeneralShape* sp,pickedShapes){
+        action->shapes.append(sp);
+        action->indexOfShapes.append(shapes.indexOf(sp));
+    del(sp);
+    shapes.append(sp);
+    }
+    addaction(static_cast<AbstractAction*>(action));
     update();
 }
 
 void DrawAreaWidget::moveToBottom(){
-    if (pickedShapes.size()!=1) return;
-    del(pickedShapes.at(0));
-    shapes.prepend(pickedShapes.at(0));
+    if (pickedShapes.size()==0) return;
+    BottomAction* action=new BottomAction();
+    for(int i=pickedShapes.size()-1;i>=0;i--) {
+        action->shapes.append(pickedShapes.at(i));
+        action->indexOfShapes.append(shapes.indexOf(pickedShapes.at(i)));
+    del(pickedShapes.at(i));
+    shapes.prepend(pickedShapes.at(i));
+    }
+    //action->shapes=pickedShapes;
+    addaction(static_cast<AbstractAction*>(action));
     update();
 }
 void DrawAreaWidget::changeToClose(){
     if (pickedShapes.size()!=1) return;
     GeneralShape* sp=NULL;
-    if (pickedShapes.at(0)->name=="Curve"){
+    if (pickedShapes.at(0)->name()=="Curve"){
         //qDebug()<<"changeToClose";
         sp=new CloseCurve;
 
 
     }
-    if (pickedShapes.at(0)->name=="Polyline"){
+    if (pickedShapes.at(0)->name()=="Polyline"){
         sp=new Polygon;
     }
     if (sp==NULL) return;
@@ -377,6 +393,7 @@ void DrawAreaWidget::openfile(QString file){
 
     Combo* tmp=new Combo;
     tmp->setShapes(root);
+    //qDebug()<<"setshapes done";
     //shapes=tmp->shapes;
     shapes +=tmp->shapes;
     expand();update();
@@ -606,7 +623,7 @@ void DrawAreaWidget::mouseDoubleClickEvent(QMouseEvent *event){
     }
     if (currentCategory==PickCategory ){
         if ( pickedShapes.size()==1 ){
-            if (pickedShapes.at(0)->name=="Text"){
+            if (pickedShapes.at(0)->name()=="Text"){
 
                 Text *pm = dynamic_cast< Text* >( pickedShapes.at(0) );
                 if ( pm ) {
@@ -824,7 +841,7 @@ void DrawAreaWidget::addaction(AbstractAction* act){
     }
     actionList.append( act);
     actionindex++;
-    qDebug()<<"add action"<<act->actiontype;
+    qDebug()<<"add action"<<act->actiontype();
 }
 
 void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -1081,6 +1098,7 @@ void DrawAreaWidget::keyPressEvent(QKeyEvent *event){
 
         if (pickedShapes.size()>0){
             DeleteAction *action=new DeleteAction();
+            qDebug()<<action->shapes.size();
             foreach(GeneralShape* sp,pickedShapes){
 
                 action->shapes.append(sp);
@@ -1357,7 +1375,7 @@ bool DrawAreaWidget::isRotationHandlePoint(QPointF realPoint,GeneralShape* picke
 void DrawAreaWidget::undo(){
     if (actionindex==0) return;
     AbstractAction* action=actionList.at(actionindex-1);
-    switch (action->actiontype){
+    switch (action->actiontype()){
     case Add:{
         foreach (GeneralShape*sp,action->shapes){
         del(sp);
@@ -1384,8 +1402,8 @@ void DrawAreaWidget::undo(){
         if (tmp->newRotationangle!=tmp->oldRotationangle){
             sp->setRotationangle(tmp->oldRotationangle);
         }
-        sp->sx=tmp->shapes.at(0)->sx/tmp->dsx;
-        sp->sy=tmp->shapes.at(0)->sy/tmp->dsy;
+        sp->setsx(tmp->shapes.at(0)->sx/tmp->dsx);
+        sp->setsy(tmp->shapes.at(0)->sy/tmp->dsy);
         }
         actionindex--;
         update();
@@ -1396,7 +1414,7 @@ void DrawAreaWidget::undo(){
         for(int i=tmp->shapes.size()-1;i>=0;i--){
             shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
         }
-        qDebug()<<shapes.indexOf(tmp->com)<<shapes.size();
+        //qDebug()<<shapes.indexOf(tmp->com)<<shapes.size();
         shapes.removeOne(tmp->com);
         actionindex--;
         pickedShapes=tmp->shapes;
@@ -1410,10 +1428,33 @@ void DrawAreaWidget::undo(){
             getIntoCombo(tmp->shapes.at(i),tmp->com);
 
         }
-        shapes.append(tmp->com);
+        //shapes.append(tmp->com);
+        shapes.insert(tmp->indexOfCom,tmp->com);
         pickedShapes.clear();
         pickedShapes.append(tmp->com);
         actionindex--;
+        update();
+        break;
+    }
+    case Top:{
+        TopAction* tmp=static_cast<TopAction*>(action);
+        for(int i=tmp->shapes.size()-1;i>=0;i--){
+            shapes.removeOne(tmp->shapes.at(i));
+            shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
+        }
+        actionindex--;
+        pickedShapes=tmp->shapes;
+        update();
+        break;
+    }
+    case Bottom:{
+        BottomAction* tmp=static_cast<BottomAction*>(action);
+        for(int i=tmp->shapes.size()-1;i>=0;i--){
+            shapes.removeOne(tmp->shapes.at(i));
+            shapes.insert(tmp->indexOfShapes.at(i),tmp->shapes.at(i));
+        }
+        actionindex--;
+        pickedShapes=tmp->shapes;
         update();
         break;
     }
@@ -1422,7 +1463,7 @@ void DrawAreaWidget::undo(){
 void DrawAreaWidget::redo(){
     if (actionindex==actionList.size()) return;
     AbstractAction* action=actionList.at(actionindex);
-    switch (action->actiontype){
+    switch (action->actiontype()){
     case Add:{
         foreach (GeneralShape*sp,action->shapes){
         addshape(sp);
@@ -1446,8 +1487,8 @@ void DrawAreaWidget::redo(){
         if (tmp->newRotationangle!=tmp->oldRotationangle){
             sp->setRotationangle(tmp->newRotationangle);
         }
-        sp->sx=tmp->shapes.at(0)->sx*tmp->dsx;
-        sp->sy=tmp->shapes.at(0)->sy*tmp->dsy;
+        sp->setsx(tmp->shapes.at(0)->sx*tmp->dsx);
+        sp->setsy(tmp->shapes.at(0)->sy*tmp->dsy);
         }
         actionindex++;
         update();
@@ -1477,6 +1518,28 @@ void DrawAreaWidget::redo(){
         del(tmp->com);
         pickedShapes=tmp->shapes;
         actionindex++;
+        update();
+        break;
+    }
+    case Top:{
+        TopAction* tmp=static_cast<TopAction*>(action);
+        for(int i=0;i<tmp->shapes.size();i++){
+            shapes.removeOne(tmp->shapes.at(i));
+            shapes.append(tmp->shapes.at(i));
+        }
+        actionindex++;
+        pickedShapes=tmp->shapes;
+        update();
+        break;
+    }
+    case Bottom:{
+        BottomAction* tmp=static_cast<BottomAction*>(action);
+        for(int i=0;i<tmp->shapes.size();i++){
+            shapes.removeOne(tmp->shapes.at(i));
+            shapes.prepend(tmp->shapes.at(i));
+        }
+        actionindex++;
+        pickedShapes=tmp->shapes;
         update();
         break;
     }
