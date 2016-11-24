@@ -7,11 +7,24 @@ Text::Text()
 
     mytext="";
     myfont=QFont("Times", 20, QFont::Normal);
+
+//    QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+//    QFont stand=QFont("Times", 20, QFont::Normal);
+//    item->setFont(stand);//为文本设置字体
+
+
+//    item->setHtml(mytext);
+//    rectitemx=item->boundingRect().width();
+//    rectitemy=item->boundingRect().height();
 }
 
 
 void Text::setText(QString text){
     mytext=text;
+//    item->setHtml(mytext);
+//    rectitemx=item->boundingRect().width();
+//    rectitemy=item->boundingRect().height();
+
     updateRange();
 }
 bool Text::isEmpty(){
@@ -91,44 +104,51 @@ void Text::drag(QPointF point){
 }
 void Text::updateRange(){
     //qDebug()<<"Text::updateRange()";
-    QGraphicsTextItem *item;
-    item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
-    QFont stand=QFont("Times", 20, QFont::Normal);
-    item->setFont(stand);//为文本设置字体
+        QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+        QFont stand=QFont("Times", 20, QFont::Normal);
+        item->setFont(stand);//为文本设置字体
 
 
-    item->setHtml(mytext);
+        item->setHtml(mytext);
     minx=points.at(0).x();
     miny=points.at(0).y()-item->boundingRect().height();
     maxx=points.at(0).x()+item->boundingRect().width();
     maxy=points.at(0).y();
-    updateBand();
+
+    delete item;
+    setsx(sx);
+    //updateBand();
 }
-bool Text::inRange(QPoint p0,QPoint p1){
-    int left=min(p0.x(),p1.x());
-    int right=max(p0.x(),p1.x());
-    int top=min(p0.y(),p1.y());
-    int bottom=max(p0.y(),p1.y());
-    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-    else return false;
-}
+//bool Text::inRange(QPoint p0,QPoint p1){
+//    int left=min(p0.x(),p1.x());
+//    int right=max(p0.x(),p1.x());
+//    int top=min(p0.y(),p1.y());
+//    int bottom=max(p0.y(),p1.y());
+//    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
+//    else return false;
+//}
 
 //QString  Text::qStringFromThis(){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Text"+qStringFromPoints()+mytext;
 //}
  Text *  Text::copyPaste(){
-    Text* tmp=new Text;
-    tmp->points=points;
-    //tmp->name=name;
-    tmp->pen=pen;
-    tmp->Rotationangle=Rotationangle;
-    tmp->sx=sx;
-    tmp->sy=sy;
-    tmp->brush=brush;
-    tmp->mytext=mytext;
-    tmp->myfont=myfont;
-    tmp->updateRange();//这一步不能少！！！！！！
+    Text* tmp=new Text(*this);
+//    tmp->points=points;
+//    //tmp->name=name;
+//    tmp->pen=pen;
+//    tmp->Rotationangle=Rotationangle;
+//    tmp->sx=(sx);
+//    //tmp->setsy(sy);
+//    tmp->brush=brush;
+//    //tmp->setText( mytext);
+//    tmp->mytext=( mytext);
+//    //tmp->item=item;
+//    //tmp->rectitemx=rectitemx;
+//    //tmp->rectitemy=rectitemy;
+//    tmp->myfont=myfont;
+//    tmp->updateRange();//这一步不能少！！！！！！
+    //*tmp=*this;
     return tmp;
 
 }
@@ -217,23 +237,28 @@ QString  Text::name(){
     return "Text";
 }
 
-void  Text::setsx(double x){
+void  Text::setsx(double x){//性能！！！！！
     sx=x;
     sy=x;
 
 
-    QGraphicsTextItem *item;
+
     //QFont font=myfont;
-    item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
-    int i=0;
-    do {
-        i++;
+    QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+    int i=1;
+    myfont.setPointSize(i);
+    item->setFont(myfont);//为文本设置字体
+    item->setHtml(mytext);
+    while (item->boundingRect().width()<(maxx-minx)*abs(sx))
+    {
+        i=(maxx-minx)*abs(sx)/(item->boundingRect().width())*i+1;
         myfont.setPointSize(i);
-        item->setFont(myfont);//为文本设置字体
-        item->setHtml(mytext);
+        item->setFont(myfont);
+
     }
-    while(item->boundingRect().width()<(maxx-minx)*abs(sx));
+    delete item;
     myfont.setPointSize(i-1);
+    updateBand();
 }
 void  Text::setsy(double y){
     //do nothing

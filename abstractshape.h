@@ -17,7 +17,7 @@ class AbstractShape : public GeneralShape
  
 public:
     AbstractShape();
-
+    //~AbstractShape();
     virtual AbstractShape *  copyPaste()=0;
 
 

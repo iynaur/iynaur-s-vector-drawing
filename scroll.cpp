@@ -15,6 +15,9 @@ Scroll::Scroll()
     //setFixedSize(700,500);
     //setWindowState(Qt::WindowMaximized);
 }
+Scroll::~Scroll(){
+    delete drawAreaWidget;
+}
 
 void Scroll::closeEvent(QCloseEvent *event){
     //qDebug()<<"close";

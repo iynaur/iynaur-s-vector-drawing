@@ -1,8 +1,11 @@
 #include "generalshape.h"
-GeneralShape::GeneralShape(QWidget *parent) :
-    QWidget(parent)
+GeneralShape::GeneralShape()
+
 
 {
+
+}
+GeneralShape::~GeneralShape(){
 
 }
 
@@ -25,6 +28,12 @@ void GeneralShape:: fromline(QString line){
 
      //为了画任意曲线特意留的一个口子
 
+//double GeneralShape::  sy(){
+//            return sy;
+//}
+//double GeneralShape::  sx(){
+//    return sx;
+//}
 
 QPointF GeneralShape:: centralPoint(){
     return QPointF((minx+maxx)/2,(miny+maxy)/2);

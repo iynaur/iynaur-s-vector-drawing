@@ -35,22 +35,10 @@ void  Polyline::drag(QPointF point){
     updateRange();
     //qDebug()<<"moved"<<(point);
 }
-//    void  removeLastPoint(){
-//        points.removeLast();
-//    }
-//QString Poly:: qStringFromThis(){return "";}
-void Polyline::copypolyline(Polyline* tmp){
-    tmp->points=points;
-    //tmp->name=name;
-    tmp->pen=pen;
-    tmp->Rotationangle=Rotationangle;
-    tmp->sx=sx;
-    tmp->sy=sy;
-    tmp->brush=brush;
-}
+
  Polyline *Polyline::copyPaste(){
-    Polyline* tmp=new Polyline;
-    copypolyline(tmp);
+    Polyline* tmp=new Polyline(*this);
+    //copypolyline(tmp);
     return tmp;
 }
 void Polyline:: draw(QPainter &painter,qreal zoomRatio){
@@ -72,6 +60,7 @@ void Polyline:: draw(QPainter &painter,qreal zoomRatio){
     painter.drawPolyline(QPolygonF(tmp->points));
     painter.rotate( -Rotationangle );
     painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
+    delete tmp;
 
 }
 double  Polyline:: minDistance(QPointF point){

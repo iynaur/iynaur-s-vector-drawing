@@ -16,6 +16,7 @@ class Combo : public GeneralShape
 {
 public:
     Combo();
+    ~Combo();
     QString name();
     virtual Combo *  copyPaste();
     void setShapes(QDomElement shapesElement);
@@ -58,9 +59,11 @@ public:
     void virtual setsx(double x);
     void virtual setsy(double y);
     double virtual getsy();
+    //void updatedrawcombo();
 
 //private:
     QList<GeneralShape*> shapes;
+    //Combo* drawcombo;
 };
 
 #endif // COMBO_H

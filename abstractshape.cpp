@@ -2,7 +2,7 @@
  
 AbstractShape::AbstractShape()
 {
-    setBackgroundRole(QPalette::Base);
+    //setBackgroundRole(QPalette::Base);
     minx=miny=maxx=maxy=0;
     Rotationangle=0;
     sx=1;

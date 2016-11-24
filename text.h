@@ -16,7 +16,7 @@ public:
     void draw(QPainter &painter,qreal zoomRatio);
     double   minDistance(QPointF point);
     void updateRange();
-    bool inRange(QPoint p0,QPoint p1);
+    //bool inRange(QPoint p0,QPoint p1);
     bool isEmpty();
     void setText(QString text);
     void setFont(QFont font);
@@ -36,6 +36,10 @@ public:
     //QVector<QPoint> points; //曲线其实就是一堆QPoint的点集合，此处存放，鼠标移动时候将点存入此处
     QString mytext;
     QFont myfont;
+    //QGraphicsTextItem *item;
+    //QRectF rectitem;
+    //qreal rectitemx;
+    //qreal rectitemy;
     //int fontSize;
 
 };

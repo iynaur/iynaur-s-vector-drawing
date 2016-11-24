@@ -19,7 +19,7 @@ public:
 //        points.removeLast();
 //    }
     //QString virtual qStringFromThis();
-    void copypolyline(Polyline* tmp);
+    //void copypolyline(Polyline* tmp);
     virtual Polyline *  copyPaste();
     void virtual draw(QPainter &painter,qreal zoomRatio);
     double  virtual minDistance(QPointF point);

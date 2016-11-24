@@ -180,6 +180,9 @@
    </property>
   </action>
   <action name="actionPolyline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/polyline.png</normaloff>:/image/polyline.png</iconset>
@@ -189,6 +192,9 @@
    </property>
   </action>
   <action name="actionPolygon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/polygon.png</normaloff>:/image/polygon.png</iconset>
@@ -198,6 +204,9 @@
    </property>
   </action>
   <action name="actionPick">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/th.jpg</normaloff>:/image/th.jpg</iconset>
@@ -207,6 +216,9 @@
    </property>
   </action>
   <action name="actionCircle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/circle.PNG</normaloff>:/image/circle.PNG</iconset>
@@ -221,6 +233,9 @@
    </property>
   </action>
   <action name="actionRect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/rect.png</normaloff>:/image/rect.png</iconset>
@@ -230,6 +245,9 @@
    </property>
   </action>
   <action name="actionEllipse">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/ellipse.png</normaloff>:/image/ellipse.png</iconset>
@@ -239,6 +257,9 @@
    </property>
   </action>
   <action name="actionText">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/text.png</normaloff>:/image/text.png</iconset>
@@ -298,6 +319,9 @@
    </property>
   </action>
   <action name="actionPalm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/hand.jpg</normaloff>:/image/hand.jpg</iconset>
@@ -334,6 +358,9 @@
    </property>
   </action>
   <action name="actionCloseCurve">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/image/5624330_201027415000_2.jpg</normaloff>:/image/5624330_201027415000_2.jpg</iconset>

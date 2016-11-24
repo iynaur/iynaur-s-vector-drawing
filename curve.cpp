@@ -15,3 +15,6 @@ QString Curve::name(){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Curve"+qStringFromPoints();
 //}
+Curve *  Curve::copyPaste(){
+   return new Curve(*this);
+}

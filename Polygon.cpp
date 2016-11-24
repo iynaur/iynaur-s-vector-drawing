@@ -32,14 +32,14 @@ void Polygon::draw(QPainter &painter, qreal zoomRatio)
     painter.drawPolygon(QPolygonF(tmp->points));
     painter.rotate( -Rotationangle );
     painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-
+    delete tmp;
 
 }
 
  Polygon *  Polygon::copyPaste(){
-    Polygon* tmp=new Polygon;//这里会出问题，closercurve 对象copyPaste后可能变成 polygon;
-    copypolyline(tmp);//这里会出问题，closercurve 对象copyPaste后可能变成 polygon,但name仍然被赋值为closercurve;
-    return tmp;
+    return new Polygon(*this);//这里会出问题，closercurve 对象copyPaste后可能变成 polygon;
+    //copypolyline(tmp);//这里会出问题，closercurve 对象copyPaste后可能变成 polygon,但name仍然被赋值为closercurve;
+    //return tmp;
 }
 //QString Polygon:: qStringFromThis(){
 //    //qDebug()<<"name="<<metaObject()->className();
@@ -84,7 +84,6 @@ double  Polygon:: minDistance(QPointF point){
 }
 
 
-void Polygon::draw(QPainter &painter,qreal zoomRatio);
 
 bool Polygon:: isEmpty(){
     if (points.size()<3) return true;

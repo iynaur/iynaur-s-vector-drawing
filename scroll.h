@@ -6,7 +6,7 @@ class Scroll : public QScrollArea
 {
 public:
     Scroll();
-
+    ~Scroll();
     DrawAreaWidget * drawAreaWidget;
     void closeEvent(QCloseEvent *event);
 };

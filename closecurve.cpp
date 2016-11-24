@@ -18,3 +18,6 @@ bool CloseCurve:: isEmpty(){
 QString CloseCurve::name(){
     return "CloseCurve";
 }
+ CloseCurve *  CloseCurve::copyPaste(){
+    return new CloseCurve(*this);
+}

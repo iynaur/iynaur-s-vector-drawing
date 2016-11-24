@@ -36,6 +36,7 @@ class DrawAreaWidget : public QWidget
     Q_OBJECT
 public:
     explicit DrawAreaWidget(QWidget *parent = 0);
+    ~DrawAreaWidget();
     void init();
     void setCategory(Category c);
     void finishcurrentShape();
@@ -92,6 +93,15 @@ public:
     QList <AbstractAction*> actionList;
     int actionindex;
     void setBrush(GeneralShape* sp);
+//    bool canredo;
+//    bool canundo;
+//    bool cancut;
+//    bool cancopy;
+//    //bool canpaste;
+//    bool cantop;
+//    bool canbottom;
+//    bool cancombo;
+//    bool candivide;
 public slots:
     void moveToTop();
     void moveToBottom();
@@ -104,10 +114,12 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
     void contextMenuEvent( QContextMenuEvent * event );
 
-
+signals:
+    void categoryChanged();
+    void statusChanged();
      
 
-private:
+public:
     QList<GeneralShape *> shapes;
     GeneralShape *currentShape;
     Rect* pickRect;

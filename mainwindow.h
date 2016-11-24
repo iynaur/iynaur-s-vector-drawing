@@ -12,6 +12,7 @@ namespace Ui {
 class MainWindow;
 }
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +27,7 @@ public:
     void handleMessage(QString message);
     QList<GeneralShape *>* copyShapes;
     Category currentCategory;
+    //void updateToolBar();
 
 
 private slots:
@@ -68,6 +70,7 @@ private slots:
     void on_actionUndo_triggered();
 
     void on_actionRedo_triggered();
+    void updateToolBar();
 
 public slots:
     //void onscrollContentsBy(int dx, int dy);

@@ -7,6 +7,7 @@ class CloseCurve : public Polygon
 public:
     CloseCurve();
     QString name();
+    virtual CloseCurve *  copyPaste();
 
     //QString virtual qStringFromThis();
 

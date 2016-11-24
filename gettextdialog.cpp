@@ -11,6 +11,7 @@ GetTextDialog::GetTextDialog(QWidget *parent) :
 
             ui->lineEdit->setText(text);
 
+
 }
 
 GetTextDialog::~GetTextDialog()
@@ -20,6 +21,8 @@ GetTextDialog::~GetTextDialog()
 void GetTextDialog::setText(QString text){
     this->text=text;
     ui->lineEdit->setText(this->text);
+    ui->lineEdit->setFocus(Qt::OtherFocusReason);
+    ui->lineEdit->selectAll();
 }
 
 void GetTextDialog::on_lineEdit_textChanged(const QString &arg1)

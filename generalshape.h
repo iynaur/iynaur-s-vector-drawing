@@ -15,16 +15,17 @@ using namespace std;
 const double MAX=10000;
 const double  lenthOfRotationHandleLine=20;
 
-class GeneralShape : public QWidget
+class GeneralShape //: public QWidget
 {
-    Q_OBJECT
+//    Q_OBJECT
  
 public:
     qreal minx,miny,maxx,maxy;
     qreal top,bottom,left,right;
     virtual QString name()=0;
  
-    explicit GeneralShape(QWidget *parent = 0);
+     GeneralShape();
+    virtual ~GeneralShape();
     virtual GeneralShape *  copyPaste()=0;
 
 
@@ -47,7 +48,7 @@ public:
 
     bool  inRange(QPointF p0,QPointF p1);
     void virtual updateRange() =0;
-    void virtual updateBand();
+    void  updateBand();
     void virtual drag(QPointF point);
 
     bool virtual isEmpty();
@@ -61,6 +62,8 @@ public:
     void virtual setsy(double y);
     double virtual getsy();
     double virtual getsx();
+//    double  sy();
+//    double  sx();
 
 
 protected:    
@@ -69,9 +72,10 @@ protected:
 public:
     QVector<QPointF> points; //曲线其实就是一堆QPoint的点集合，此处存放，鼠标移动时候将点存入此处
     qreal Rotationangle;
-    qreal sx,sy;
-    QBrush brush;
 
+    QBrush brush;
+protected:
+    qreal sx,sy;
 };
 
 

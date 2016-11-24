@@ -11,6 +11,14 @@ Combo::Combo()
     shapes=list;
     QVector<QPointF> vector;
     points=vector;
+    //updatedrawcombo();
+}
+
+Combo::~Combo(){
+    foreach(GeneralShape* sp,shapes){
+        delete sp;
+    }
+    //qDebug()<<"delete";
 }
 
 QString Combo::name(){
@@ -29,7 +37,9 @@ QString Combo::name(){
     tmp->sx=sx;
     tmp->sy=sy;
     tmp->brush=brush;
+
     tmp->updateRange();//这一步不能少！！！！！！
+    //tmp->updatedrawcombo();
     return tmp;
 }
 
@@ -172,8 +182,8 @@ QDomElement Combo::toElement(){
 
     foreach(GeneralShape *sp, shapes){
         QDomElement shape=doc.createElement("shape");
-        shape.setAttribute("sx",sp->sx); //方式一：创建属性  其中键值对的值可以是各种类型
-        shape.setAttribute("sy",sp->sy);
+        shape.setAttribute("sx",sp->getsx()); //方式一：创建属性  其中键值对的值可以是各种类型
+        shape.setAttribute("sy",sp->getsy());
 
         QDomText text; //设置括号标签中间的值
 
@@ -242,7 +252,8 @@ QString Combo:: qStringFromPoints(){
     return "";
 }
 
-void Combo:: draw(QPainter &painter,qreal zoomRatio){
+
+void Combo:: draw(QPainter &painter,qreal zoomRatio){//性能
     double left=minx;
     double right=maxx;
     double top=miny;
@@ -250,16 +261,18 @@ void Combo:: draw(QPainter &painter,qreal zoomRatio){
 
     painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
     painter.rotate( Rotationangle );
-    Combo* tmp=copyPaste();
-    tmp->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
-    //zoom(sx);
+    Combo* drawcombo=copyPaste();
 
-    foreach (GeneralShape* sp, tmp->shapes) {
+    drawcombo->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
+    foreach (GeneralShape* sp, drawcombo->shapes) {
         //GeneralShape *tmp2=sp->copyPaste();
+//        if (sp->name()!="Text"){
         sp->zoom(sx);
         sp->draw(painter,zoomRatio);
-        //sp->times(1/sx);
+
     }
+    delete drawcombo;
+    //drawcombo->drag(-QPointF(-(left+right)/2,-(top+bottom)/2));
     //zoom(1/sx);
     //drag(QPointF((left+right)/2,(top+bottom)/2));
     painter.rotate( -Rotationangle );
@@ -267,30 +280,7 @@ void Combo:: draw(QPainter &painter,qreal zoomRatio){
 
 
 }
-//    void virtual draw(QPainter &painter,qreal zoomRatio){
-//        double left=minx;
-//        double right=maxx;
-//        double top=miny;
-//        double bottom=maxy;
 
-//        painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-//        painter.rotate( Rotationangle );
-//        //Combo* tmp=copyPaste();
-//        drag(QPointF(-(left+right)/2,-(top+bottom)/2));
-//        zoom(sx);
-
-//        foreach (GeneralShape* sp, shapes) {
-
-//            sp->draw(painter,zoomRatio);
-//            //sp->times(1/sx);
-//        }
-//        zoom(1/sx);
-//        drag(QPointF((left+right)/2,(top+bottom)/2));
-//        painter.rotate( -Rotationangle );
-//        painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-
-
-//    }
 
 
 void Combo:: zoom(qreal zoomratio){
@@ -299,6 +289,7 @@ void Combo:: zoom(qreal zoomratio){
     }
 
     updateRange();
+    //updatedrawcombo();
 }
 
 double Combo:: minDistance(QPointF point){
@@ -316,6 +307,7 @@ double Combo:: minDistance(QPointF point){
         GeneralShape* tmp=sp->copyPaste();
         tmp->zoom(sx);
         minD=min(minD,tmp->minDistance(point));
+        delete tmp;
     }
     drag(QPointF((left+right)/2,(top+bottom)/2));
 
@@ -442,6 +434,7 @@ void Combo:: setBrush(const QBrush &brush){
 void Combo:: setsx(double x){
     sx=x;
     sy=x;
+    //updatedrawcombo();
 }
 void Combo:: setsy(double y){
     //do nothing

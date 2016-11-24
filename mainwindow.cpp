@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowState(Qt::WindowMaximized);
 
     on_actionNew_triggered();
-    //copyShapes=new QList<GeneralShape *>;
+    copyShapes=new QList<GeneralShape *>;
 
 
     //ui->setupUi(this);
@@ -39,6 +39,7 @@ void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
         le=window;
        scrollArea=(Scroll *)(le->widget());
        scrollArea->drawAreaWidget->setCategory(currentCategory);
+       updateToolBar();
 
 
 
@@ -49,9 +50,156 @@ void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
     else{
         le=0;
         scrollArea=0;
+        updateToolBar();
     }
 }
+void MainWindow::updateToolBar(){
+    if (le==0) {
+        ui->actionPaste->setEnabled(false);
+        ui->actionCircle->setEnabled(false);
+        ui->actionCloseCurve->setEnabled(false);
+        ui->actionCurve->setEnabled(false);
+        ui->actionEllipse->setEnabled(false);
+        ui->actionPalm->setEnabled(false);
+        ui->actionPick->setEnabled(false);
+        ui->actionPolygon->setEnabled(false);
+        ui->actionPolyline->setEnabled(false);
+        ui->actionRect->setEnabled(false);
+        ui->actionText->setEnabled(false);
 
+        ui->actionCopy->setEnabled(false);
+        ui->actionCut->setEnabled(false);
+        ui->actionMoveToBottom->setEnabled(false);
+        ui->actionMoveToTop->setEnabled(false);
+        ui->actionDivide->setEnabled(false);
+        ui->actionDivideToEnd->setEnabled(false);
+        ui->actionCombination->setEnabled(false);
+        ui->actionUndo->setEnabled(false);
+        ui->actionRedo->setEnabled(false);
+        ui->actionZoomIn->setEnabled(false);
+        ui->actionZoomOut->setEnabled(false);
+        ui->actionZoomOne->setEnabled(false);
+        ui->actionSave->setEnabled(false);
+        ui->actionExpand->setEnabled(false);
+
+    }
+    else{
+
+        ui->actionPaste->setEnabled(!copyShapes->isEmpty());
+
+        ui->actionCircle->setEnabled(true);
+        ui->actionCloseCurve->setEnabled(true);
+        ui->actionCurve->setEnabled(true);
+        ui->actionEllipse->setEnabled(true);
+        ui->actionPalm->setEnabled(true);
+        ui->actionPick->setEnabled(true);
+        ui->actionPolygon->setEnabled(true);
+        ui->actionPolyline->setEnabled(true);
+        ui->actionRect->setEnabled(true);
+        ui->actionText->setEnabled(true);
+
+        ui->actionZoomIn->setEnabled(true);
+        ui->actionZoomOut->setEnabled(true);
+        ui->actionZoomOne->setEnabled(true);
+        ui->actionSave->setEnabled(true);
+        ui->actionExpand->setEnabled(true);
+
+        if (scrollArea->drawAreaWidget->pickedShapes.size()>0){
+
+            if (scrollArea->drawAreaWidget->pickedShapes.size()>1){
+                ui->actionCombination->setEnabled(true);
+                ui->actionDivide->setEnabled(false);
+                ui->actionDivideToEnd->setEnabled(false);
+            } else{//=1
+                ui->actionCombination->setEnabled(false);
+                if(scrollArea->drawAreaWidget->pickedShapes.at(0)->name()=="Combo"){
+                    ui->actionDivide->setEnabled(true);
+                    ui->actionDivideToEnd->setEnabled(true);
+                }else{
+                    ui->actionDivide->setEnabled(false);
+                    ui->actionDivideToEnd->setEnabled(false);
+                }
+            }
+            ui->actionCopy->setEnabled(true);
+            ui->actionCut->setEnabled(true);
+            ui->actionMoveToBottom->setEnabled(true);
+            ui->actionMoveToTop->setEnabled(true);
+
+        }
+        else{
+            ui->actionCombination->setEnabled(false);
+
+                ui->actionDivide->setEnabled(false);
+                ui->actionDivideToEnd->setEnabled(false);
+
+
+            ui->actionCopy->setEnabled(false);
+            ui->actionCut->setEnabled(false);
+            ui->actionMoveToBottom->setEnabled(false);
+            ui->actionMoveToTop->setEnabled(false);
+        }
+        if (scrollArea->drawAreaWidget->actionindex==0) ui->actionUndo->setEnabled(false);
+        else ui->actionUndo->setEnabled(true);
+
+        if (scrollArea->drawAreaWidget->actionindex==scrollArea->drawAreaWidget->actionList.size()) ui->actionRedo->setEnabled(false);
+        else ui->actionRedo->setEnabled(true);
+
+    ui->actionCircle->setChecked(false);
+    ui->actionCloseCurve->setChecked(false);
+    ui->actionCurve->setChecked(false);
+    ui->actionEllipse->setChecked(false);
+    ui->actionPalm->setChecked(false);
+    ui->actionPick->setChecked(false);
+    ui->actionPolygon->setChecked(false);
+    ui->actionPolyline->setChecked(false);
+    ui->actionRect->setChecked(false);
+    ui->actionText->setChecked(false);
+
+
+    switch (currentCategory){
+    case CircleCategory: {
+            ui->actionCircle->setChecked(true);
+            break;
+        }
+    case CloseCurveCategory: {
+            ui->actionCloseCurve->setChecked(true);
+            break;
+        }
+    case CurveCategory: {
+            ui->actionCurve->setChecked(true);
+            break;
+        }
+    case EllipseCategory: {
+            ui->actionEllipse->setChecked(true);
+            break;
+        }
+    case PalmCategory: {
+            ui->actionPalm->setChecked(true);
+            break;
+        }
+    case PickCategory: {
+            ui->actionPick->setChecked(true);
+            break;
+        }
+    case PolygonCategory: {
+            ui->actionPolygon->setChecked(true);
+            break;
+        }
+    case PolylineCategory: {
+            ui->actionPolyline->setChecked(true);
+            break;
+        }
+    case RectCategory: {
+            ui->actionRect->setChecked(true);
+            break;
+        }
+    case TextCategory: {
+            ui->actionText->setChecked(true);
+            break;
+        }
+    }
+    }
+}
 
 void MainWindow::resizeEvent(QResizeEvent *event){
 //    scrollArea->drawAreaWidget->setFixedSize(width(),height());
@@ -182,6 +330,7 @@ void MainWindow::on_actionCut_triggered()
     if((*tmp).size()>0){
         copyShapes=tmp;
     }
+    updateToolBar();
 }
 
 void  MainWindow::on_actionCopy_triggered(){
@@ -191,6 +340,7 @@ void  MainWindow::on_actionCopy_triggered(){
     if(tmp->size()>0){
         copyShapes=tmp;
     }
+    updateToolBar();
     //*copyShapes=scrollArea->drawAreaWidget->copy();
 }
 void  MainWindow::on_actionPaste_triggered(){
@@ -218,6 +368,8 @@ void  MainWindow::on_actionNew_triggered(){
     le->resize(700,600);
     le->setWindowState(Qt::WindowMaximized);
     le->show();
+    connect(scrollArea->drawAreaWidget, SIGNAL(categoryChanged()),
+            this, SLOT(updateToolBar()));
 
 
 }
