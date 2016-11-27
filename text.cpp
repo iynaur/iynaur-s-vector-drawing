@@ -257,7 +257,7 @@ void  Text::setsx(double x){//性能！！！！！
 
     }
     delete item;
-    myfont.setPointSize(i-1);
+    myfont.setPointSize(max(i-1,1));
     updateBand();
 }
 void  Text::setsy(double y){

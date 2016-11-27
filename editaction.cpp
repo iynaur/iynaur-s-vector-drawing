@@ -12,3 +12,6 @@ EditAction::EditAction()
 ActionType EditAction::actiontype(){
     return Edit;
 }
+QString EditAction::name(){
+    return "Edit";
+}

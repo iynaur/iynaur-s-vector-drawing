@@ -4,14 +4,14 @@
 #include <QWidget>
 #include <QPainter>
  
-#include "GeneralShape.h"
+#include "generalshape.h"
 #include "curve.h"
 #include "closecurve.h"
 #include "circle.h"
-#include "Polyline.h"
-#include "Polygon.h"
-#include "Rect.h"
-#include "Ellipse.h"
+#include "polyline.h"
+#include "polygon.h"
+#include "rect.h"
+#include "ellipse.h"
 #include "text.h"
 #include <QList>
 #include <QMouseEvent>
@@ -52,8 +52,9 @@ public:
     void del(GeneralShape * sp);
     void pickedMove(qreal x,qreal y);
     void save();
+    void saveAs();
     void open();
-    void add(QString line);
+    //void add(QString line);
     void addfile();
     void opennew();
     bool maybeSave();
@@ -71,7 +72,6 @@ public:
     void addaction(AbstractAction* act);
     void openfile(QString file);
 
-    void changeToClose();
     void copyPaste();
     QList<GeneralShape *> copy();
     QList<GeneralShape *> cut();
@@ -93,15 +93,12 @@ public:
     QList <AbstractAction*> actionList;
     int actionindex;
     void setBrush(GeneralShape* sp);
-//    bool canredo;
-//    bool canundo;
-//    bool cancut;
-//    bool cancopy;
-//    //bool canpaste;
-//    bool cantop;
-//    bool canbottom;
-//    bool cancombo;
-//    bool candivide;
+    QString filename;
+
+//private:
+    static int numOfFiles;
+
+
 public slots:
     void moveToTop();
     void moveToBottom();
@@ -135,13 +132,14 @@ public:
     bool saved;
     bool openasadd;
     bool changed;
+    int saveIndex;
     qreal pickedShapestartsx,pickedShapestartsy;
     qreal pickedShapestartRotationangle;
     QColor backcolor;
     QAction*  actionMoveToTop;
     QAction* actionMoveToBottom;
     QAction* actionSetBrush;
-
+    //Combo* root;
 };
  
 #endif // DRAWAREAWIDGET_H

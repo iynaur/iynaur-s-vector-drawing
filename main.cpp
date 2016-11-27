@@ -16,5 +16,9 @@ int main(int argc, char *argv[])
         QString message =QString(QString::fromLocal8Bit(s.c_str()));
         w.handleMessage(message);
     }
+
+//    QObject::connect(&a, SIGNAL(messageReceived( QString)),
+//             &w, SLOT(handleMessage( QString)));
+
     return a.exec();
 }

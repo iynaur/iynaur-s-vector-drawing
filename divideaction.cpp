@@ -8,3 +8,9 @@ DivideAction::DivideAction()
 ActionType DivideAction::actiontype(){
     return Divide;
 }
+QString DivideAction::name(){
+    return "Divide";
+}
+DivideAction::~DivideAction(){
+    //delete com;
+}

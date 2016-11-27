@@ -8,6 +8,8 @@ public:
     AddAction();
     AddAction(GeneralShape* sp);
     ActionType actiontype();
+    virtual QString name();
 };
+
 
 #endif // ADDACTION_H

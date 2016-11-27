@@ -8,6 +8,8 @@ public:
     BottomAction();
     ActionType actiontype();
     QList<int> indexOfShapes;
+    virtual QString name();
+
 };
 
 #endif // BOTTOMACTION_H

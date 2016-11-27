@@ -1,7 +1,7 @@
 #ifndef CIRCLE
 #define CIRCLE
 #include "abstractshape.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>
@@ -25,6 +25,7 @@ public:
     QPointF  scaleHandlePoint();
     double virtual getsy();
     bool  isEmpty();
+    void updateBand();
 
 protected:
 

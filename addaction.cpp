@@ -14,3 +14,6 @@ AddAction::AddAction(GeneralShape *sp)
 ActionType AddAction::actiontype(){
     return Add;
 }
+QString AddAction::name(){
+    return "Add";
+}

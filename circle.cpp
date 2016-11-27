@@ -40,7 +40,7 @@ QPointF Circle::scaleHandlePoint(){
     double bottom=maxy;
     double x=(left-right)/2*sx;
     double y=(top-bottom)/2*sx;
-    double sita=Rotationangle/180*M_PI;
+    double sita=0;//Rotationangle/180*M_PI;
     double x1=x*cos(sita)-y*sin(sita);
     double y1=x*sin(sita)+y*cos(sita);
     return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
@@ -81,6 +81,29 @@ void Circle::updateRange(){
     updateBand();
     //qDebug()<<"maxx="<<maxx;
 }
+void Circle::updateBand(){
+    QPointF p0=QPointF((maxx+minx)/2,(maxy+miny)/2);
+//        QPointF* p= new QPointF[4];
+    QPointF p[4];
+    p[0]=QPointF(minx,miny)-p0;
+    p[1]=QPointF(maxx,miny)-p0;
+    p[2]=QPointF(minx,maxy)-p0;
+    p[3]=QPointF(maxx,maxy)-p0;
+    for (int i=0;i<4;i++){
+        p[i]=QPointF(p[i].x()*getsx(),p[i].y()*getsy());
+        //p[i]=rotated(p[i],rotationangle()/180*M_PI);
+        p[i]=p[i]+p0;
+    }
+    top=bottom=p[0].y();
+    left=right=p[0].x();
+    for (int i=1;i<4;i++){
+        top=min(top,p[i].y());
+        bottom=max(bottom,p[i].y());
+        left=min(left,p[i].x());
+        right=max(right,p[i].x());
+    }
+}
+
 bool Circle::inRange(QPoint p0,QPoint p1){
     int left=min(p0.x(),p1.x());
     int right=max(p0.x(),p1.x());
@@ -102,6 +125,7 @@ bool Circle::inRange(QPoint p0,QPoint p1){
     tmp->sx=sx;
     tmp->sy=sy;
     tmp->brush=brush;
+    tmp->updateRange();
     return tmp;
 }
 

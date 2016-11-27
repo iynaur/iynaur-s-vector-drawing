@@ -1,15 +1,15 @@
 #ifndef COMBO_H
 #define COMBO_H
 #include "generalshape.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QtXml>
 #include "curve.h"
 #include "closecurve.h"
 #include "circle.h"
-#include "Polyline.h"
-#include "Polygon.h"
-#include "Rect.h"
-#include "Ellipse.h"
+#include "polyline.h"
+#include "polygon.h"
+#include "rect.h"
+#include "ellipse.h"
 #include "text.h"
 
 class Combo : public GeneralShape

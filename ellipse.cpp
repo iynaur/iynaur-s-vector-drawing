@@ -157,6 +157,7 @@ bool Ellipse::inRange(QPoint p0,QPoint p1){
     tmp->sx=sx;
     tmp->sy=sy;
     tmp->brush=brush;
+    tmp->updateRange();
     return tmp;
 }
 bool Ellipse:: isEmpty(){

@@ -56,8 +56,9 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
     <addaction name="actionAdd"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
    </widget>
    <widget class="QMenu" name="menuCombination">
     <property name="title">
@@ -75,33 +76,39 @@
     <addaction name="actionZoomOut"/>
     <addaction name="actionZoomOne"/>
    </widget>
+   <widget class="QMenu" name="menuUndoTo">
+    <property name="title">
+     <string>UndoTo</string>
+    </property>
+    <addaction name="actionNone"/>
+   </widget>
+   <widget class="QMenu" name="menuRedoTo">
+    <property name="title">
+     <string>RedoTo</string>
+    </property>
+    <addaction name="actionNone_2"/>
+   </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
     <addaction name="actionMoveToTop"/>
     <addaction name="actionMoveToBottom"/>
-    <addaction name="actionChangeToClose"/>
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
    </widget>
-   <widget class="QMenu" name="menuTest">
-    <property name="title">
-     <string>Test</string>
-    </property>
-    <addaction name="actionTest"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuUndoTo"/>
+   <addaction name="menuRedoTo"/>
    <addaction name="menuDraw"/>
    <addaction name="menuPick"/>
    <addaction name="menuFix"/>
    <addaction name="menuCombination"/>
    <addaction name="menuZoom"/>
-   <addaction name="menuTest"/>
   </widget>
   <widget class="QToolBar" name="toolBar_0">
    <property name="windowTitle">
@@ -115,7 +122,9 @@
    </attribute>
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
+   <addaction name="actionAdd"/>
    <addaction name="actionSave"/>
+   <addaction name="actionSaveAs"/>
   </widget>
   <widget class="QToolBar" name="toolBar_1">
    <property name="windowTitle">
@@ -158,6 +167,7 @@
    <addaction name="actionPaste"/>
    <addaction name="actionMoveToTop"/>
    <addaction name="actionMoveToBottom"/>
+   <addaction name="actionFixcanvas"/>
    <addaction name="actionExpand"/>
    <addaction name="actionZoomIn"/>
    <addaction name="actionZoomOut"/>
@@ -228,6 +238,10 @@
    </property>
   </action>
   <action name="actionFixcanvas">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/fit.jpg</normaloff>:/image/fit.jpg</iconset>
+   </property>
    <property name="text">
     <string>Fitcanvas</string>
    </property>
@@ -287,6 +301,10 @@
    </property>
   </action>
   <action name="actionAdd">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/blue-plus-sign-md.png</normaloff>:/image/blue-plus-sign-md.png</iconset>
+   </property>
    <property name="text">
     <string>Add</string>
    </property>
@@ -369,11 +387,6 @@
     <string>CloseCurve</string>
    </property>
   </action>
-  <action name="actionChangeToClose">
-   <property name="text">
-    <string>ChangeToClose</string>
-   </property>
-  </action>
   <action name="actionDivide">
    <property name="icon">
     <iconset resource="res.qrc">
@@ -390,11 +403,6 @@
    </property>
    <property name="text">
     <string>DivideToEnd</string>
-   </property>
-  </action>
-  <action name="actionTest">
-   <property name="text">
-    <string>Test</string>
    </property>
   </action>
   <action name="actionNew">
@@ -467,6 +475,25 @@
    </property>
    <property name="text">
     <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionNone_2">
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/save_all_download-512.png</normaloff>:/image/save_all_download-512.png</iconset>
+   </property>
+   <property name="text">
+    <string>SaveAs</string>
    </property>
   </action>
  </widget>

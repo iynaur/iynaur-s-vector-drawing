@@ -2,7 +2,7 @@
 #define CURVE_H
  
 #include "polyline.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>

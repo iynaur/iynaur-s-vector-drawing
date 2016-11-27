@@ -154,6 +154,7 @@ bool Rect::inRange(QPointF p0,QPointF p1){
     tmp->sx=sx;
     tmp->sy=sy;
     tmp->brush=brush;
+    tmp->updateRange();
     return tmp;
 }
 bool Rect:: isEmpty(){

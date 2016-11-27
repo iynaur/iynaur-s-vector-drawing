@@ -1,4 +1,4 @@
-#include "Polygon.h"
+#include "polygon.h"
 
 Polygon::Polygon()
 {
@@ -65,7 +65,10 @@ double  Polygon:: minDistance(QPointF point){
     tmp->points=points;
     tmp->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
     tmp->zoom(sx,sy);
-    if (QPolygonF(tmp->points).containsPoint(point,Qt::OddEvenFill)) return 0;
+    if (QPolygonF(tmp->points).containsPoint(point,Qt::OddEvenFill)) {
+        delete tmp;
+        return 0;
+    }
     for (int i=0;i<tmp->points.size()-1;i++){
 
         double p1[2]={tmp->points.at(i).x(),tmp->points.at(i).y()};
@@ -79,6 +82,7 @@ double  Polygon:: minDistance(QPointF point){
     if (CalculatePointToLineDistance(  p0,  p1,  p2) <min){
         min=CalculatePointToLineDistance(  p0,  p1,  p2);
     }
+    delete tmp;
     //qDebug()<<"min="<<min;
     return min;
 }

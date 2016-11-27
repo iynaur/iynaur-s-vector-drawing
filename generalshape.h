@@ -48,7 +48,7 @@ public:
 
     bool  inRange(QPointF p0,QPointF p1);
     void virtual updateRange() =0;
-    void  updateBand();
+    virtual void  updateBand();
     void virtual drag(QPointF point);
 
     bool virtual isEmpty();

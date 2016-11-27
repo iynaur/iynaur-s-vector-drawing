@@ -9,6 +9,9 @@ public:
     ~Scroll();
     DrawAreaWidget * drawAreaWidget;
     void closeEvent(QCloseEvent *event);
+public slots:
+    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 };
 
 #endif // SCROLL_H

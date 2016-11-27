@@ -1,7 +1,7 @@
 #ifndef ELLIPSE
 #define ELLIPSE
 #include "abstractshape.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>

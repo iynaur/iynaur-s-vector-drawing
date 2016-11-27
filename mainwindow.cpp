@@ -4,20 +4,29 @@
 #include "scroll.h"
 #include <QScrollBar>
 #include <QMdiSubWindow>
+#include <QString>
+//#include <QAbstractSocket>
 
-
+//QString EnumSocketTypeToString(int value)
+//{
+//QMetaObject obj = ActionType::staticMetaObject;
+//QMetaEnum en = obj.enumerator(0);
+//return QLatin1String(en.valueToKey(value));
+//}
+int DrawAreaWidget::numOfFiles = 0;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
+    setWindowTitle("DRAW");
     //ui->actionCloseCurve->setIcon(QIcon(tr(":/image/pencapstyle.png")));
     mdiArea = new QMdiArea;
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(mdiArea);
-
+    setAcceptDrops(true);
     connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow* )),
             this, SLOT(onSubWindowActivated(QMdiSubWindow* )));
 
@@ -26,7 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowState(Qt::WindowMaximized);
 
     on_actionNew_triggered();
-    copyShapes=new QList<GeneralShape *>;
+    copyShapes=new QList<GeneralShape *>;//mem leak
+
+
 
 
     //ui->setupUi(this);
@@ -36,25 +47,32 @@ void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
     //qDebug()<<activeMdiChild();
     if (window!=0)
     {
-        le=window;
-       scrollArea=(Scroll *)(le->widget());
-       scrollArea->drawAreaWidget->setCategory(currentCategory);
-       updateToolBar();
+        if (le!=window){
+            le=window;
+            scrollArea=(Scroll *)(le->widget());
+            scrollArea->drawAreaWidget->setCategory(currentCategory);
+            updateToolBar();
+        }
+        updateToolBar();
 
 
 
-           //scrollArea=child;
-           //qDebug()<<"shuffled";
+
 
     }
-    else{
+    else{//window==0
+        if (mdiArea->subWindowList().size()==0){
         le=0;
         scrollArea=0;
         updateToolBar();
+        }
     }
 }
 void MainWindow::updateToolBar(){
     if (le==0) {
+        ui->menuUndoTo->setEnabled(false);
+        ui->menuRedoTo->setEnabled(false);
+
         ui->actionPaste->setEnabled(false);
         ui->actionCircle->setEnabled(false);
         ui->actionCloseCurve->setEnabled(false);
@@ -80,10 +98,20 @@ void MainWindow::updateToolBar(){
         ui->actionZoomOut->setEnabled(false);
         ui->actionZoomOne->setEnabled(false);
         ui->actionSave->setEnabled(false);
+        ui->actionSaveAs->setEnabled(false);
+        ui->actionAdd->setEnabled(false);
         ui->actionExpand->setEnabled(false);
+        ui->actionFixcanvas->setEnabled(false);
+
 
     }
-    else{
+    else{//存在活动窗口
+        if (scrollArea->drawAreaWidget->changed==false){
+            le->setWindowTitle(scrollArea->drawAreaWidget->filename);
+        }
+        else{
+            le->setWindowTitle(scrollArea->drawAreaWidget->filename+" *");
+        }
 
         ui->actionPaste->setEnabled(!copyShapes->isEmpty());
 
@@ -102,7 +130,10 @@ void MainWindow::updateToolBar(){
         ui->actionZoomOut->setEnabled(true);
         ui->actionZoomOne->setEnabled(true);
         ui->actionSave->setEnabled(true);
+        ui->actionSaveAs->setEnabled(true);
+        ui->actionAdd->setEnabled(true);
         ui->actionExpand->setEnabled(true);
+        ui->actionFixcanvas->setEnabled(true);
 
         if (scrollArea->drawAreaWidget->pickedShapes.size()>0){
 
@@ -198,26 +229,133 @@ void MainWindow::updateToolBar(){
             break;
         }
     }
+    if (!scrollArea->drawAreaWidget->actionList.isEmpty()) {
+//        while(!ui->menuUndoTo->actions().isEmpty()){
+//            QAction *qaction=ui->menuUndoTo->actions().at(0);
+//            ui->menuUndoTo->removeAction(qaction);
+//            //delete qaction;
+//        }
+        ui->menuUndoTo->clear();
+        ui->menuUndoTo->setEnabled(false);
+        for (int i=scrollArea->drawAreaWidget->actionindex-1;  i>=0;  i--){
+            QAction *action =new QAction(scrollArea->drawAreaWidget->actionList.at(i)->name()+" "
+                                         +(scrollArea->drawAreaWidget->actionList.at(i)->shapes.size()>1?
+                                             "multipal shapes":
+                                             scrollArea->drawAreaWidget->actionList.at(i)->shapes.at(0)->name()));
+                    action->setData(i+1);
+
+                    ui->menuUndoTo->addAction(action);
+                    ui->menuUndoTo->setEnabled(true);
+
+
+        }
+        connect(ui->menuUndoTo, SIGNAL(triggered(QAction*)), this, SLOT(UndoTo(QAction*)));
+
+
+//        while(!ui->menuRedoTo->actions().isEmpty()){
+//            QAction *qaction=ui->menuRedoTo->actions().at(0);
+//            ui->menuRedoTo->removeAction(qaction);
+//            //delete qaction;
+//        }
+        ui->menuRedoTo->clear();
+         ui->menuRedoTo->setEnabled(false);
+        for (int i=scrollArea->drawAreaWidget->actionindex;  i<scrollArea->drawAreaWidget->actionList.size();  i++){
+            QAction *action =new QAction(scrollArea->drawAreaWidget->actionList.at(i)->name()+" "
+                                         +(scrollArea->drawAreaWidget->actionList.at(i)->shapes.size()>1?
+                                             "multipal shapes":
+                                             scrollArea->drawAreaWidget->actionList.at(i)->shapes.at(0)->name()));
+                    action->setData(i);
+
+                    ui->menuRedoTo->addAction(action);
+                     ui->menuRedoTo->setEnabled(true);
+
+
+        }
+        connect(ui->menuRedoTo, SIGNAL(triggered(QAction*)), this, SLOT(RedoTo(QAction*)));
+    }
+    else{
+        ui->menuUndoTo->setEnabled(false);
+        ui->menuRedoTo->setEnabled(false);
+    }
+    }
+
+}
+
+
+void MainWindow::UndoTo(QAction* action){
+    int index = action->data().toInt();
+
+    while (scrollArea->drawAreaWidget->actionindex>=index){
+        scrollArea->drawAreaWidget->undo();
     }
 }
 
+void MainWindow::RedoTo(QAction* action){
+    int index = action->data().toInt();//
+
+    while (scrollArea->drawAreaWidget->actionindex<=index){
+        scrollArea->drawAreaWidget->redo();
+    }
+}
+
+
+
 void MainWindow::resizeEvent(QResizeEvent *event){
-//    scrollArea->drawAreaWidget->setFixedSize(width(),height());
-//    scrollArea->drawAreaWidget->expand();
-    scrollArea->drawAreaWidget->windowwidth=scrollArea->width();
-    scrollArea->drawAreaWidget->windowheight=scrollArea->height();
+//    scrollArea->drawAreaWidget->windowwidth=scrollArea->width();
+//    scrollArea->drawAreaWidget->windowheight=scrollArea->height();
 }
 
 MainWindow::~MainWindow()
 {
+
+    delete copyShapes;
+    ui->menuUndoTo->clear();
+    ui->menuRedoTo->clear();
+    delete mdiArea;
+    //delete scrollArea;
+    //delete le;
     delete ui;
 }
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)//拖进事件
+
+{
+    if(event->mimeData()->hasFormat("text/uri-list")){
+        event->setDropAction(Qt::IgnoreAction);
+        event->acceptProposedAction();
+    }
+}
+void MainWindow::dropEvent(QDropEvent *event)//放下事件
+{
+    qDebug()<<event->mimeData()->urls();
+    QList<QUrl> urls = event->mimeData()->urls();
+    if (urls.isEmpty())
+    {
+        return;
+    }
+    foreach(QUrl url,urls)
+    {
+       QString fileName = url.toLocalFile();
+        if (fileName.isEmpty())
+        {
+            return;
+        }
+        else{
+            on_actionNew_triggered();
+            scrollArea->drawAreaWidget->openasadd=false;
+            handleMessage(fileName);
+        }
+    }
+}
+
+
+
+
 void MainWindow::handleMessage(QString message){
     //QString openfile=message;
     scrollArea->drawAreaWidget->openfile(message);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！
+void MainWindow::keyPressEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！只有WSAD
     //qDebug()<<event->key();
 
         scrollArea->drawAreaWidget->keyPressEvent(event);
@@ -319,9 +457,6 @@ void  MainWindow::on_actionMoveToTop_triggered(){
 void  MainWindow::on_actionMoveToBottom_triggered(){
     scrollArea->drawAreaWidget->moveToBottom();
 }
-void  MainWindow::on_actionChangeToClose_triggered(){
-    scrollArea->drawAreaWidget->changeToClose();
-}
 
 void MainWindow::on_actionCut_triggered()
 {
@@ -355,9 +490,7 @@ void  MainWindow::on_actionDivide_triggered(){
  void  MainWindow::on_actionDivideToEnd_triggered(){
      scrollArea->drawAreaWidget->divideToEnd();
  }
- void  MainWindow::on_actionTest_triggered(){
-     //scrollArea->drawAreaWidget->test();
- }
+
 void  MainWindow::on_actionNew_triggered(){
 
 
@@ -365,8 +498,9 @@ void  MainWindow::on_actionNew_triggered(){
 
     le= mdiArea->addSubWindow(scrollArea);
 
-    le->resize(700,600);
-    le->setWindowState(Qt::WindowMaximized);
+    le->resize(1000,600);
+    le->setGeometry(30*DrawAreaWidget::numOfFiles,30*DrawAreaWidget::numOfFiles,1000,600);
+    //le->setWindowState(Qt::WindowMaximized);
     le->show();
     connect(scrollArea->drawAreaWidget, SIGNAL(categoryChanged()),
             this, SLOT(updateToolBar()));
@@ -392,4 +526,9 @@ void MainWindow::on_actionUndo_triggered()
 void MainWindow::on_actionRedo_triggered()
 {
     scrollArea->drawAreaWidget->redo();
+}
+
+void MainWindow::on_actionSaveAs_triggered()
+{
+    scrollArea->drawAreaWidget->saveAs();
 }

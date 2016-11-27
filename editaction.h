@@ -13,6 +13,8 @@ public:
     qreal dsx,dsy;
     QBrush oldbrush,newbrush;
     ActionType actiontype();
+    virtual QString name();
+
 
 };
 

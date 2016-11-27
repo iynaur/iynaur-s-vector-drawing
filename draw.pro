@@ -44,8 +44,6 @@ HEADERS  += mainwindow.h \
     abstractshape.h \
     curve.h \
     drawareawidget.h \
-    Polyline.h \
-    Polygon.h \
     circle.h \
     mymath.h \
     rect.h \
@@ -63,7 +61,9 @@ HEADERS  += mainwindow.h \
     combineaction.h \
     divideaction.h \
     topaction.h \
-    bottomaction.h
+    bottomaction.h \
+    polygon.h \
+    polyline.h
 
 FORMS    += mainwindow.ui \
     gettextdialog.ui

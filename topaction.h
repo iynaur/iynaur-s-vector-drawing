@@ -8,6 +8,8 @@ public:
     TopAction();
     ActionType actiontype();
     QList<int> indexOfShapes;
+    virtual QString name();
+
 };
 
 #endif // TOPACTION_H

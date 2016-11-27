@@ -26,41 +26,85 @@ DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
     connect(actionMoveToTop, SIGNAL(triggered()), this, SLOT(moveToTop()));
     connect(actionMoveToBottom, SIGNAL(triggered()), this, SLOT(moveToBottom()));
     connect(actionSetBrush, SIGNAL(triggered()), this, SLOT(setBrush()));
+    numOfFiles++;
+    openasadd=false;
+    pickRect=0;
+    //root=0;
     init();
 }
 DrawAreaWidget::~DrawAreaWidget(){
-    foreach(AbstractAction* act,actionList){
-        if(act->actiontype()==Delete){
-            foreach (GeneralShape*sp,act->shapes){
+    for (int i=1;i<=actionindex;i++){
+        if(actionList.at(i-1)->actiontype()==Delete || actionList.at(i-1)->actiontype()==Combine){
+            foreach (GeneralShape*sp,actionList.at(i-1)->shapes){
                 delete sp;
             }
         }
-        delete act;
+        if(actionList.at(i-1)->actiontype()==Divide){
+            delete dynamic_cast<DivideAction*>(actionList.at(i-1))->com;
+        }
+        delete actionList.at(i-1);
+
     }
+    for (int i=actionindex+1;i<=actionList.size();i++){
+        if(actionList.at(i-1)->actiontype()==Add || actionList.at(i-1)->actiontype()==Divide){
+            foreach (GeneralShape*sp,actionList.at(i-1)->shapes){
+                delete sp;
+            }
+        }
+        if(actionList.at(i-1)->actiontype()==Combine){
+            delete dynamic_cast<CombineAction*>(actionList.at(i-1))->com;
+        }
+//        if(actionList.at(i-1)->actiontype()==Divide){
+//            //delete dynamic_cast<DivideAction*>(actionList.at(i-1))->com;
+//            foreach (GeneralShape*sp,actionList.at(i-1)->shapes){
+//                delete sp;
+//            }
+//        }
+         delete actionList.at(i-1);
+
+    }
+//    foreach(AbstractAction* act,actionList){
+//        if(act->actiontype()==Delete){
+//            foreach (GeneralShape*sp,act->shapes){
+//                delete sp;
+//            }
+//        }
+//        if (act->actiontype()==Combine || act->actiontype()==Divide){
+//            //
+//        }
+//        delete act;
+//    }
     foreach (GeneralShape* sp,shapes){
         delete sp;
     }
     delete  actionMoveToTop;
     delete actionMoveToBottom;
     delete actionSetBrush;
+    delete pickRect;
 }
 
 void DrawAreaWidget::init()
 {
     currentShape = NULL;
     pickedShapes.clear();
+    delete pickRect;
     pickRect=NULL;
     currentCategory = PickCategory;
     isLeftButtonPressed = false;
     shapes.clear();
     dx=dy=0;
     changed=false;
+
     zoomRatio=1;
     previouszoomRatio=1;
     backcolor=Qt::white;
     currentMouseHanded=None;
     actionList.clear();
     actionindex=0;
+    saveIndex=0;
+
+    filename="New Pic "+QString::number(numOfFiles, 10);
+
 //     canredo=false;
 //     canundo=false;
 //     cancut=false;
@@ -75,23 +119,26 @@ void DrawAreaWidget::init()
 
 void DrawAreaWidget::combination(){
     if (pickedShapes.size()<=1) return;
-    Combo* tmp=new Combo;
+    Combo* tmp=new Combo;//mem leak;
     CombineAction* action=new CombineAction();
     foreach(GeneralShape * sp,pickedShapes){
-        tmp->shapes.append(sp);
+        GeneralShape * sp2=sp->copyPaste();
+        tmp->shapes.append(sp2);
         action->shapes.append(sp);
         action->indexOfShapes.append(shapes.indexOf(sp));
         del(sp);
+        //delete sp;
     }
     action->com=tmp;
-    addaction(static_cast<AbstractAction*>(action));
+
     //actionList.append(static_cast<AbstractAction*>(action));
     tmp->updateRange();
     pickedShapes.clear();
     pickedShapes.append(tmp);
     shapes.append(tmp);
     update();
-    emit categoryChanged();
+    addaction(static_cast<AbstractAction*>(action));
+    //emit categoryChanged();
 
 }
 void DrawAreaWidget::divide(){
@@ -109,11 +156,12 @@ void DrawAreaWidget::divide(GeneralShape* shape){
     action->com=tmp;
     action->indexOfCom=shapes.indexOf(shape);
     foreach(GeneralShape * sp,tmp->shapes){
-        action->shapes.append(sp);
-        getOutOfCombo(sp,tmp);
+        GeneralShape *sp2=sp->copyPaste();
+        action->shapes.append(sp2);
+        getOutOfCombo(sp2,tmp);
     }
     addaction(static_cast<AbstractAction*>(action));
-    pickedShapes.operator +=(tmp->shapes);
+    pickedShapes.operator +=(action->shapes);
 }
 
 void DrawAreaWidget::divideToEnd(){
@@ -129,9 +177,9 @@ void DrawAreaWidget::divideToEnd(){
 void DrawAreaWidget::divideToEnd(GeneralShape* shape){
     if (shape->name()!="Combo") return;
     pickedShapes.removeOne(shape);
-    Combo* tmp=dynamic_cast<Combo* >(shape);
+    //Combo* tmp=dynamic_cast<Combo* >(shape);
     divide(shape);
-    foreach(GeneralShape * sp,tmp->shapes){
+    foreach(GeneralShape * sp,actionList.last()->shapes){
 
         //getOutOfCombo(sp,tmp);
         divideToEnd(sp);
@@ -284,31 +332,6 @@ void DrawAreaWidget::moveToBottom(){
     addaction(static_cast<AbstractAction*>(action));
     update();
 }
-void DrawAreaWidget::changeToClose(){
-    if (pickedShapes.size()!=1) return;
-    GeneralShape* sp=NULL;
-    if (pickedShapes.at(0)->name()=="Curve"){
-        //qDebug()<<"changeToClose";
-        sp=new CloseCurve;
-
-
-    }
-    if (pickedShapes.at(0)->name()=="Polyline"){
-        sp=new Polygon;
-    }
-    if (sp==NULL) return;
-    sp->points=pickedShapes.at(0)->points;
-    sp->setsx(pickedShapes.at(0)->getsx());
-    sp->setsy(pickedShapes.at(0)->getsy());
-    sp->Rotationangle=pickedShapes.at(0)->Rotationangle;
-    sp->updateRange();
-    //pickedShape=sp;//need recode!!!
-    del(pickedShapes.at(0));
-    shapes.append(sp);
-    //pickedShapes.at(0)=sp;
-    update();
-
-}
 
 void DrawAreaWidget::addfile(){
     openasadd=true;
@@ -337,7 +360,7 @@ void DrawAreaWidget::addshape(GeneralShape * shape){
 //}
 
 bool DrawAreaWidget::maybeSave(){//成功保存，或明确放弃保存，或根本没什么可以保存的，返回true。
-    if (shapes.size()==0) return true;
+    if (!changed) return true;
     QMessageBox msgBox;
     msgBox.setText("Unsaved change will be lost!");
     msgBox.setInformativeText("Do you want to save your changes?");
@@ -415,6 +438,12 @@ void DrawAreaWidget::openfile(QString file){
 
     QDomElement root=doc.documentElement(); //返回根节点
     QDomElement e=root.toElement();
+    if (e.nodeName()!="shapes"){
+        QMessageBox msg;
+        msg.setText("The document is unknown.");
+          msg.exec();
+          return;
+    }
     if (e.hasAttribute("red")){
         int r,g,b;
         r=e.attribute("red").toInt();
@@ -422,12 +451,23 @@ void DrawAreaWidget::openfile(QString file){
         b=e.attribute("blue").toInt();
         backcolor=QColor(r,g,b);
     }
-
-    Combo* tmp=new Combo;
+    //delete
+    Combo* tmp=new Combo;//mem leak
     tmp->setShapes(root);
     //qDebug()<<"setshapes done";
     //shapes=tmp->shapes;
-    shapes +=tmp->shapes;
+    shapes +=tmp->copyPaste()->shapes;
+    if (openasadd){
+        AbstractAction* action = new AddAction;
+        action->shapes=tmp->copyPaste()->shapes;
+        if(action->shapes.size()>0) addaction(action);
+        openasadd=false;
+    }
+    else{
+        filename=file;
+        emit categoryChanged();
+    }
+    delete tmp;
     expand();update();
 
 }
@@ -454,74 +494,62 @@ void DrawAreaWidget::open(){
     if (!openasadd) init();
     openfile(files.at(0));
 
-//    openFile.open(QFile::ReadOnly | QFile::Text);
-//    QTextStream in(&openFile);
-//    QString line;
-//    while(!in.atEnd())
-//    {
-//        line=in.readLine();
-//        add(line);
-//    }
-}
-
-
-void DrawAreaWidget::add(QString line){
-//    int a=line.indexOf("(",0);
-//    QString shapeName=line.mid(0,a);
-//    //switch (shapeName)
-//    if (shapeName=="Curve"){
-//        currentShape = new Curve;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Circle"){
-//        currentShape = new Circle;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Ellipse"){
-//        currentShape = new Ellipse;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Polygon"){
-//        currentShape = new Polygon;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Polyline"){
-//        currentShape = new Polyline;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Rect"){
-//        currentShape = new Rect;
-//        //
-//        //
-
-//    }
-//    if (shapeName=="Text"){
-//        currentShape = new Text;
-//        //
-//        //
-
-//    }
-//    if (currentShape==NULL) currentShape=new Curve;
-//    shapes.append(currentShape);
-//    currentShape->fromline(line);
-//    expand();update();
 
 }
 
+
+
+void DrawAreaWidget::saveAs(){
+    saved=false;
+    QStringList files;
+     QFileDialog dlg(this,"Save file");
+     dlg.setAcceptMode(QFileDialog::AcceptSave);
+     dlg.setNameFilter("XML (*.xml   *.inf   *.ini )");
+     dlg.exec();
+     if (dlg.result()==QDialog::Accepted)
+         files = dlg.selectedFiles();
+     else
+         return;
+     if(files.isEmpty())    return;
+     QFile saveFile(files.at(0));
+     if(!saveFile.open(QFile::WriteOnly|QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
+             return;
+     QDomDocument doc;
+     QDomProcessingInstruction instruction; //添加处理命令
+     instruction=doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
+     doc.appendChild(instruction);
+     //添加根节点
+
+
+     Combo* tmp=new Combo;
+     tmp->shapes=shapes;
+     QDomElement draw=tmp->toElement();
+     //QDomElement draw=doc.createElement("draw");
+     draw.setAttribute("red",backcolor.red());
+     draw.setAttribute("green",backcolor.green());
+     draw.setAttribute("blue",backcolor.blue());
+     doc.appendChild(draw);
+
+     QTextStream out_stream(&saveFile);
+     doc.save(out_stream,4); //缩进4格
+     saveFile.close();
+
+
+     saved=true;
+     changed=false;
+     saveIndex=actionindex;
+     filename=files.at(0);
+     emit categoryChanged();
+
+}
 
 void DrawAreaWidget::save(){
     saved=false;
-    QStringList files;
+    QString savefilename=filename;
+
+    if (!QFile(savefilename).exists()){
+
+   QStringList files;
     QFileDialog dlg(this,"Save file");
     dlg.setAcceptMode(QFileDialog::AcceptSave);
     dlg.setNameFilter("XML (*.xml   *.inf   *.ini )");
@@ -531,8 +559,10 @@ void DrawAreaWidget::save(){
     else
         return;
     if(files.isEmpty())    return;
-    QFile saveFile(files.at(0));
 
+     savefilename=files.at(0);
+    }
+    QFile saveFile(savefilename);
     if(!saveFile.open(QFile::WriteOnly|QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
             return;
     QDomDocument doc;
@@ -556,8 +586,11 @@ void DrawAreaWidget::save(){
     saveFile.close();
 
 
-    //saveFile.close();
     saved=true;
+    changed=false;
+    saveIndex=actionindex;
+    filename=savefilename;
+    emit categoryChanged();
 
 }
 
@@ -614,12 +647,14 @@ void DrawAreaWidget::paintEvent(QPaintEvent *)
     }
     foreach(GeneralShape* sp,shapes){
         sp->draw(painter,zoomRatio);
+        if(pickedShapes.indexOf(sp)>=0){
+            sp->drawClosure(painter,zoomRatio);
+        }
     }
 
-    foreach(GeneralShape* sp,pickedShapes){
-        //if(sp->name=="Text") sp->setBrush();
-        sp->drawClosure(painter,zoomRatio);
-    }
+//    foreach(GeneralShape* sp,pickedShapes){
+//        sp->drawClosure(painter,zoomRatio);
+//    }
 
     if (pickRect!=NULL){
         QPen pen;  // creates a default pen
@@ -726,7 +761,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
     case CurveCategory:
     case CloseCurveCategory:
     {
-        if (currentCategory==CurveCategory) currentShape = new Curve;
+        if (currentCategory==CurveCategory) currentShape = new Curve;//mem leak
         else currentShape = new CloseCurve;
         isLeftButtonPressed = true;
 
@@ -809,7 +844,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
             //qDebug()<<"pickedShape==NULL";
             startPoint=realPoint;
             delete pickRect;
-            pickRect=new Rect;
+            pickRect=new Rect;//mem leak
             pickRect->addPoint(realPoint);
             pickRect->addPoint(realPoint);
 
@@ -870,17 +905,34 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 }
 void DrawAreaWidget::addaction(AbstractAction* act){
     while (actionList.size()> actionindex){
-        if(actionList.last()->actiontype()==Add){
+
+
+        if(actionList.last()->actiontype()==Add || actionList.last()->actiontype()==Divide){
             foreach (GeneralShape*sp,actionList.last()->shapes){
                 delete sp;
             }
         }
+        if(actionList.last()->actiontype()==Combine){
+            delete dynamic_cast<CombineAction*>(actionList.last())->com;
+        }
+
+
+
+//        if(actionList.last()->actiontype()==Add){
+//            foreach (GeneralShape*sp,actionList.last()->shapes){
+//                delete sp;
+//            }
+//        }
+
         delete actionList.last();
         actionList.pop_back();
     }
     actionList.append( act);
     actionindex++;
-    qDebug()<<"add action"<<act->actiontype();
+    //qDebug()<<"add action"<<act->actiontype();
+    changed=true;
+
+    emit categoryChanged();
 }
 
 void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -896,16 +948,14 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
     case CurveCategory:{
         //currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
-        if (currentShape->isEmpty()){ shapes.removeLast();}
-        else{
-            AbstractAction *action=new AddAction(currentShape);
-            addaction(action);
-//            while (actionList.size()> actionindex){
-//                actionList.pop_back();
-//            }
-//            actionList.append( action);
-        }
-        currentShape = NULL;
+//        if (currentShape->isEmpty()){ shapes.removeLast();}
+//        else{
+//            AbstractAction *action=new AddAction(currentShape);
+//            addaction(action);
+
+//        }
+//        currentShape = NULL;
+        finishcurrentShape();
         break;
     }
     case PolylineCategory:
@@ -928,12 +978,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         update();
         if (event->button()==Qt::RightButton){//end one Polyline
             currentShape->removeLastPoint();
-            if (currentShape->isEmpty()){ shapes.removeLast();}
-            else{
-                AbstractAction *action=new AddAction(currentShape);
-                addaction(action);
-            }
-            currentShape = NULL;
+//            if (currentShape->isEmpty()){ shapes.removeLast();}
+//            else{
+//                AbstractAction *action=new AddAction(currentShape);
+//                addaction(action);
+//            }
+//            currentShape = NULL;
+            finishcurrentShape();
             //currentCategory = PolylineCategory;
             isLeftButtonPressed = false;
         }
@@ -959,12 +1010,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         update();
         if (event->button()==Qt::RightButton){//end one Polyline
             currentShape->removeLastPoint();
-            if (currentShape->isEmpty()){ shapes.removeLast();}
-            else{
-                AbstractAction *action=new AddAction(currentShape);
-                addaction(action);
-            }
-            currentShape = NULL;
+//            if (currentShape->isEmpty()){ shapes.removeLast();}
+//            else{
+//                AbstractAction *action=new AddAction(currentShape);
+//                addaction(action);
+//            }
+//            currentShape = NULL;
+            finishcurrentShape();
             //currentCategory = PolylineCategory;
             isLeftButtonPressed = false;
         }
@@ -984,6 +1036,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
     case PickCategory:{
 
         if (pickedShapes.size()==0) {//框选
+            delete pickRect;
             pickRect=NULL;
             //qDebug()<<"";
             update();
@@ -1063,7 +1116,12 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             action->shapes=pickedShapes;
             action->dpoint=realPoint-startPoint;
             AbstractAction* tmp=static_cast<AbstractAction*>(action);
-            if (action->dpoint!=QPointF(0,0)) addaction(tmp);
+            if (action->dpoint!=QPointF(0,0)) {
+                addaction(tmp);
+            }
+            else{
+                delete action;
+            }
             endPoint=realPoint;
             //expand();
             update();
@@ -1077,12 +1135,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         currentShape->removeLastPoint();
         currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
-        if (currentShape->isEmpty()){ shapes.removeLast();}
-        else{
-            AbstractAction *action=new AddAction(currentShape);
-            addaction(action);
-        }
-        currentShape = NULL;
+//        if (currentShape->isEmpty()){ shapes.removeLast();}
+//        else{
+//            AbstractAction *action=new AddAction(currentShape);
+//            addaction(action);
+//        }
+//        currentShape = NULL;
+        finishcurrentShape();
         update();
         break;
     }
@@ -1103,12 +1162,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             }
             //currentShape->setText(currentText );
         }
-        if (currentShape->isEmpty()){ shapes.removeLast();}
-        else{
-            AbstractAction *action=new AddAction(currentShape);
-            addaction(action);
-        }
-        currentShape = NULL;
+//        if (currentShape->isEmpty()){ shapes.removeLast();}
+//        else{
+//            AbstractAction *action=new AddAction(currentShape);
+//            addaction(action);
+//        }
+//        currentShape = NULL;
+        finishcurrentShape();
         expand();update();
         break;
     }
@@ -1125,12 +1185,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
         currentShape->removeLastPoint();
         currentShape->addPoint(realPoint);
         isLeftButtonPressed = false;
-        if (currentShape->isEmpty()){ shapes.removeLast();}
-        else{
-            AbstractAction *action=new AddAction(currentShape);
-            addaction(action);
-        }
-        currentShape = NULL;
+//        if (currentShape->isEmpty()){ shapes.removeLast();}
+//        else{
+//            AbstractAction *action=new AddAction(currentShape);
+//            addaction(action);
+//        }
+//        currentShape = NULL;
+        finishcurrentShape();
         update();
         break;
     }
@@ -1348,6 +1409,16 @@ void DrawAreaWidget::setCategory(Category c){
     emit categoryChanged();
 }
 void DrawAreaWidget::finishcurrentShape(){
+    if (currentShape!=NULL){
+        if (currentShape->isEmpty()){
+            shapes.removeLast();
+            delete currentShape;
+        }
+        else{
+            AbstractAction *action=new AddAction(currentShape);
+            addaction(action);
+        }
+    }
 
     currentShape = NULL;
     update();
@@ -1470,7 +1541,7 @@ void DrawAreaWidget::undo(){
         DivideAction* tmp=static_cast<DivideAction*>(action);
         for(int i=0;i<tmp->shapes.size();i++){
             shapes.removeOne(tmp->shapes.at(i));
-            getIntoCombo(tmp->shapes.at(i),tmp->com);
+            //getIntoCombo(tmp->shapes.at(i),tmp->com);
 
         }
         //shapes.append(tmp->com);
@@ -1504,6 +1575,8 @@ void DrawAreaWidget::undo(){
         break;
     }
     }
+    if (actionindex==saveIndex) {changed=false;}
+    else {changed=true;}
     emit categoryChanged();
 }
 void DrawAreaWidget::redo(){
@@ -1556,9 +1629,10 @@ void DrawAreaWidget::redo(){
     case Divide:{
         DivideAction* tmp=static_cast<DivideAction*>(action);
         for(int i=0;i<tmp->shapes.size();i++){
+            int index=shapes.indexOf(static_cast<GeneralShape*> (tmp->com));
+             shapes.insert(index,tmp->shapes.at(i));
 
-            getOutOfCombo(tmp->shapes.at(i),tmp->com);
-            //shapes.append(tmp->shapes.at(i));
+            //getOutOfCombo(tmp->shapes.at(i),tmp->com);
 
         }
         del(tmp->com);
@@ -1590,6 +1664,8 @@ void DrawAreaWidget::redo(){
         break;
     }
     }
+    if (actionindex==saveIndex) {changed=false;}
+    else {changed=true;}
     emit categoryChanged();
 }
 void DrawAreaWidget::expand(){

@@ -6,9 +6,11 @@ class CombineAction : public AbstractAction
 {
 public:
     CombineAction();
+    ~CombineAction();
     QList<int> indexOfShapes;
     Combo* com;
     ActionType actiontype();
+    QString name();
 };
 
 #endif // COMBINEACTION_H

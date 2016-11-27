@@ -1,7 +1,7 @@
 #ifndef CLOSECURVE_H
 #define CLOSECURVE_H
 
-#include "Polygon.h"
+#include "polygon.h"
 class CloseCurve : public Polygon
 {
 public:

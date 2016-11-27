@@ -3,7 +3,7 @@ GeneralShape::GeneralShape()
 
 
 {
-
+    points=QVector<QPointF>(0);
 }
 GeneralShape::~GeneralShape(){
 

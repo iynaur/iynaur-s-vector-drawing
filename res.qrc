@@ -42,5 +42,8 @@
         <file>image/divide.jpg</file>
         <file>image/dividetoend.jpg</file>
         <file>image/combine.jpg</file>
+        <file>image/fit.jpg</file>
+        <file>image/blue-plus-sign-md.png</file>
+        <file>image/save_all_download-512.png</file>
     </qresource>
 </RCC>

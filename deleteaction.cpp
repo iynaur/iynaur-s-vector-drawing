@@ -13,3 +13,6 @@ DeleteAction::DeleteAction()
 ActionType DeleteAction::actiontype(){
     return Delete;
 }
+QString DeleteAction::name(){
+    return "Delete";
+}

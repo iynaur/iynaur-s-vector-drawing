@@ -24,7 +24,7 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
     void closeEvent(QCloseEvent *event);
-    void handleMessage(QString message);
+
     QList<GeneralShape *>* copyShapes;
     Category currentCategory;
     //void updateToolBar();
@@ -52,11 +52,9 @@ private slots:
     void  on_actionZoomOne_triggered();
     void  on_actionMoveToTop_triggered();
     void  on_actionMoveToBottom_triggered();
-    void  on_actionChangeToClose_triggered();
     void  on_actionCombination_triggered();
     void  on_actionDivide_triggered();
     void  on_actionDivideToEnd_triggered();
-    void  on_actionTest_triggered();
     void  on_actionNew_triggered();
     void  onSubWindowActivated(QMdiSubWindow* window);
 
@@ -71,8 +69,15 @@ private slots:
 
     void on_actionRedo_triggered();
     void updateToolBar();
+    //void UndoTo(int i);
+    void UndoTo(QAction* action);
+    void RedoTo(QAction* action);
+    void on_actionSaveAs_triggered();
+    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 
 public slots:
+    void handleMessage(QString message);
     //void onscrollContentsBy(int dx, int dy);
 signals:
     //scrollDone();

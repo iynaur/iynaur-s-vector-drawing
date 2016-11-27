@@ -1,4 +1,4 @@
-#include "Polyline.h"
+#include "polyline.h"
 
 Polyline::Polyline()
 {
@@ -90,6 +90,7 @@ double  Polyline:: minDistance(QPointF point){
             min=CalculatePointToLineDistance(  p0,  p1,  p2);
         }
     }
+    delete tmp;
     //qDebug()<<"min="<<min;
     return min;
 }

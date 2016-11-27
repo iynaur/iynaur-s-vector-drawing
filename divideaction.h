@@ -6,9 +6,12 @@ class DivideAction : public AbstractAction
 {
 public:
     DivideAction();
+    ~DivideAction();
     Combo* com;
     ActionType actiontype();
     int indexOfCom;
+    virtual QString name();
+
 };
 
 #endif // DIVIDEACTION_H

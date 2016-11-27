@@ -1,7 +1,7 @@
 #ifndef RECT
 #define RECT
 #include "abstractshape.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>

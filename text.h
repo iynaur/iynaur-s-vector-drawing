@@ -1,7 +1,7 @@
 #ifndef TEXT
 #define TEXT
 #include "rect.h"
-#include <Qpainter>
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>

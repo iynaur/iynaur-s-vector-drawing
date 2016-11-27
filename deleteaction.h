@@ -10,6 +10,7 @@ public:
     //DeleteAction(GeneralShape* sp,int index);
     QList<int> indexOfShapes;
     ActionType actiontype();
+    virtual QString name();
 };
 
 #endif // DELETEACTION_H
