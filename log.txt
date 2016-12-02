@@ -12,3 +12,4 @@ bug//minx,,,top,,,等变量的状态可能未更新,例如一个新的对象在�
 当dividetoend采用广度优先时可能会改变层次的上下顺序。
 move to top/bottom操作还没有实现redo/undo
 当打开恶意文件（rect只有一个点）会导致程序崩溃，index out of range
+2016.11.30 采用command模式

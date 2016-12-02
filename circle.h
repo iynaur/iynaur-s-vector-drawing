@@ -12,7 +12,7 @@ public:
     Circle();
     //QString  qStringFromThis();
     QString name();
-    virtual Circle *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     //void addPoint(QPointF point);
     void drag(QPointF point);
     void draw(QPainter &painter,qreal zoomRatio);

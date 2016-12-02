@@ -12,7 +12,7 @@ class Polygon : public Polyline
 public:
     Polygon();
     QString name();
-    virtual Polygon *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     //QString virtual qStringFromThis();
     double  virtual minDistance(QPointF point);
 

@@ -8,6 +8,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+//    MainWindow w2;
+//    w2.show();
+
     if (argc>1){
         //QString message = s2q(argv[1]);
         std::string s(argv[1]);

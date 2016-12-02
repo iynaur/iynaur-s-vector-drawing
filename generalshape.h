@@ -11,6 +11,8 @@
 #endif
 #include<cmath>
 #include<mymath.h>
+#include<memory>
+
 using namespace std;
 const double MAX=10000;
 const double  lenthOfRotationHandleLine=20;
@@ -26,7 +28,7 @@ public:
  
      GeneralShape();
     virtual ~GeneralShape();
-    virtual GeneralShape *  copyPaste()=0;
+    virtual shared_ptr<GeneralShape>  copyPaste()=0;
 
 
     QString virtual qStringFromPoints()=0;

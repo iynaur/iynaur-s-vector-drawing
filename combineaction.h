@@ -8,9 +8,11 @@ public:
     CombineAction();
     ~CombineAction();
     QList<int> indexOfShapes;
-    Combo* com;
+    shared_ptr<Combo> com;
     ActionType actiontype();
     QString name();
+    void undo();
+    void redo();
 };
 
 #endif // COMBINEACTION_H

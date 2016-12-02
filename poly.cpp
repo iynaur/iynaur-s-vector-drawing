@@ -1,15 +1,14 @@
-#include "polyline.h"
+#include "poly.h"
 
-Polyline::Polyline()
+Poly::Poly()
 {
-    //name="Polyline";
 
 }
-QString Polyline::name(){
-    return "Polyline";
-}
 
-void Polyline::updateRange(){
+QString Poly::name(){
+    return "Poly";
+}
+void Poly::updateRange(){
     if (points.size()==0) return;
     minx=maxx=points.at(0).x();
     miny=maxy=points.at(0).y();
@@ -26,7 +25,7 @@ void Polyline::updateRange(){
 //        this->points.append(point);
 //        updateRange();
 //    }
-void  Polyline::drag(QPointF point){
+void  Poly::drag(QPointF point){
     for (int i=0;i<points.size();i++){
         points[i].setX(points.at(i).x()+point.x());
         points[i].setY(points.at(i).y()+point.y());
@@ -35,20 +34,25 @@ void  Polyline::drag(QPointF point){
     updateRange();
     //qDebug()<<"moved"<<(point);
 }
-
- shared_ptr<GeneralShape> Polyline::copyPaste(){
-     shared_ptr<Polyline> tmp=shared_ptr<Polyline>(new Polyline);
-     tmp->points=points;
-     //tmp->name=name;
-     tmp->pen=pen;
-     tmp->Rotationangle=Rotationangle;
-     tmp->sx=sx;
-     tmp->sy=sy;
-     tmp->brush=brush;
-     tmp->updateRange();
-     return static_pointer_cast<GeneralShape>(tmp);
+//    void  removeLastPoint(){
+//        points.removeLast();
+//    }
+//QString Poly:: qStringFromThis(){return "";}
+void Poly::copypoly(Poly* tmp){
+    tmp->points=points;
+    //tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
 }
-void Polyline:: draw(QPainter &painter,qreal zoomRatio){
+ Poly * Poly:: copyPaste(){
+    Poly* tmp=new Poly;
+    copypoly(tmp);
+    return tmp;
+}
+void Poly:: draw(QPainter &painter,qreal zoomRatio){
     painter.setPen(pen);
     painter.setBrush(brush);
     double left=minx;
@@ -59,7 +63,7 @@ void Polyline:: draw(QPainter &painter,qreal zoomRatio){
     painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
     painter.rotate( Rotationangle );
 
-    Polyline *tmp=new Polyline();
+    Poly *tmp=new Poly();
     tmp->points=points;
     tmp->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
     tmp->zoom(zoomRatio*sx,zoomRatio*sy);
@@ -67,10 +71,9 @@ void Polyline:: draw(QPainter &painter,qreal zoomRatio){
     painter.drawPolyline(QPolygonF(tmp->points));
     painter.rotate( -Rotationangle );
     painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-    delete tmp;
 
 }
-double  Polyline:: minDistance(QPointF point){
+double  Poly:: minDistance(QPointF point){
     //qDebug()<<"points.size()="<<points.size();
     double left=minx;
     double right=maxx;
@@ -85,7 +88,7 @@ double  Polyline:: minDistance(QPointF point){
     //point=point+QPointF((left+right)/2, (top+bottom)/2);
     double p0[2]={point.x(),point.y()};
     double min=MAX;
-    Polyline *tmp=new Polyline;
+    Poly *tmp=new Poly;
     tmp->points=points;
     tmp->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
     tmp->zoom(sx,sy);
@@ -97,15 +100,14 @@ double  Polyline:: minDistance(QPointF point){
             min=CalculatePointToLineDistance(  p0,  p1,  p2);
         }
     }
-    delete tmp;
     //qDebug()<<"min="<<min;
     return min;
 }
-bool Polyline:: isEmpty(){
+bool Poly:: isEmpty(){
     if (points.size()<2) return true;
     else return false;
 }
-QPointF Polyline:: rotationHandlePoint(){
+QPointF Poly:: rotationHandlePoint(){
     double left=minx;
     double right=maxx;
     double top=miny;
@@ -117,7 +119,7 @@ QPointF Polyline:: rotationHandlePoint(){
     return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
 
 }
-QPointF Polyline:: scaleHandlePoint(){
+QPointF Poly:: scaleHandlePoint(){
     double left=minx;
     double right=maxx;
     double top=miny;
@@ -129,7 +131,7 @@ QPointF Polyline:: scaleHandlePoint(){
     double y1=x*sin(sita)+y*cos(sita);
     return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
 }
-void Polyline:: drawClosure(QPainter &painter, qreal zoomRatio){
+void Poly:: drawClosure(QPainter &painter, qreal zoomRatio){
     QPen pen;  // creates a default pen
 
     pen.setStyle(Qt::DotLine);

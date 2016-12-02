@@ -13,7 +13,10 @@
 #include<cmath>
 #include <algorithm>
 #include <QPointF>
+//#include"generalshape.h"
+//#include"combo.h"
 using namespace std;
 double CalculatePointToLineDistance(double point[2], const double p1[2], const double p2[2]);
 QPointF rotated(QPointF p, qreal sita);//计算机绘图坐标系，点逆时针旋转（或坐标系顺时针旋转），弧度制
+
 #endif

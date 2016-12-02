@@ -148,17 +148,17 @@ bool Ellipse::inRange(QPoint p0,QPoint p1){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Ellipse"+qStringFromPoints();
 //}
- Ellipse * Ellipse:: copyPaste(){
-    Ellipse* tmp=new Ellipse;
-    tmp->points=points;
-    //tmp->name=name;
-    tmp->pen=pen;
-    tmp->Rotationangle=Rotationangle;
-    tmp->sx=sx;
-    tmp->sy=sy;
-    tmp->brush=brush;
-    tmp->updateRange();
-    return tmp;
+ shared_ptr<GeneralShape> Ellipse::copyPaste(){
+     shared_ptr<Ellipse> tmp=shared_ptr<Ellipse>(new Ellipse);
+     tmp->points=points;
+     //tmp->name=name;
+     tmp->pen=pen;
+     tmp->Rotationangle=Rotationangle;
+     tmp->sx=sx;
+     tmp->sy=sy;
+     tmp->brush=brush;
+     tmp->updateRange();
+     return static_pointer_cast<GeneralShape>(tmp);
 }
 bool Ellipse:: isEmpty(){
     if (points.at(0)==points.at(1)) return true;

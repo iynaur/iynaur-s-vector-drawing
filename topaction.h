@@ -9,6 +9,8 @@ public:
     ActionType actiontype();
     QList<int> indexOfShapes;
     virtual QString name();
+    void undo();
+    void redo();
 
 };
 

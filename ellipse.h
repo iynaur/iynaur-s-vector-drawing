@@ -12,7 +12,7 @@ public:
     Ellipse();
     //QString virtual qStringFromThis();
     QString name();
-    virtual Ellipse *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     bool virtual isEmpty();
     void drag(QPoint point);
     void draw(QPainter &painter,qreal zoomRatio);

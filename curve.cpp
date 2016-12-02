@@ -15,6 +15,15 @@ QString Curve::name(){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Curve"+qStringFromPoints();
 //}
-Curve *  Curve::copyPaste(){
-   return new Curve(*this);
+shared_ptr<GeneralShape> Curve::copyPaste(){
+    shared_ptr<Curve> tmp=shared_ptr<Curve>(new Curve);
+    tmp->points=points;
+    //tmp->name=name;
+    tmp->pen=pen;
+    tmp->Rotationangle=Rotationangle;
+    tmp->sx=sx;
+    tmp->sy=sy;
+    tmp->brush=brush;
+    tmp->updateRange();
+    return static_pointer_cast<GeneralShape>(tmp);
 }

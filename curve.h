@@ -12,7 +12,7 @@ class Curve : public Polyline
 public:
     Curve();
     QString name();
-    virtual Curve *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     //QString virtual qStringFromThis();
 
  

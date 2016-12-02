@@ -1,35 +1,30 @@
-﻿#ifndef PL_H
-#define PL_H
- 
+#ifndef POLY_H
+#define POLY_H
 #include "abstractshape.h"
-#include <QPainter>
+#include <Qpainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>
- 
-class Polyline : public AbstractShape
+//#include "Polyline.h"
+class Poly : public AbstractShape
 {
 public:
-    Polyline();
-    QString name();
-    //QString virtual qStringFromThis();
+    Poly();
     void updateRange();
     void  drag(QPointF point);
 //    void  removeLastPoint(){
 //        points.removeLast();
 //    }
     //QString virtual qStringFromThis();
-    //void copypolyline(Polyline* tmp);
-    virtual shared_ptr<GeneralShape >  copyPaste();
+    void copypoly(Poly* tmp);
+    QString name();
+    virtual Poly *  copyPaste();
     void virtual draw(QPainter &painter,qreal zoomRatio);
     double  virtual minDistance(QPointF point);
     bool virtual isEmpty();
     QPointF virtual rotationHandlePoint();
     QPointF virtual scaleHandlePoint();
     void virtual drawClosure(QPainter &painter, qreal zoomRatio);
-
-
-
 };
- 
-#endif //BK_H
+
+#endif // POLY_H

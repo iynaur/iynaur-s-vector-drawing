@@ -33,15 +33,32 @@ MainWindow::MainWindow(QWidget *parent) :
 
     currentCategory = PickCategory;
     setWindowState(Qt::WindowMaximized);
+    menuUndoTo=new QMenu;
+    menuRedoTo=new QMenu;
+
+    undoButton=new QToolButton;
+    ui->toolBar_2->insertWidget(ui->actionCut,static_cast<QWidget*>(undoButton));
+    undoButton->setMenu(menuUndoTo);
+    undoButton->setPopupMode(QToolButton::MenuButtonPopup);
+    undoButton->setDefaultAction(ui->actionUndo);
+
+    redoButton=new QToolButton;
+    ui->toolBar_2->insertWidget(ui->actionCut,static_cast<QWidget*>(redoButton));
+    redoButton->setMenu(menuRedoTo);
+    redoButton->setPopupMode(QToolButton::MenuButtonPopup);
+    redoButton->setDefaultAction(ui->actionRedo);
 
     on_actionNew_triggered();
-    copyShapes=new QList<GeneralShape *>;//mem leak
+    copyShapes=new QList<shared_ptr<GeneralShape>>;//mem leak
+    connect(menuRedoTo, SIGNAL(triggered(QAction*)), this, SLOT(RedoTo(QAction*)));
+    connect(menuUndoTo, SIGNAL(triggered(QAction*)), this, SLOT(UndoTo(QAction*)));
 
 
 
 
-    //ui->setupUi(this);
+
 }
+
 
 void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
     //qDebug()<<activeMdiChild();
@@ -70,8 +87,8 @@ void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
 }
 void MainWindow::updateToolBar(){
     if (le==0) {
-        ui->menuUndoTo->setEnabled(false);
-        ui->menuRedoTo->setEnabled(false);
+        menuUndoTo->setEnabled(false);
+        menuRedoTo->setEnabled(false);
 
         ui->actionPaste->setEnabled(false);
         ui->actionCircle->setEnabled(false);
@@ -169,11 +186,11 @@ void MainWindow::updateToolBar(){
             ui->actionMoveToBottom->setEnabled(false);
             ui->actionMoveToTop->setEnabled(false);
         }
-        if (scrollArea->drawAreaWidget->actionindex==0) ui->actionUndo->setEnabled(false);
-        else ui->actionUndo->setEnabled(true);
+        if (scrollArea->drawAreaWidget->undoList.index()==0) ui->actionUndo->setEnabled(false);
+        else        ui->actionUndo->setEnabled(true);
 
-        if (scrollArea->drawAreaWidget->actionindex==scrollArea->drawAreaWidget->actionList.size()) ui->actionRedo->setEnabled(false);
-        else ui->actionRedo->setEnabled(true);
+        if (scrollArea->drawAreaWidget->undoList.index()==scrollArea->drawAreaWidget->undoList.count()) ui->actionRedo->setEnabled(false);
+        else         ui->actionRedo->setEnabled(true);
 
     ui->actionCircle->setChecked(false);
     ui->actionCloseCurve->setChecked(false);
@@ -229,53 +246,59 @@ void MainWindow::updateToolBar(){
             break;
         }
     }
-    if (!scrollArea->drawAreaWidget->actionList.isEmpty()) {
-//        while(!ui->menuUndoTo->actions().isEmpty()){
-//            QAction *qaction=ui->menuUndoTo->actions().at(0);
-//            ui->menuUndoTo->removeAction(qaction);
-//            //delete qaction;
-//        }
-        ui->menuUndoTo->clear();
-        ui->menuUndoTo->setEnabled(false);
-        for (int i=scrollArea->drawAreaWidget->actionindex-1;  i>=0;  i--){
-            QAction *action =new QAction(scrollArea->drawAreaWidget->actionList.at(i)->name()+" "
-                                         +(scrollArea->drawAreaWidget->actionList.at(i)->shapes.size()>1?
+    if (scrollArea->drawAreaWidget->undoList.count()>0) {
+        while(!undoList.isEmpty()){
+            QAction *qaction=undoList.at(0);
+            menuUndoTo->removeAction(qaction);
+            delete qaction;
+            undoList.removeFirst();
+        }
+        //menuUndoTo->clear();
+        menuUndoTo->setEnabled(false);
+        for (int i=scrollArea->drawAreaWidget->undoList.index()-1;  i>=0;  i--){
+            QAction* action =(new QAction(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->name()+" "
+                                         +(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->shapes.size()>1?
                                              "multipal shapes":
-                                             scrollArea->drawAreaWidget->actionList.at(i)->shapes.at(0)->name()));
+                                             dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->shapes.at(0)->name())));
                     action->setData(i+1);
 
-                    ui->menuUndoTo->addAction(action);
-                    ui->menuUndoTo->setEnabled(true);
+                    menuUndoTo->addAction(action);
+                    undoList.append(action);
+                    //qDebug()<<"addaction";
+                    menuUndoTo->setEnabled(true);
 
 
         }
-        connect(ui->menuUndoTo, SIGNAL(triggered(QAction*)), this, SLOT(UndoTo(QAction*)));
+        //connect(menuUndoTo, SIGNAL(triggered(QAction*)), this, SLOT(UndoTo(QAction*)));//strange error connect several times!!!!
+        //
 
-
-//        while(!ui->menuRedoTo->actions().isEmpty()){
-//            QAction *qaction=ui->menuRedoTo->actions().at(0);
-//            ui->menuRedoTo->removeAction(qaction);
-//            //delete qaction;
-//        }
-        ui->menuRedoTo->clear();
-         ui->menuRedoTo->setEnabled(false);
-        for (int i=scrollArea->drawAreaWidget->actionindex;  i<scrollArea->drawAreaWidget->actionList.size();  i++){
-            QAction *action =new QAction(scrollArea->drawAreaWidget->actionList.at(i)->name()+" "
-                                         +(scrollArea->drawAreaWidget->actionList.at(i)->shapes.size()>1?
+        while(!redoList.isEmpty()){
+            QAction *qaction=redoList.at(0);
+            menuRedoTo->removeAction(qaction);
+            delete qaction;
+            redoList.removeFirst();
+        }
+        //menuRedoTo->clear();
+         menuRedoTo->setEnabled(false);
+        for (int i=scrollArea->drawAreaWidget->undoList.index();  i<scrollArea->drawAreaWidget->undoList.count();  i++){
+            QAction* action =(new QAction(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->name()+" "
+                                         +(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->shapes.size()>1?
                                              "multipal shapes":
-                                             scrollArea->drawAreaWidget->actionList.at(i)->shapes.at(0)->name()));
+                                             dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoList.command(i)))->shapes.at(0)->name())));
                     action->setData(i);
 
-                    ui->menuRedoTo->addAction(action);
-                     ui->menuRedoTo->setEnabled(true);
+                    menuRedoTo->addAction(action);
+                    redoList.append(action);
+                    //qDebug()<<"addaction";
+                     menuRedoTo->setEnabled(true);
 
 
         }
-        connect(ui->menuRedoTo, SIGNAL(triggered(QAction*)), this, SLOT(RedoTo(QAction*)));
+
     }
     else{
-        ui->menuUndoTo->setEnabled(false);
-        ui->menuRedoTo->setEnabled(false);
+        menuUndoTo->setEnabled(false);
+        menuRedoTo->setEnabled(false);
     }
     }
 
@@ -283,9 +306,9 @@ void MainWindow::updateToolBar(){
 
 
 void MainWindow::UndoTo(QAction* action){
-    int index = action->data().toInt();
+     int index = action->data().toInt();
 
-    while (scrollArea->drawAreaWidget->actionindex>=index){
+    while (scrollArea->drawAreaWidget->undoList.index()>=index){
         scrollArea->drawAreaWidget->undo();
     }
 }
@@ -293,7 +316,7 @@ void MainWindow::UndoTo(QAction* action){
 void MainWindow::RedoTo(QAction* action){
     int index = action->data().toInt();//
 
-    while (scrollArea->drawAreaWidget->actionindex<=index){
+    while (scrollArea->drawAreaWidget->undoList.index()<=index){
         scrollArea->drawAreaWidget->redo();
     }
 }
@@ -309,11 +332,25 @@ MainWindow::~MainWindow()
 {
 
     delete copyShapes;
-    ui->menuUndoTo->clear();
-    ui->menuRedoTo->clear();
+    //menuUndoTo->clear();
+    //menuRedoTo->clear();
+    while(!redoList.isEmpty()){
+        QAction *qaction=redoList.at(0);
+        menuRedoTo->removeAction(qaction);
+        delete qaction;
+        redoList.removeFirst();
+    }
+    while(!undoList.isEmpty()){
+        QAction *qaction=undoList.at(0);
+        menuUndoTo->removeAction(qaction);
+        delete qaction;
+        undoList.removeFirst();
+    }
     delete mdiArea;
-    //delete scrollArea;
-    //delete le;
+    delete undoButton;
+    delete redoButton;
+    delete menuUndoTo;
+    delete menuRedoTo;
     delete ui;
 }
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)//拖进事件
@@ -357,11 +394,32 @@ void MainWindow::handleMessage(QString message){
 
 void MainWindow::keyPressEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！只有WSAD
     //qDebug()<<event->key();
+    switch (event->key())
+    case Qt::Key_Delete:
+    case Qt::Key_W:
+    case Qt::Key_S:
+    case Qt::Key_A:
+    case Qt::Key_D:{
 
         scrollArea->drawAreaWidget->keyPressEvent(event);
+        break;
+    }
 
 }
+void MainWindow::keyReleaseEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！只有WSAD
+    //qDebug()<<event->key();
+    switch (event->key())
+    case Qt::Key_Delete:
+    case Qt::Key_W:
+    case Qt::Key_S:
+    case Qt::Key_A:
+    case Qt::Key_D:{
 
+        scrollArea->drawAreaWidget->keyReleaseEvent(event);
+        break;
+    }
+
+}
 
 //Scroll *MainWindow::activeMdiChild()
 //{
@@ -460,7 +518,7 @@ void  MainWindow::on_actionMoveToBottom_triggered(){
 
 void MainWindow::on_actionCut_triggered()
 {
-    QList<GeneralShape *>* tmp=new QList<GeneralShape *>;
+    QList<shared_ptr<GeneralShape>>* tmp=new QList<shared_ptr<GeneralShape>>;
     *tmp=scrollArea->drawAreaWidget->cut();
     if((*tmp).size()>0){
         copyShapes=tmp;
@@ -469,7 +527,7 @@ void MainWindow::on_actionCut_triggered()
 }
 
 void  MainWindow::on_actionCopy_triggered(){
-    QList<GeneralShape *>* tmp=new QList<GeneralShape *>;
+    QList<shared_ptr<GeneralShape>>* tmp=new QList<shared_ptr<GeneralShape>>;
     *tmp=scrollArea->drawAreaWidget->copy();
     //qDebug()<<"---";
     if(tmp->size()>0){

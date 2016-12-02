@@ -7,7 +7,7 @@ Combo::Combo()
     Rotationangle=0;
     sx=1;
     sy=1;
-    QList<GeneralShape*> list;
+    QList<shared_ptr<GeneralShape>> list;
     shapes=list;
     QVector<QPointF> vector;
     points=vector;
@@ -15,8 +15,8 @@ Combo::Combo()
 }
 
 Combo::~Combo(){
-    foreach(GeneralShape* sp,shapes){
-        delete sp;
+    foreach(shared_ptr<GeneralShape> sp,shapes){
+        //delete sp;
     }
     //qDebug()<<"delete";
 }
@@ -24,9 +24,9 @@ Combo::~Combo(){
 QString Combo::name(){
     return "Combo";
 }
- Combo *  Combo::copyPaste(){
-    Combo* tmp=new Combo;
-    foreach (GeneralShape* sp, shapes) {
+ shared_ptr<GeneralShape> Combo::copyPaste(){
+    shared_ptr<Combo> tmp=shared_ptr<Combo>(new Combo);
+    foreach (shared_ptr<GeneralShape> sp, shapes) {
         tmp->shapes.append(sp->copyPaste());
         tmp->shapes.last()->updateRange();
     }
@@ -40,7 +40,7 @@ QString Combo::name(){
 
     tmp->updateRange();//这一步不能少！！！！！！
     //tmp->updatedrawcombo();
-    return tmp;
+    return static_pointer_cast<GeneralShape>(tmp);
 }
 
 void Combo::setShapes(QDomElement shapesElement){
@@ -52,7 +52,7 @@ void Combo::setShapes(QDomElement shapesElement){
         {
             QDomElement e=node.toElement(); //转换为元素，注意元素和节点是两个数据结构，其实差不多
 
-            GeneralShape* currentShape;
+            shared_ptr<GeneralShape> currentShape;
 
 
 
@@ -60,33 +60,33 @@ void Combo::setShapes(QDomElement shapesElement){
 
             currentShape=NULL;
             if (n.toElement().text()=="Curve"){
-                currentShape = new Curve;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Curve>(new Curve));
             }
             if (n.toElement().text()=="CloseCurve"){
-                currentShape = new CloseCurve;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<CloseCurve>(new CloseCurve));
             }
             if (n.toElement().text()=="Circle"){
-                currentShape = new Circle;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Circle>(new Circle));
             }
             if (n.toElement().text()=="Ellipse"){
-                currentShape = new Ellipse;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Ellipse>(new Ellipse));
             }
             if (n.toElement().text()=="Polygon"
                     //|| n.toElement().text()=="Poly"
                     ){
-                currentShape = new Polygon;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Polygon>(new Polygon));
             }
             if (n.toElement().text()=="Polyline"){
-                currentShape = new Polyline;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Polyline>(new Polyline));
             }
             if (n.toElement().text()=="Rect"){
-                currentShape = new Rect;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Rect>(new Rect));
             }
             if (n.toElement().text()=="Text"){
-                currentShape = new Text;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Text>(new Text));
             }
             if (n.toElement().text()=="Combo"){
-                currentShape = new Combo;
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Combo>(new Combo));
             }
             if (currentShape!=NULL) {
 
@@ -109,7 +109,7 @@ void Combo::setShapes(QDomElement shapesElement){
             //if (n.nodeName()=="mytext")
 
             n=e.namedItem("mytext");
-            Text *pm = dynamic_cast< Text* >( currentShape );
+            shared_ptr<Text >pm = dynamic_pointer_cast< Text >( currentShape );
             if ( pm ){
                 pm->setText(n.toElement().text());
 
@@ -119,7 +119,7 @@ void Combo::setShapes(QDomElement shapesElement){
             //if (n.nodeName()=="myfont")
 
             n=e.namedItem("myfont");
-            pm = dynamic_cast< Text* >( currentShape );
+            pm = dynamic_pointer_cast< Text >( currentShape );
             if ( pm ){
                 QFont font;
                 font.setPointSize(n.toElement().attribute("pointSize").toInt());
@@ -131,7 +131,7 @@ void Combo::setShapes(QDomElement shapesElement){
 
             n=e.namedItem("shapes");
 
-            Combo *cm = dynamic_cast< Combo* >( currentShape );
+            shared_ptr<Combo >cm = dynamic_pointer_cast< Combo >( currentShape );
             if ( cm ){
                 cm->setShapes(n.toElement());
 
@@ -180,7 +180,7 @@ QDomElement Combo::toElement(){
 
 
 
-    foreach(GeneralShape *sp, shapes){
+    foreach(shared_ptr<GeneralShape>sp, shapes){
         QDomElement shape=doc.createElement("shape");
         shape.setAttribute("sx",sp->getsx()); //方式一：创建属性  其中键值对的值可以是各种类型
         shape.setAttribute("sy",sp->getsy());
@@ -214,7 +214,7 @@ QDomElement Combo::toElement(){
             QDomElement mytext=doc.createElement("mytext"); //创建子元素
             QDomElement myfont=doc.createElement("myfont");
 
-            Text *pm = dynamic_cast< Text* >( sp );
+            shared_ptr<Text >pm = dynamic_pointer_cast< Text >( sp );
             if ( pm ){
             text=doc.createTextNode(pm->text());
             shape.appendChild(mytext);
@@ -227,7 +227,7 @@ QDomElement Combo::toElement(){
 
         }
         if (sp->name()=="Combo"){
-            Combo *pm = dynamic_cast< Combo* >( sp );
+            shared_ptr<Combo >pm = dynamic_pointer_cast< Combo >( sp );
             if ( pm ){
                 QDomElement shapes=pm->toElement();
             shape.appendChild(shapes);
@@ -261,17 +261,17 @@ void Combo:: draw(QPainter &painter,qreal zoomRatio){//性能
 
     painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
     painter.rotate( Rotationangle );
-    Combo* drawcombo=copyPaste();
+    shared_ptr<Combo> drawcombo=static_pointer_cast<Combo>(copyPaste());
 
     drawcombo->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
-    foreach (GeneralShape* sp, drawcombo->shapes) {
-        //GeneralShape *tmp2=sp->copyPaste();
+    foreach (shared_ptr<GeneralShape> sp, drawcombo->shapes) {
+        //shared_ptr<GeneralShape>tmp2=sp->copyPaste();
 //        if (sp->name()!="Text"){
         sp->zoom(sx);
         sp->draw(painter,zoomRatio);
 
     }
-    delete drawcombo;
+    //delete drawcombo;
     //drawcombo->drag(-QPointF(-(left+right)/2,-(top+bottom)/2));
     //zoom(1/sx);
     //drag(QPointF((left+right)/2,(top+bottom)/2));
@@ -284,7 +284,7 @@ void Combo:: draw(QPainter &painter,qreal zoomRatio){//性能
 
 
 void Combo:: zoom(qreal zoomratio){
-    foreach (GeneralShape* sp, shapes) {
+    foreach (shared_ptr<GeneralShape> sp, shapes) {
         sp->zoom(zoomratio);
     }
 
@@ -303,11 +303,11 @@ double Combo:: minDistance(QPointF point){
 
     drag(QPointF(-(left+right)/2,-(top+bottom)/2));
     double minD=MAX;
-    foreach (GeneralShape* sp, shapes) {
-        GeneralShape* tmp=sp->copyPaste();
+    foreach (shared_ptr<GeneralShape> sp, shapes) {
+        shared_ptr<GeneralShape> tmp=sp->copyPaste();
         tmp->zoom(sx);
         minD=min(minD,tmp->minDistance(point));
-        delete tmp;
+        //delete tmp;
     }
     drag(QPointF((left+right)/2,(top+bottom)/2));
 

@@ -18,7 +18,7 @@ public:
     Combo();
     ~Combo();
     QString name();
-    virtual Combo *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     void setShapes(QDomElement shapesElement);
     QDomElement toElement();
 
@@ -62,7 +62,7 @@ public:
     //void updatedrawcombo();
 
 //private:
-    QList<GeneralShape*> shapes;
+    QList<shared_ptr<GeneralShape>> shapes;
     //Combo* drawcombo;
 };
 

@@ -26,6 +26,8 @@
 #include "divideaction.h"
 #include "topaction.h"
 #include "bottomaction.h"
+#include "setbrushaction.h"
+#include <memory>
 
 
 enum MouseHanded {None, RotationPoint,ScalePoint};
@@ -40,16 +42,17 @@ public:
     void init();
     void setCategory(Category c);
     void finishcurrentShape();
-    QList<GeneralShape *>  pickShape(QPointF point);
-    QList<GeneralShape *>  pickShape(QPointF p0, QPointF p1);
+    QList<shared_ptr<GeneralShape>>  pickShape(QPointF point);
+    QList<shared_ptr<GeneralShape>>  pickShape(QPointF p0, QPointF p1);
     //void  expand(QPoint point);
     void expand();
     void fitcanvas();
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
-    bool inRange(QPointF Point,QList<GeneralShape *> sps);
+    bool inRange(QPointF Point,QList<shared_ptr<GeneralShape>> sps);
 
-    void del(GeneralShape * sp);
+    void del(shared_ptr<GeneralShape> sp);
     void pickedMove(qreal x,qreal y);
     void save();
     void saveAs();
@@ -58,11 +61,11 @@ public:
     void addfile();
     void opennew();
     bool maybeSave();
-    void addshape(GeneralShape * shape);
+    void addshape(shared_ptr<GeneralShape> shape);
     void zoom(double ratio);
     //void rotate();
-    bool isRotationHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
-    bool isScaleHandlePoint(QPointF realPoint,GeneralShape* pickedShape);
+    bool isRotationHandlePoint(QPointF realPoint,shared_ptr<GeneralShape> pickedShape);
+    bool isScaleHandlePoint(QPointF realPoint,shared_ptr<GeneralShape> pickedShape);
 //    void openOldFileFormat();
 //    void openold();
     void zoomone();
@@ -73,27 +76,28 @@ public:
     void openfile(QString file);
 
     void copyPaste();
-    QList<GeneralShape *> copy();
-    QList<GeneralShape *> cut();
-    void paste(QList<GeneralShape *> *copyShapes);
+    QList<shared_ptr<GeneralShape>> copy();
+    QList<shared_ptr<GeneralShape>> cut();
+    void paste(QList<shared_ptr<GeneralShape>> *copyShapes);
     void combination();
     void divide();
-    void divide(GeneralShape* shape);
+    void divide(shared_ptr<GeneralShape> shape);
     void divideToEnd();
-    void divideToEnd(GeneralShape* shape);
+    void divideToEnd(shared_ptr<GeneralShape> shape);
     void test();
-    void getOutOfCombo(GeneralShape* sp,Combo* tmp);
-    void getIntoCombo(GeneralShape* sp,Combo* tmp);
+//    void getOutOfCombo(shared_ptr<GeneralShape> sp, shared_ptr<Combo> tmp);
+//    void getIntoCombo(shared_ptr<GeneralShape> sp,shared_ptr<Combo> tmp);
 
     //void closeEvent(QCloseEvent *event);
 
     QScrollBar *hBar, *vBar;
     qreal zoomRatio,previouszoomRatio;
     double windowwidth,windowheight;
-    QList <AbstractAction*> actionList;
-    int actionindex;
-    void setBrush(GeneralShape* sp);
+    //QList <AbstractAction*> actionList;
+    //int actionindex;
+    void setBrush(shared_ptr<GeneralShape> sp);
     QString filename;
+    QUndoStack undoList;
 
 //private:
     static int numOfFiles;
@@ -117,10 +121,10 @@ signals:
      
 
 public:
-    QList<GeneralShape *> shapes;
-    GeneralShape *currentShape;
-    Rect* pickRect;
-    QList<GeneralShape *> pickedShapes;
+    QList<shared_ptr<GeneralShape> > shapes;
+    shared_ptr<GeneralShape> currentShape;
+    shared_ptr<Rect> pickRect;
+    QList<shared_ptr<GeneralShape>> pickedShapes;
     QPointF startPoint,endPoint;
     QPoint startCursorPoint,endCursorPoint;
     Category currentCategory;

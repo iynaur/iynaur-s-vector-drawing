@@ -15,3 +15,26 @@ ActionType EditAction::actiontype(){
 QString EditAction::name(){
     return "Edit";
 }
+void EditAction::undo(){
+    //EditAction* tmp=static_cast<EditAction*>(action);
+    foreach (shared_ptr<GeneralShape>sp,shapes){
+    sp->drag(-dpoint);
+    if (newRotationangle!=oldRotationangle){
+        sp->setRotationangle(oldRotationangle);
+    }
+    sp->setsx(shapes.at(0)->getsx()/dsx);
+    sp->setsy(shapes.at(0)->getsy()/dsy);
+    }
+    pickedShapes=shapes;
+}
+void EditAction::redo(){
+    foreach (shared_ptr<GeneralShape>sp,shapes){
+        sp->drag(dpoint);
+        if (newRotationangle!=oldRotationangle){
+            sp->setRotationangle(newRotationangle);
+        }
+        sp->setsx(shapes.at(0)->getsx()*dsx);
+        sp->setsy(shapes.at(0)->getsy()*dsy);
+    }
+    pickedShapes=shapes;
+}

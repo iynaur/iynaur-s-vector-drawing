@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/image/5624330_201027415000_2.jpg</normaloff>:/image/5624330_201027415000_2.jpg</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -20,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>23</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDraw">
@@ -76,18 +80,6 @@
     <addaction name="actionZoomOut"/>
     <addaction name="actionZoomOne"/>
    </widget>
-   <widget class="QMenu" name="menuUndoTo">
-    <property name="title">
-     <string>UndoTo</string>
-    </property>
-    <addaction name="actionNone"/>
-   </widget>
-   <widget class="QMenu" name="menuRedoTo">
-    <property name="title">
-     <string>RedoTo</string>
-    </property>
-    <addaction name="actionNone_2"/>
-   </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
@@ -102,8 +94,6 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuUndoTo"/>
-   <addaction name="menuRedoTo"/>
    <addaction name="menuDraw"/>
    <addaction name="menuPick"/>
    <addaction name="menuFix"/>
@@ -160,8 +150,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionPick"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
@@ -475,16 +463,6 @@
    </property>
    <property name="text">
     <string>Redo</string>
-   </property>
-  </action>
-  <action name="actionNone">
-   <property name="text">
-    <string>None</string>
-   </property>
-  </action>
-  <action name="actionNone_2">
-   <property name="text">
-    <string>None</string>
    </property>
   </action>
   <action name="actionSaveAs">

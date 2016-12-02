@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     combineaction.cpp \
     divideaction.cpp \
     topaction.cpp \
-    bottomaction.cpp
+    bottomaction.cpp \
+    setbrushaction.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     topaction.h \
     bottomaction.h \
     polygon.h \
-    polyline.h
+    polyline.h \
+    setbrushaction.h
 
 FORMS    += mainwindow.ui \
     gettextdialog.ui

@@ -18,6 +18,11 @@ bool CloseCurve:: isEmpty(){
 QString CloseCurve::name(){
     return "CloseCurve";
 }
- CloseCurve *  CloseCurve::copyPaste(){
-    return new CloseCurve(*this);
+ shared_ptr<GeneralShape> CloseCurve::copyPaste(){
+    //return new CloseCurve(*this);
+    CloseCurve* tmp=new CloseCurve(*this);
+
+
+    return static_pointer_cast<GeneralShape>(shared_ptr<CloseCurve>(tmp));
+
 }

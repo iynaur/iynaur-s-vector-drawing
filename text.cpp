@@ -132,24 +132,11 @@ void Text::updateRange(){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Text"+qStringFromPoints()+mytext;
 //}
- Text *  Text::copyPaste(){
+ shared_ptr<GeneralShape> Text::copyPaste(){
     Text* tmp=new Text(*this);
-//    tmp->points=points;
-//    //tmp->name=name;
-//    tmp->pen=pen;
-//    tmp->Rotationangle=Rotationangle;
-//    tmp->sx=(sx);
-//    //tmp->setsy(sy);
-//    tmp->brush=brush;
-//    //tmp->setText( mytext);
-//    tmp->mytext=( mytext);
-//    //tmp->item=item;
-//    //tmp->rectitemx=rectitemx;
-//    //tmp->rectitemy=rectitemy;
-//    tmp->myfont=myfont;
-//    tmp->updateRange();//这一步不能少！！！！！！
-    //*tmp=*this;
-    return tmp;
+
+
+    return static_pointer_cast<GeneralShape>(shared_ptr<Text>(tmp));
 
 }
 

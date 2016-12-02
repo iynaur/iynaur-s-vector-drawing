@@ -11,9 +11,11 @@ public:
     QPointF dpoint;
     qreal oldRotationangle,newRotationangle;
     qreal dsx,dsy;
-    QBrush oldbrush,newbrush;
+    //QBrush oldbrush,newbrush;
     ActionType actiontype();
     virtual QString name();
+    void redo();
+    void undo();
 
 
 };

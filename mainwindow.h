@@ -6,6 +6,7 @@
 #include "scroll.h"
 #include <QScrollArea>
 #include <QMdiArea>
+#include <QToolButton>
 //enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
 //               RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
 namespace Ui {
@@ -22,12 +23,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
     void closeEvent(QCloseEvent *event);
 
-    QList<GeneralShape *>* copyShapes;
+    QList<shared_ptr<GeneralShape>>* copyShapes;
     Category currentCategory;
     //void updateToolBar();
+
+    QList<QAction*> redoList;
+    QList<QAction*> undoList;
 
 
 private slots:
@@ -66,7 +71,6 @@ private slots:
     void on_actionCut_triggered();
 
     void on_actionUndo_triggered();
-
     void on_actionRedo_triggered();
     void updateToolBar();
     //void UndoTo(int i);
@@ -87,7 +91,10 @@ private:
     QMdiArea *mdiArea;
     //Scroll*child;
     QMdiSubWindow*le;
-
+    QToolButton * undoButton;
+    QToolButton*redoButton;
+    QMenu* menuUndoTo;
+    QMenu* menuRedoTo;
 };
 
 #endif // MAINWINDOW_H

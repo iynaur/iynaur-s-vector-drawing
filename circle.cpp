@@ -116,17 +116,17 @@ bool Circle::inRange(QPoint p0,QPoint p1){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Circle"+qStringFromPoints();
 //}
- Circle *  Circle::copyPaste(){
-    Circle* tmp=new Circle;
-    tmp->points=points;
-    //tmp->name=name;
-    tmp->pen=pen;
-    tmp->Rotationangle=Rotationangle;
-    tmp->sx=sx;
-    tmp->sy=sy;
-    tmp->brush=brush;
-    tmp->updateRange();
-    return tmp;
+ shared_ptr<GeneralShape> Circle::copyPaste(){
+     shared_ptr<Circle> tmp=shared_ptr<Circle>(new Circle);
+     tmp->points=points;
+     //tmp->name=name;
+     tmp->pen=pen;
+     tmp->Rotationangle=Rotationangle;
+     tmp->sx=sx;
+     tmp->sy=sy;
+     tmp->brush=brush;
+     tmp->updateRange();
+     return static_pointer_cast<GeneralShape>(tmp);
 }
 
 QPointF Circle:: rotationHandlePoint(){ return points.at(0);}

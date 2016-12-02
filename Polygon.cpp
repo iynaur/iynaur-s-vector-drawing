@@ -36,10 +36,17 @@ void Polygon::draw(QPainter &painter, qreal zoomRatio)
 
 }
 
- Polygon *  Polygon::copyPaste(){
-    return new Polygon(*this);//这里会出问题，closercurve 对象copyPaste后可能变成 polygon;
-    //copypolyline(tmp);//这里会出问题，closercurve 对象copyPaste后可能变成 polygon,但name仍然被赋值为closercurve;
-    //return tmp;
+ shared_ptr<GeneralShape> Polygon::copyPaste(){
+     shared_ptr<Polygon> tmp=shared_ptr<Polygon>(new Polygon);
+     tmp->points=points;
+     //tmp->name=name;
+     tmp->pen=pen;
+     tmp->Rotationangle=Rotationangle;
+     tmp->sx=sx;
+     tmp->sy=sy;
+     tmp->brush=brush;
+     tmp->updateRange();
+     return static_pointer_cast<GeneralShape>(tmp);
 }
 //QString Polygon:: qStringFromThis(){
 //    //qDebug()<<"name="<<metaObject()->className();

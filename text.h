@@ -11,7 +11,7 @@ class Text : public Rect
 public:
     Text();
     //QString virtual qStringFromThis();
-    virtual Text *  copyPaste();
+    virtual shared_ptr<GeneralShape > copyPaste();
     void drag(QPointF point);
     void draw(QPainter &painter,qreal zoomRatio);
     double   minDistance(QPointF point);

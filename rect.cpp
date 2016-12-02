@@ -145,17 +145,17 @@ bool Rect::inRange(QPointF p0,QPointF p1){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Rect"+qStringFromPoints();
 //}
- Rect * Rect:: copyPaste(){
-    Rect* tmp=new Rect;
-    tmp->points=points;
-    //tmp->name=name;
-    tmp->pen=pen;
-    tmp->Rotationangle=Rotationangle;
-    tmp->sx=sx;
-    tmp->sy=sy;
-    tmp->brush=brush;
-    tmp->updateRange();
-    return tmp;
+ shared_ptr<GeneralShape> Rect::copyPaste(){
+     shared_ptr<Rect> tmp=shared_ptr<Rect>(new Rect);
+     tmp->points=points;
+     //tmp->name=name;
+     tmp->pen=pen;
+     tmp->Rotationangle=Rotationangle;
+     tmp->sx=sx;
+     tmp->sy=sy;
+     tmp->brush=brush;
+     tmp->updateRange();
+     return static_pointer_cast<GeneralShape>(tmp);
 }
 bool Rect:: isEmpty(){
     if (points.size()>1 && points.at(0)!=points.at(1)) return false;

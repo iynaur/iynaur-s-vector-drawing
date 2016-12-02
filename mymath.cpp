@@ -1,5 +1,6 @@
 #include<mymath.h>
 
+
 double CalculatePointToLineDistance(double point[2], const double p1[2], const double p2[2])
 {
     double dis = 0.f;

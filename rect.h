@@ -12,7 +12,7 @@ public:
     Rect();
     //QString virtual qStringFromThis();
     QString name();
-    virtual Rect *  copyPaste();
+    virtual shared_ptr<GeneralShape >  copyPaste();
     bool virtual isEmpty();
     //void addPoint(QPointF point);
     void drag(QPointF point);

@@ -18,7 +18,7 @@ class AbstractShape : public GeneralShape
 public:
     AbstractShape();
     //~AbstractShape();
-    virtual AbstractShape *  copyPaste()=0;
+    virtual  shared_ptr<GeneralShape>    copyPaste()=0;
 
 
     QString qStringFromPoints();
