@@ -39,10 +39,10 @@ public:
          //为了画任意曲线特意留的一个口子
 
     double virtual minDistance(QPointF point)=0;
-    void virtual drawClosure(QPainter &painter,qreal zoomRatio)=0;
-    QPointF virtual rotationHandlePoint()=0;
-    QPointF virtual scaleHandlePoint()=0;
-    QPointF virtual centralPoint();
+    void  drawClosure(QPainter &painter,qreal zoomRatio);
+    QPointF  rotationHandlePoint();
+    QPointF  scaleHandlePoint();
+    QPointF  centralPoint();
 
     void virtual zoom(qreal zoomratio);
     void virtual zoom(qreal zx,qreal zy);
@@ -51,7 +51,7 @@ public:
     bool  inRange(QPointF p0,QPointF p1);
     void virtual updateRange() =0;
     virtual void  updateBand();
-    void virtual drag(QPointF point);
+    void virtual drag(QPointF point)=0;
 
     bool virtual isEmpty();
     qreal rotationangle();

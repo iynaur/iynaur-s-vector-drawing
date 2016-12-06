@@ -19,10 +19,10 @@ public:
     void removeLastPoint();
     double   minDistance(QPointF point);
     void updateRange();
-    bool inRange(QPoint p0,QPoint p1);
-    void virtual drawClosure(QPainter &painter, qreal zoomRatio);
-    QPointF virtual rotationHandlePoint();
-    QPointF scaleHandlePoint();
+    //bool inRange(QPoint p0,QPoint p1);
+    //void virtual drawClosure(QPainter &painter, qreal zoomRatio);
+    //QPointF virtual rotationHandlePoint();
+    //QPointF scaleHandlePoint();
 
 protected:
 

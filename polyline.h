@@ -24,9 +24,9 @@ public:
     void virtual draw(QPainter &painter,qreal zoomRatio);
     double  virtual minDistance(QPointF point);
     bool virtual isEmpty();
-    QPointF virtual rotationHandlePoint();
-    QPointF virtual scaleHandlePoint();
-    void virtual drawClosure(QPainter &painter, qreal zoomRatio);
+    //QPointF virtual rotationHandlePoint();
+    //QPointF virtual scaleHandlePoint();
+    //void virtual drawClosure(QPainter &painter, qreal zoomRatio);
 
 
 

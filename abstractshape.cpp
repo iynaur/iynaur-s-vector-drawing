@@ -43,7 +43,7 @@ void  AbstractShape::removeLastPoint(){
 //double   AbstractShape::minDistance(QPointF point)=0;
 //void   AbstractShape::drawClosure(QPainter &painter,qreal zoomRatio)=0;
 //QPointF   AbstractShape::rotationHandlePoint()=0;
-QPointF   AbstractShape::scaleHandlePoint(){return points.at(0);}
+//QPointF   AbstractShape::scaleHandlePoint(){return points.at(0);}
 void  AbstractShape::zoom(qreal zoomratio){
     for (int i=0;i<points.size();i++){
         points[i].setX(points.at(i).x()*zoomratio);
@@ -75,16 +75,7 @@ void  AbstractShape::fromline(QString line){
     }
 }
 
-bool  AbstractShape::inRange(QPointF p0,QPointF p1){
 
-        double left=min(p0.x(),p1.x());
-        double right=max(p0.x(),p1.x());
-        double top=min(p0.y(),p1.y());
-        double bottom=max(p0.y(),p1.y());
-        if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-        else return false;
-
-}
 
 void  AbstractShape::drag(QPointF point)
 {

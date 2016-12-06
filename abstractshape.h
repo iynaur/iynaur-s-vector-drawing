@@ -28,14 +28,14 @@ public:
          //为了画任意曲线特意留的一个口子
     void  removeLastPoint();
     double virtual minDistance(QPointF point)=0;
-    void virtual drawClosure(QPainter &painter,qreal zoomRatio)=0;
-    QPointF virtual rotationHandlePoint()=0;
-    QPointF virtual scaleHandlePoint();
+    //void virtual drawClosure(QPainter &painter,qreal zoomRatio);
+    //QPointF virtual rotationHandlePoint();
+    //QPointF virtual scaleHandlePoint();
     void  zoom(qreal zoomratio);
     void  zoom(qreal zx,qreal zy);
     void  fromline(QString line);
 
-    bool  inRange(QPointF p0,QPointF p1);
+    //bool  inRange(QPointF p0,QPointF p1);
     void virtual updateRange() =0;
     void  drag(QPointF point);
     bool  isEmpty();

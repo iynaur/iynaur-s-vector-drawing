@@ -315,55 +315,6 @@ double Combo:: minDistance(QPointF point){
     return minD;
 }
 
-void Combo:: drawClosure(QPainter &painter,qreal zoomRatio){
-    QPen pen;  // creates a default pen
-
-    pen.setStyle(Qt::DotLine);
-    painter.setPen(pen);
-    //QBrush defaultbrush=QBrush(QColor(ARGB 1, 0, 0, 0) , Qt::NoBrush );
-    painter.setBrush( QBrush( Qt::NoBrush ));
-    updateRange();
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-    painter.rotate( Rotationangle );
-    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sy,
-                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sy);
-    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sy) ,
-                     QPointF(0,(top-bottom)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sy);
-    painter.setPen(pen);
-    painter.rotate( -Rotationangle );
-    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-}
-
-QPointF Combo:: rotationHandlePoint(){
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    //double x=0;
-    double y=(top-bottom)/2*sy;
-    double x1=-y*sin(Rotationangle/180*M_PI);
-    double y1=y*cos(Rotationangle/180*M_PI);
-    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
-}
-
-QPointF Combo:: scaleHandlePoint(){
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    double x=(left-right)/2*sx;
-    double y=(top-bottom)/2*sy;
-    double sita=Rotationangle/180*M_PI;
-    double x1=x*cos(sita)-y*sin(sita);
-    double y1=x*sin(sita)+y*cos(sita);
-    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
-}
 
 
 void Combo:: zoom(qreal zx,qreal zy){
@@ -372,16 +323,7 @@ void Combo:: zoom(qreal zx,qreal zy){
 }
 
 
-bool Combo:: inRange(QPointF p0,QPointF p1){
 
-        double left=min(p0.x(),p1.x());
-        double right=max(p0.x(),p1.x());
-        double top=min(p0.y(),p1.y());
-        double bottom=max(p0.y(),p1.y());
-        if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-        else return false;
-
-}
 void Combo:: updateRange() {
     if (shapes.size()==0) return;
     minx=shapes.at(0)->left;

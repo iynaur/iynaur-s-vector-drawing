@@ -34,16 +34,16 @@ public:
     void virtual zoom(qreal zoomratio);
 
     double virtual minDistance(QPointF point);
-    void virtual drawClosure(QPainter &painter,qreal zoomRatio);
-    QPointF virtual rotationHandlePoint();
+    //void virtual drawClosure(QPainter &painter,qreal zoomRatio);
+    //QPointF virtual rotationHandlePoint();
 
-    QPointF virtual scaleHandlePoint();
+    //QPointF virtual scaleHandlePoint();
 
 
     void virtual zoom(qreal zx,qreal zy);
 
 
-    bool virtual inRange(QPointF p0,QPointF p1);
+    //bool virtual inRange(QPointF p0,QPointF p1);
     void virtual updateRange() ;
 
     void virtual drag(QPointF point);

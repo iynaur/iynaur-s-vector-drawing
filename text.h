@@ -21,9 +21,9 @@ public:
     void setText(QString text);
     void setFont(QFont font);
     QString text();
-    void drawClosure(QPainter &painter, qreal zoomRatio);
-    QPointF rotationHandlePoint();
-    QPointF scaleHandlePoint();
+    //void drawClosure(QPainter &painter, qreal zoomRatio);
+    //QPointF rotationHandlePoint();
+    //QPointF scaleHandlePoint();
     void virtual setsx(double x);
     void virtual setsy(double y);
     double virtual getsy();

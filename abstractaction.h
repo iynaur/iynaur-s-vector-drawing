@@ -6,7 +6,7 @@
 #include <memory>
 #include <QUndoCommand>
 //#include "drawareawidget.h"
-enum ActionType {Add,Delete,Edit,Combine,Divide,Top,Bottom,SetBrush};
+enum ActionType {Add,Delete,Edit,Combine,Divide,Top,Bottom,SetBrush,TextEdit};
 
 class AbstractAction : public QUndoCommand//, public DrawAreaWidget
 {

@@ -8,22 +8,13 @@ Text::Text()
     mytext="";
     myfont=QFont("Times", 20, QFont::Normal);
 
-//    QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
-//    QFont stand=QFont("Times", 20, QFont::Normal);
-//    item->setFont(stand);//为文本设置字体
 
-
-//    item->setHtml(mytext);
-//    rectitemx=item->boundingRect().width();
-//    rectitemy=item->boundingRect().height();
 }
 
 
 void Text::setText(QString text){
     mytext=text;
-//    item->setHtml(mytext);
-//    rectitemx=item->boundingRect().width();
-//    rectitemy=item->boundingRect().height();
+
 
     updateRange();
 }
@@ -119,19 +110,7 @@ void Text::updateRange(){
     setsx(sx);
     //updateBand();
 }
-//bool Text::inRange(QPoint p0,QPoint p1){
-//    int left=min(p0.x(),p1.x());
-//    int right=max(p0.x(),p1.x());
-//    int top=min(p0.y(),p1.y());
-//    int bottom=max(p0.y(),p1.y());
-//    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-//    else return false;
-//}
 
-//QString  Text::qStringFromThis(){
-//    //qDebug()<<"name="<<metaObject()->className();
-//    return "Text"+qStringFromPoints()+mytext;
-//}
  shared_ptr<GeneralShape> Text::copyPaste(){
     Text* tmp=new Text(*this);
 
@@ -147,78 +126,8 @@ void Text::setFont(QFont font){
 QString Text::text(){
     return mytext;
 }
-void Text::drawClosure(QPainter &painter, qreal zoomRatio){
-    QPen qpen=pen;
-    //qpen.setColor(brush.color());
-    painter.setPen(qpen);
-    painter.setBrush(brush);
 
 
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-
-    double sita=Rotationangle;
-    if (sx<0) sita=sita+180;
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-    painter.rotate( sita );
-
-    //tmp->drag(QPoint(dx,dy)/zoomRatio);
-    painter.scale(zoomRatio,zoomRatio);
-
-
-    painter.setFont(myfont);
-    //drag(QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
-    painter.drawText(-(maxx-minx)/2*abs(sx) , (maxy-miny)/2*abs(sx) , mytext);
-    //drag(-QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
-    painter.scale(1/zoomRatio,1/zoomRatio);
-    painter.rotate( -sita );
-    painter.translate(-((left+right)/2*zoomRatio), -((top+bottom)/2)*zoomRatio);
-
-    QPen pen;  // creates a default pen
-
-    pen.setStyle(Qt::DashDotLine);
-    painter.setPen(pen);
-    painter.setBrush( QBrush( Qt::NoBrush ));
-
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-    painter.rotate( Rotationangle );
-
-    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sx,
-                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sx);
-    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sx) ,
-                     QPointF(0,(top-bottom)/2*zoomRatio*sx-sx/abs(sx)*lenthOfRotationHandleLine));
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sx);
-    painter.setPen(pen);
-    painter.rotate( -Rotationangle );
-    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-}
-QPointF Text::rotationHandlePoint(){
-        double left=minx;
-        double right=maxx;
-        double top=miny;
-        double bottom=maxy;
-    //double x=0;
-    double y=(top-bottom)/2*sx;
-    double x1=-y*sin(Rotationangle/180*M_PI);
-    double y1=y*cos(Rotationangle/180*M_PI);
-    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
-
-}
-QPointF Text::scaleHandlePoint(){
-        double left=minx;
-        double right=maxx;
-        double top=miny;
-        double bottom=maxy;
-    double x=(left-right)/2*sx;
-    double y=(top-bottom)/2*sx;
-    double sita=Rotationangle/180*M_PI;
-    double x1=x*cos(sita)-y*sin(sita);
-    double y1=x*sin(sita)+y*cos(sita);
-    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
-}
 
 QString  Text::name(){
     return "Text";

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDebug>
+#include"LineEdit.h"
 
 namespace Ui {
 class GetTextDialog;
@@ -17,12 +18,15 @@ public:
     ~GetTextDialog();
     QString text;
     void setText(QString text);
+    void keyPressEvent(QKeyEvent* e);
+    Ui::GetTextDialog *ui;
+    void hidebuttonBox();
 
 private slots:
-    void on_lineEdit_textChanged(const QString &arg1);
+    void onLineEditTextChanged(const QString &arg1);
 
 private:
-    Ui::GetTextDialog *ui;
+    CLineEdit* lineEdit;
 };
 
 #endif // GETTEXTDIALOG_H

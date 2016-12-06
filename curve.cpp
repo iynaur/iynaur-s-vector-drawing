@@ -11,10 +11,7 @@ Curve::Curve()
 QString Curve::name(){
     return "Curve";
 }
-//QString Curve:: qStringFromThis(){
-//    //qDebug()<<"name="<<metaObject()->className();
-//    return "Curve"+qStringFromPoints();
-//}
+
 shared_ptr<GeneralShape> Curve::copyPaste(){
     shared_ptr<Curve> tmp=shared_ptr<Curve>(new Curve);
     tmp->points=points;

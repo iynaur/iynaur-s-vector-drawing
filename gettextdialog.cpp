@@ -8,9 +8,17 @@ GetTextDialog::GetTextDialog(QWidget *parent) :
             //QString currentText="hello world!";
             //text="hello world!";
     ui->setupUi(this);
+    lineEdit=new CLineEdit;
+    ui->verticalLayout->insertWidget(1,lineEdit);
+    connect(lineEdit,SIGNAL(textChanged(QString)),this,SLOT(onLineEditTextChanged(QString)));
+    setWindowTitle(tr("Enter Content"));
 
-            ui->lineEdit->setText(text);
+            lineEdit->setText(text);
+            //ui->buttonBox->hide();
 
+
+}
+void GetTextDialog::keyPressEvent(QKeyEvent* e){
 
 }
 
@@ -20,14 +28,17 @@ GetTextDialog::~GetTextDialog()
 }
 void GetTextDialog::setText(QString text){
     this->text=text;
-    ui->lineEdit->setText(this->text);
-    ui->lineEdit->setFocus(Qt::OtherFocusReason);
-    ui->lineEdit->selectAll();
+    lineEdit->setText(this->text);
+    lineEdit->setFocus(Qt::OtherFocusReason);
+    lineEdit->selectAll();
 }
 
-void GetTextDialog::on_lineEdit_textChanged(const QString &arg1)
+void GetTextDialog::onLineEditTextChanged(const QString &arg1)
 {
 
     text=arg1;
     //qDebug()<<"text"<<text;
+}
+void GetTextDialog::hidebuttonBox(){
+    ui->buttonBox->hide();
 }

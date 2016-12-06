@@ -5,6 +5,13 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QTranslator translator;
+          if (translator.load( QLatin1String("draw_zh_cn.qm"),
+                              QLatin1String(":/"))){
+              a.installTranslator(&translator);
+          }else{
+              qDebug()<<"no translation";
+          }
     MainWindow w;
     w.show();
 

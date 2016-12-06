@@ -11,11 +11,7 @@ QString Rect::name(){
 
 }
 
-//void Rect::addPoint(QPointF point)
-//{
-//    this->points.append(point);
-//    updateRange();
-//}
+
 
 void Rect::draw(QPainter &painter, qreal zoomRatio)
 {
@@ -35,58 +31,6 @@ void Rect::draw(QPainter &painter, qreal zoomRatio)
 
 }
 
-
-QPointF Rect::rotationHandlePoint(){
-        double left=minx;
-        double right=maxx;
-        double top=miny;
-        double bottom=maxy;
-    //double x=0;
-    double y=(top-bottom)/2*sy;
-    double x1=-y*sin(Rotationangle/180*M_PI);
-    double y1=y*cos(Rotationangle/180*M_PI);
-    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
-
-}
-QPointF Rect::scaleHandlePoint(){
-        double left=minx;
-        double right=maxx;
-        double top=miny;
-        double bottom=maxy;
-    double x=(left-right)/2*sx;
-    double y=(top-bottom)/2*sy;
-    double sita=Rotationangle/180*M_PI;
-    double x1=x*cos(sita)-y*sin(sita);
-    double y1=x*sin(sita)+y*cos(sita);
-    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
-}
-void Rect::drawClosure(QPainter &painter, qreal zoomRatio){
-    QPen pen;  // creates a default pen
-
-    pen.setStyle(Qt::DashDotLine);
-    painter.setPen(pen);
-    painter.setBrush( QBrush( Qt::NoBrush ));
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-    painter.rotate( Rotationangle );
-
-    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sy,
-                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sy);
-    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sy) ,
-                     QPointF(0,(top-bottom)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sy);
-    painter.setPen(pen);
-    painter.rotate( -Rotationangle );
-    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-}
-
-//void Rect::removeLastPoint(){
-//    points.removeLast();
-//}
 double Rect::minDistance(QPointF point){
     double x0=(maxx+minx)/2;
     double y0=(maxy+miny)/2;
@@ -133,18 +77,7 @@ void Rect::updateRange(){
     maxy=max(points.at(0).y(),points.at(1).y());
     updateBand();
 }
-bool Rect::inRange(QPointF p0,QPointF p1){
-    double Left=min(p0.x(),p1.x());
-    double Right=max(p0.x(),p1.x());
-    double Top=min(p0.y(),p1.y());
-    double Bottom=max(p0.y(),p1.y());
-    if (left>Left && right<Right && top>Top && bottom<Bottom) return true;
-    else return false;
-}
-//QString Rect:: qStringFromThis(){
-//    //qDebug()<<"name="<<metaObject()->className();
-//    return "Rect"+qStringFromPoints();
-//}
+
  shared_ptr<GeneralShape> Rect::copyPaste(){
      shared_ptr<Rect> tmp=shared_ptr<Rect>(new Rect);
      tmp->points=points;

@@ -1,4 +1,5 @@
 #include "generalshape.h"
+#include<QPainter>
 GeneralShape::GeneralShape()
 
 
@@ -23,17 +24,7 @@ void GeneralShape:: fromline(QString line){
         a=b;
     }
 }
-//QString virtual qStringFromThis()=0;
 
-
-     //为了画任意曲线特意留的一个口子
-
-//double GeneralShape::  sy(){
-//            return sy;
-//}
-//double GeneralShape::  sx(){
-//    return sx;
-//}
 
 QPointF GeneralShape:: centralPoint(){
     return QPointF((minx+maxx)/2,(miny+maxy)/2);
@@ -85,11 +76,11 @@ void GeneralShape:: updateBand(){
 
 }
 
-void GeneralShape:: drag(QPointF point)
-{
+//void GeneralShape:: drag(QPointF point)
+//{
 
-    updateRange();
-}
+//    updateRange();
+//}
 bool GeneralShape:: isEmpty(){
     return false;
 }
@@ -114,4 +105,51 @@ double GeneralShape:: getsy(){
 }
 double GeneralShape:: getsx(){
     return sx;
+}
+void GeneralShape:: drawClosure(QPainter &painter, qreal zoomRatio){
+    QPen pen;  // creates a default pen
+
+    pen.setStyle(Qt::DotLine);
+    painter.setPen(pen);
+    //QBrush defaultbrush=QBrush(QColor(ARGB 1, 0, 0, 0) , Qt::NoBrush );
+    painter.setBrush( QBrush( Qt::NoBrush ));
+    double left=minx;
+    double right=maxx;
+    double top=miny;
+    double bottom=maxy;
+    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
+    painter.rotate( Rotationangle );
+    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sy,
+                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sy);
+    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sy) ,
+                     QPointF(0,(top-bottom)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
+    painter.setPen(QPen(Qt::black,3));
+    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sy);
+    painter.setPen(pen);
+    painter.rotate( -Rotationangle );
+    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
+}
+QPointF GeneralShape:: rotationHandlePoint(){
+    double left=minx;
+    double right=maxx;
+    double top=miny;
+    double bottom=maxy;
+    //double x=0;
+    double y=(top-bottom)/2*sy;
+    double x1=-y*sin(Rotationangle/180*M_PI);
+    double y1=y*cos(Rotationangle/180*M_PI);
+    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
+
+}
+QPointF GeneralShape:: scaleHandlePoint(){
+    double left=minx;
+    double right=maxx;
+    double top=miny;
+    double bottom=maxy;
+    double x=(left-right)/2*sx;
+    double y=(top-bottom)/2*sy;
+    double sita=Rotationangle/180*M_PI;
+    double x1=x*cos(sita)-y*sin(sita);
+    double y1=x*sin(sita)+y*cos(sita);
+    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
 }

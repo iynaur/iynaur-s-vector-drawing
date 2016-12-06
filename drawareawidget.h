@@ -27,6 +27,8 @@
 #include "topaction.h"
 #include "bottomaction.h"
 #include "setbrushaction.h"
+#include"texteditaction.h"
+#include"slightmoveaction.h"
 #include <memory>
 
 
@@ -97,7 +99,7 @@ public:
     //int actionindex;
     void setBrush(shared_ptr<GeneralShape> sp);
     QString filename;
-    QUndoStack undoList;
+    QUndoStack undoStack;
 
 //private:
     static int numOfFiles;
@@ -107,6 +109,7 @@ public slots:
     void moveToTop();
     void moveToBottom();
     void setBrush();
+    void editText();
 protected:
     void paintEvent(QPaintEvent *);
     //void mousePressEvent(QMouseEvent *event);
@@ -118,6 +121,7 @@ protected:
 signals:
     void categoryChanged();
     void statusChanged();
+    void mouseMoved(QMouseEvent *event);
      
 
 public:
@@ -129,20 +133,20 @@ public:
     QPoint startCursorPoint,endCursorPoint;
     Category currentCategory;
     MouseHanded currentMouseHanded;
-    bool isLeftButtonPressed;
+    bool isMouseButtonPressed;
     int dx,dy;//坐标原点的画布位置
     //bool isScrolling;
 
     bool saved;
     bool openasadd;
-    bool changed;
+    //bool changed;
     int saveIndex;
     qreal pickedShapestartsx,pickedShapestartsy;
     qreal pickedShapestartRotationangle;
     QColor backcolor;
     QAction*  actionMoveToTop;
     QAction* actionMoveToBottom;
-    QAction* actionSetBrush;
+    QAction* actionSetBrush,*actionEditText;
     //Combo* root;
 };
  

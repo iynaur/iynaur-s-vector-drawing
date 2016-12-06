@@ -1,7 +1,8 @@
 #include "scroll.h"
-
+//#define RULER_BREADTH 20
 Scroll::Scroll()
 {
+    setViewportMargins(RULER_BREADTH,RULER_BREADTH,0,0);
     drawAreaWidget = new DrawAreaWidget(this);
     drawAreaWidget->setBackgroundRole(QPalette::Base);
     drawAreaWidget->vBar=verticalScrollBar();
@@ -13,6 +14,30 @@ Scroll::Scroll()
     setWidget(drawAreaWidget);
     setAlignment(Qt::AlignCenter);
     setAcceptDrops(true);
+
+
+    QGridLayout* gridLayout = new QGridLayout();
+    gridLayout->setSpacing(0);
+    gridLayout->setMargin(0);
+
+    mHorzRuler = new QDRuler(QDRuler::Horizontal,this);
+    mHorzRuler->setMouseTrack(true);
+    mVertRuler = new QDRuler(QDRuler::Vertical,this);
+    mVertRuler->setMouseTrack(true);
+
+    QWidget* fake = new QWidget();
+    fake->setBackgroundRole(QPalette::Window);
+    fake->setFixedSize(RULER_BREADTH,RULER_BREADTH);
+    gridLayout->addWidget(fake,0,0);
+    gridLayout->addWidget(mHorzRuler,0,1);
+    gridLayout->addWidget(mVertRuler,1,0);
+    gridLayout->addWidget(this->viewport(),1,1);
+
+    this->setLayout(gridLayout);
+
+    connect(drawAreaWidget,SIGNAL(statusChanged()),this , SLOT(updateruler()));
+    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*)),mHorzRuler , SLOT(setCursorPos(QMouseEvent*)));
+    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*)),mVertRuler , SLOT(setCursorPos(QMouseEvent*)));
 
 }
 Scroll::~Scroll(){
@@ -58,4 +83,21 @@ void Scroll::dropEvent(QDropEvent *event)//放下事件
             drawAreaWidget->openfile(fileName);
         }
     }
+}
+void Scroll::updateruler(){
+    int hv=horizontalScrollBar()->value();
+    int vv=verticalScrollBar()->value();
+    if (hv==0){
+        hv=hv-drawAreaWidget->geometry().x();
+    }
+    if (vv==0){
+        vv=vv-drawAreaWidget->geometry().y();
+    }
+    mHorzRuler->setOrigin((-hv+drawAreaWidget->dx));//drawAreaWidget->zoomRatio);
+    mVertRuler->setOrigin((-vv+drawAreaWidget->dy));//drawAreaWidget->zoomRatio);
+    mHorzRuler->setRulerZoom(drawAreaWidget->zoomRatio);
+    mHorzRuler->setRulerUnit(1/drawAreaWidget->zoomRatio);
+    mVertRuler->setRulerZoom(drawAreaWidget->zoomRatio);
+    mVertRuler->setRulerUnit(1/drawAreaWidget->zoomRatio);
+    update();
 }

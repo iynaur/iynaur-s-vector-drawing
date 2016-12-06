@@ -30,53 +30,9 @@ void Ellipse::draw(QPainter &painter, qreal zoomRatio)
     painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
 }
 
-void Ellipse::drawClosure(QPainter &painter, qreal zoomRatio){
-    QPen pen;  // creates a default pen
 
-    pen.setStyle(Qt::DashDotLine);
-    painter.setPen(pen);
-    painter.setBrush( QBrush( Qt::NoBrush ));
-    double left=min(points.at(0).x(),points.at(1).x());
-    double right=max(points.at(0).x(),points.at(1).x());
-    double top=min(points.at(0).y(),points.at(1).y());
-    double bottom=max(points.at(0).y(),points.at(1).y());
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
-    painter.rotate( Rotationangle );
-    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sy,
-                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sy);
-    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sy) ,
-                     QPointF(0,(top-bottom)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sy);
-    painter.setPen(pen);
-    painter.rotate( -Rotationangle );
-    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
-}
 
-QPointF Ellipse::rotationHandlePoint(){
-    double left=min(points.at(0).x(),points.at(1).x());
-    double right=max(points.at(0).x(),points.at(1).x());
-    double top=min(points.at(0).y(),points.at(1).y());
-    double bottom=max(points.at(0).y(),points.at(1).y());
-    //double x=0;
-    double y=(top-bottom)/2*sy;
-    double x1=-y*sin(Rotationangle/180*M_PI);
-    double y1=y*cos(Rotationangle/180*M_PI);
-    return QPointF(x1+(left+right)/2,y1+(top+bottom)/2);
 
-}
-QPointF Ellipse::scaleHandlePoint(){
-    double left=min(points.at(0).x(),points.at(1).x());
-    double right=max(points.at(0).x(),points.at(1).x());
-    double top=min(points.at(0).y(),points.at(1).y());
-    double bottom=max(points.at(0).y(),points.at(1).y());
-    double x=(left-right)/2*sx;
-    double y=(top-bottom)/2*sy;
-    double sita=Rotationangle/180*M_PI;
-    double x1=x*cos(sita)-y*sin(sita);
-    double y1=x*sin(sita)+y*cos(sita);
-    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
-}
 
 void Ellipse::removeLastPoint(){
     points.removeLast();
@@ -96,26 +52,9 @@ double Ellipse::minDistance(QPointF point){//need re-caculate
     double x1=x*cos(sita)+y*sin(sita);
     double y1=-x*sin(sita)+y*cos(sita);
     x=x1;y=y1;
-//    if (min(a,b)<3){
 
-//        double min1=min(abs(x-a) , abs(x+a));
-//        double min2=min(abs(y-b) , abs(y+b));
-//        if ((x-a)*(x+a) >0){
-//            if ((y-b)*(y+b)>0)
-//                return sqrt(min1*min1+min2*min2);
-//            else
-//                return min1;
-
-//        }else{
-//            if ((y-b)*(y+b)>0)
-//                return min2;
-//            else
-//                return 0;
-//        }
-//    }else{
-    //qDebug()<<abs( sqrt( (x/a)*(x/a) + (y/b)*(y/b) ) - 1 )*(a+b)/2  ;
     return  max(( sqrt( (x/a)*(x/a) + (y/b)*(y/b) ) - 1 )*(a+b)/2 , 0.0) ;
-//    }
+
 }
 void Ellipse::drag(QPoint point){
     for (int i=0;i<points.size();i++){
@@ -135,19 +74,9 @@ void Ellipse::updateRange(){
     updateBand();
 
 }
-bool Ellipse::inRange(QPoint p0,QPoint p1){
-    int left=min(p0.x(),p1.x());
-    int right=max(p0.x(),p1.x());
-    int top=min(p0.y(),p1.y());
-    int bottom=max(p0.y(),p1.y());
-    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-    else return false;
-}
 
-//QString Ellipse:: qStringFromThis(){
-//    //qDebug()<<"name="<<metaObject()->className();
-//    return "Ellipse"+qStringFromPoints();
-//}
+
+
  shared_ptr<GeneralShape> Ellipse::copyPaste(){
      shared_ptr<Ellipse> tmp=shared_ptr<Ellipse>(new Ellipse);
      tmp->points=points;
