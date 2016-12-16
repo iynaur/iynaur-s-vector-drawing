@@ -2,7 +2,7 @@
 
 TopAction::TopAction()
 {
-
+setText(name());
 }
 ActionType TopAction::actiontype(){
     return Top;
@@ -18,9 +18,15 @@ void TopAction::undo(){
     pickedShapes=shapes;
 }
 void TopAction::redo(){
-    for(int i=0;i<shapes.size();i++){
-        allShapes->removeOne(shapes.at(i));
-        allShapes->append(shapes.at(i));
+    foreach(shared_ptr<GeneralShape> sp,shapes){
+        //action->shapes.append(sp);
+        indexOfShapes.append(allShapes->indexOf(sp));
+    allShapes->removeOne(sp);
+    allShapes->append(sp);
     }
+//    for(int i=0;i<shapes.size();i++){
+//        allShapes->removeOne(shapes.at(i));
+//        allShapes->append(shapes.at(i));
+//    }
     pickedShapes=shapes;
 }

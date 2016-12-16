@@ -21,3 +21,14 @@ QString CloseCurve::name(){
     return static_pointer_cast<GeneralShape>(shared_ptr<CloseCurve>(tmp));
 
 }
+ void CloseCurve::mousePress(QPointF p){
+     addPoint(p);
+ }
+
+ void CloseCurve::mouseMove(QPointF p){
+     addPoint(p);
+ }
+
+ void CloseCurve::mouseRelease(QPointF p){
+
+ }

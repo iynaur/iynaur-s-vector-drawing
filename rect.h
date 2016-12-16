@@ -25,6 +25,7 @@ public:
     //QPointF virtual rotationHandlePoint();
     //QPointF  scaleHandlePoint();
 
+
 protected:
 
 

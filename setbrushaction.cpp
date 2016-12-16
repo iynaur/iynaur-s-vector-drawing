@@ -2,7 +2,7 @@
 
 SetBrushAction::SetBrushAction()
 {
-
+setText(name());
 }
 void SetBrushAction::redo(){
     foreach(shared_ptr<GeneralShape> sp, shapes){

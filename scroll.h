@@ -1,9 +1,9 @@
 #ifndef SCROLL_H
 #define SCROLL_H
-#include <QScrollArea>
-#include <QGridLayout>
+//#include <QScrollArea>
+//#include <QGridLayout>
 #include "drawareawidget.h"
-#include"ruler.h"
+//#include"ruler.h"
 class Scroll : public QScrollArea
 {
     Q_OBJECT
@@ -17,6 +17,9 @@ public slots:
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
     void updateruler();
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+    void contextMenuEvent( QContextMenuEvent * event );
 };
 
 #endif // SCROLL_H

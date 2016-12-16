@@ -24,8 +24,8 @@ public:
     //void drawClosure(QPainter &painter, qreal zoomRatio);
     //QPointF rotationHandlePoint();
     //QPointF scaleHandlePoint();
-    void virtual setsx(double x);
-    void virtual setsy(double y);
+    void setsx(double x);
+    void setsy(double y);
     double virtual getsy();
     void  zoom(qreal zoomratio);
     QString name();

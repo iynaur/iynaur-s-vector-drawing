@@ -3,6 +3,7 @@
 SlightMoveAction::SlightMoveAction()
 {
     _id=1;
+    setText(name());
 }
  int SlightMoveAction::id() const{
     return 1;

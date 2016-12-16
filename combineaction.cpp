@@ -3,6 +3,7 @@
 CombineAction::CombineAction()
 {
     //actiontype=Combine;
+    setText(name());
 }
 ActionType CombineAction::actiontype(){
     return Combine;
@@ -23,6 +24,7 @@ void CombineAction::undo(){
 }
 void CombineAction::redo(){
     foreach(shared_ptr<GeneralShape> sp,shapes){
+        indexOfShapes.append(allShapes->indexOf(sp));
         allShapes->removeOne(sp);
     }
 

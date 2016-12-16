@@ -20,31 +20,31 @@ void Circle::draw(QPainter &painter, qreal zoomRatio)
     painter.drawEllipse((points.at(0).x()-r)*zoomRatio,(points.at(0).y()-r)*zoomRatio,2*r*zoomRatio,2*r*zoomRatio);
 }
 
-void  Circle::drawClosure(QPainter &painter,qreal zoomRatio){
-    QPen pen;  // creates a default pen
+//void Circle::drawClosure(QPainter &painter,qreal zoomRatio){
+//    QPen pen;  // creates a default pen
 
-    pen.setStyle(Qt::DotLine);
-    painter.setPen(pen);
-    painter.setBrush( QBrush( Qt::NoBrush ));
-    double r=sqrt(pow((points.at(0).x()-points.at(1).x()),2)+pow((points.at(0).y()-points.at(1).y()),2));
-    r=r*sx;
-    painter.drawRect((points.at(0).x()-r)*zoomRatio,(points.at(0).y()-r)*zoomRatio,2*r*zoomRatio,2*r*zoomRatio);
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint((points.at(0).x()+r)*zoomRatio,(points.at(0).y()+r)*zoomRatio);
-    painter.setPen(pen);
-}
-QPointF Circle::scaleHandlePoint(){
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    double x=(left-right)/2*sx;
-    double y=(top-bottom)/2*sx;
-    double sita=0;//Rotationangle/180*M_PI;
-    double x1=x*cos(sita)-y*sin(sita);
-    double y1=x*sin(sita)+y*cos(sita);
-    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
-}
+//    pen.setStyle(Qt::DotLine);
+//    painter.setPen(pen);
+//    painter.setBrush( QBrush( Qt::NoBrush ));
+//    double r=sqrt(pow((points.at(0).x()-points.at(1).x()),2)+pow((points.at(0).y()-points.at(1).y()),2));
+//    r=r*sx;
+//    painter.drawRect((points.at(0).x()-r)*zoomRatio,(points.at(0).y()-r)*zoomRatio,2*r*zoomRatio,2*r*zoomRatio);
+//    painter.setPen(QPen(Qt::black,3));
+//    painter.drawPoint((points.at(0).x()+r)*zoomRatio,(points.at(0).y()+r)*zoomRatio);
+//    painter.setPen(pen);
+//}
+//QPointF Circle::scaleHandlePoint(){
+//    double left=minx;
+//    double right=maxx;
+//    double top=miny;
+//    double bottom=maxy;
+//    double x=(left-right)/2*sx;
+//    double y=(top-bottom)/2*sx;
+//    double sita=0;//Rotationangle/180*M_PI;
+//    double x1=x*cos(sita)-y*sin(sita);
+//    double y1=x*sin(sita)+y*cos(sita);
+//    return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
+//}
 //void Circle::removeLastPoint(){
 //    points.removeLast();
 //}
@@ -81,6 +81,16 @@ void Circle::updateRange(){
     updateBand();
     //qDebug()<<"maxx="<<maxx;
 }
+void Circle::setsx(double x){
+    sx=x;
+    sy=x;
+    updateBand();
+}
+void Circle::setsy(double y){
+//    sx=x;
+//    sy=x;
+//    updateBand();
+}
 void Circle::updateBand(){
     QPointF p0=QPointF((maxx+minx)/2,(maxy+miny)/2);
 //        QPointF* p= new QPointF[4];
@@ -104,14 +114,7 @@ void Circle::updateBand(){
     }
 }
 
-bool Circle::inRange(QPoint p0,QPoint p1){
-    int left=min(p0.x(),p1.x());
-    int right=max(p0.x(),p1.x());
-    int top=min(p0.y(),p1.y());
-    int bottom=max(p0.y(),p1.y());
-    if (minx>left && maxx<right && miny>top && maxy<bottom) return true;
-    else return false;
-}
+
 //QString Circle:: qStringFromThis(){
 //    //qDebug()<<"name="<<metaObject()->className();
 //    return "Circle"+qStringFromPoints();
@@ -129,7 +132,7 @@ bool Circle::inRange(QPoint p0,QPoint p1){
      return static_pointer_cast<GeneralShape>(tmp);
 }
 
-QPointF Circle:: rotationHandlePoint(){ return points.at(0);}
+//QPointF Circle:: rotationHandlePoint(){ return points.at(0);}
 double Circle:: getsy(){
     return sx;
 }

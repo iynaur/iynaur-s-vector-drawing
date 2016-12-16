@@ -36,8 +36,8 @@ Scroll::Scroll()
     this->setLayout(gridLayout);
 
     connect(drawAreaWidget,SIGNAL(statusChanged()),this , SLOT(updateruler()));
-    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*)),mHorzRuler , SLOT(setCursorPos(QMouseEvent*)));
-    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*)),mVertRuler , SLOT(setCursorPos(QMouseEvent*)));
+    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*,QPointF)),mHorzRuler , SLOT(setCursorPos(QMouseEvent*)));
+    connect(drawAreaWidget,SIGNAL(mouseMoved(QMouseEvent*,QPointF)),mVertRuler , SLOT(setCursorPos(QMouseEvent*)));
 
 }
 Scroll::~Scroll(){
@@ -100,4 +100,19 @@ void Scroll::updateruler(){
     mVertRuler->setRulerZoom(drawAreaWidget->zoomRatio);
     mVertRuler->setRulerUnit(1/drawAreaWidget->zoomRatio);
     update();
+}
+void Scroll::keyPressEvent(QKeyEvent *event){
+    qDebug()<<"Scroll "<<__FUNCTION__<<event->text()<<event->key();
+    //drawAreaWidget->keyPressEvent(event);
+    event->ignore();
+}
+
+void Scroll::keyReleaseEvent(QKeyEvent *event){
+    qDebug()<<"Scroll "<<__FUNCTION__<<event->text()<<event->key();
+    //drawAreaWidget->keyReleaseEvent(event);
+    event->ignore();
+}
+void  Scroll::contextMenuEvent( QContextMenuEvent * event ){
+    qDebug()<<"Scroll "<<__FUNCTION__;
+    drawAreaWidget->contextMenuEvent(event);
 }

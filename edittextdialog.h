@@ -1,9 +1,9 @@
 #ifndef EDITTEXTDIALOG_H
 #define EDITTEXTDIALOG_H
 
-#include <QDialog>
-#include"tabwidget.h"
-
+//#include <QDialog>
+//#include"tabwidget.h"
+#include <QtWidgets/QDialogButtonBox>
 namespace Ui {
 class EditTextDialog;
 }
@@ -15,19 +15,15 @@ class EditTextDialog : public QDialog
 public:
     explicit EditTextDialog(QWidget *parent = 0);
     ~EditTextDialog();
-    QFont newfont;
-    QString newtext;
-    QColor newcolor;
+    //QFont newfont;
+    //QString newtext;
+    //QColor newcolor;
     TabWidget* tw;
     void udate();
-public slots:
-    //void onTextChanged();
-    void onColorChanged(const QColor &color);
-    void onFontChanged(const QFont &font);
+
 
 private:
-    Ui::EditTextDialog *ui;
-
+QDialogButtonBox *buttonBox;
 
 };
 

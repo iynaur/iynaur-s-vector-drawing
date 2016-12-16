@@ -12,85 +12,93 @@
 <context>
     <name>DrawAreaWidget</name>
     <message>
-        <location filename="drawareawidget.cpp" line="24"/>
+        <location filename="drawareawidget.cpp" line="22"/>
         <source>MoveToTop</source>
-        <translation type="unfinished"></translation>
+        <translation>移到顶层</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="25"/>
+        <location filename="drawareawidget.cpp" line="23"/>
         <source>MoveToBottom</source>
-        <translation type="unfinished"></translation>
+        <translation>移到底层</translation>
+    </message>
+    <message>
+        <location filename="drawareawidget.cpp" line="24"/>
+        <source>SetBrush</source>
+        <translation type="unfinished">画刷</translation>
     </message>
     <message>
         <location filename="drawareawidget.cpp" line="26"/>
-        <source>SetBrush</source>
-        <translation type="unfinished"></translation>
+        <source>SetPen</source>
+        <translation type="unfinished">画笔</translation>
+    </message>
+    <message>
+        <location filename="drawareawidget.cpp" line="27"/>
+        <source>EditText</source>
+        <translation>文本编辑</translation>
     </message>
     <message>
         <location filename="drawareawidget.cpp" line="28"/>
-        <source>EditText</source>
-        <translation type="unfinished"></translation>
+        <source>CodeEdit</source>
+        <translation type="unfinished">源码编辑</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="74"/>
+        <location filename="drawareawidget.cpp" line="181"/>
         <source>New Pic </source>
-        <translation type="unfinished"></translation>
+        <translation>新建图形 </translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="327"/>
+        <location filename="drawareawidget.cpp" line="420"/>
         <source>Unsaved changes in file: &quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>文件：“</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="327"/>
+        <location filename="drawareawidget.cpp" line="420"/>
         <source>&quot; will be lost!</source>
-        <translation type="unfinished"></translation>
+        <translation>”中未保存的修改将会丢失！</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="328"/>
+        <location filename="drawareawidget.cpp" line="421"/>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>你想保存你的修改吗？</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="398"/>
+        <location filename="drawareawidget.cpp" line="491"/>
         <source>The document is unknown.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未知格式文件</translation>
     </message>
     <message>
-        <location filename="drawareawidget.cpp" line="408"/>
+        <location filename="drawareawidget.cpp" line="501"/>
         <source>The XML_document is unknown.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未知XML格式</translation>
     </message>
 </context>
 <context>
     <name>EditTextDialog</name>
     <message>
-        <location filename="edittextdialog.ui" line="20"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">编辑文本</translation>
     </message>
     <message>
-        <location filename="edittextdialog.cpp" line="9"/>
+        <location filename="edittextdialog.cpp" line="15"/>
         <source>EditText</source>
-        <translation type="unfinished"></translation>
+        <translation>文本编辑</translation>
     </message>
 </context>
 <context>
     <name>GetTextDialog</name>
     <message>
-        <location filename="gettextdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">输入文本</translation>
     </message>
     <message>
-        <location filename="gettextdialog.ui" line="34"/>
+        <location filename="gettextdialog.cpp" line="15"/>
         <source>Enter text here!</source>
-        <translation type="unfinished"></translation>
+        <translation>在这里输入文字！</translation>
     </message>
     <message>
-        <location filename="gettextdialog.cpp" line="14"/>
+        <location filename="gettextdialog.cpp" line="28"/>
         <source>Enter Content</source>
-        <translation type="unfinished"></translation>
+        <translation>输入文字</translation>
     </message>
 </context>
 <context>
@@ -102,238 +110,261 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="32"/>
-        <location filename="mainwindow.ui" line="121"/>
+        <location filename="mainwindow.ui" line="125"/>
         <source>Draw</source>
-        <translation type="unfinished"></translation>
+        <translation>绘图</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="45"/>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>工具</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="52"/>
         <source>Fit</source>
-        <translation type="unfinished"></translation>
+        <translation>画布</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="59"/>
-        <location filename="mainwindow.ui" line="105"/>
+        <location filename="mainwindow.ui" line="107"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>文件</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="69"/>
-        <location filename="mainwindow.ui" line="312"/>
+        <location filename="mainwindow.ui" line="71"/>
+        <location filename="mainwindow.ui" line="316"/>
         <source>Combination</source>
-        <translation type="unfinished"></translation>
+        <translation>组合</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="77"/>
+        <location filename="mainwindow.ui" line="79"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>缩放</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="85"/>
-        <location filename="mainwindow.ui" line="144"/>
+        <location filename="mainwindow.ui" line="87"/>
+        <location filename="mainwindow.ui" line="148"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="177"/>
+        <location filename="mainwindow.ui" line="181"/>
         <source>Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>曲线</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="189"/>
+        <location filename="mainwindow.ui" line="193"/>
         <source>Polyline</source>
-        <translation type="unfinished"></translation>
+        <translation>折线</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="201"/>
+        <location filename="mainwindow.ui" line="205"/>
         <source>Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>多边形</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="213"/>
+        <location filename="mainwindow.ui" line="217"/>
         <source>Pick</source>
-        <translation type="unfinished"></translation>
+        <translation>选取</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="225"/>
+        <location filename="mainwindow.ui" line="229"/>
         <source>Circle</source>
-        <translation type="unfinished"></translation>
+        <translation>圆</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="234"/>
+        <location filename="mainwindow.ui" line="238"/>
         <source>Fitcanvas</source>
-        <translation type="unfinished"></translation>
+        <translation>收缩画布</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="246"/>
+        <location filename="mainwindow.ui" line="250"/>
         <source>Rect</source>
-        <translation type="unfinished"></translation>
+        <translation>矩形</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="258"/>
+        <location filename="mainwindow.ui" line="262"/>
         <source>Ellipse</source>
-        <translation type="unfinished"></translation>
+        <translation>椭圆</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="270"/>
+        <location filename="mainwindow.ui" line="274"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>文本</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="279"/>
+        <location filename="mainwindow.ui" line="283"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>打开</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="282"/>
+        <location filename="mainwindow.ui" line="286"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="291"/>
+        <location filename="mainwindow.ui" line="295"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="294"/>
+        <location filename="mainwindow.ui" line="298"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="303"/>
+        <location filename="mainwindow.ui" line="307"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>加入</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="321"/>
+        <location filename="mainwindow.ui" line="325"/>
         <source>ZoomIn</source>
-        <translation type="unfinished"></translation>
+        <translation>缩小</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="330"/>
+        <location filename="mainwindow.ui" line="334"/>
         <source>ZoomOut</source>
-        <translation type="unfinished"></translation>
+        <translation>放大</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="342"/>
+        <location filename="mainwindow.ui" line="346"/>
         <source>Palm</source>
-        <translation type="unfinished"></translation>
+        <translation>拖动</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="351"/>
+        <location filename="mainwindow.ui" line="355"/>
         <source>ZoomOne</source>
-        <translation type="unfinished"></translation>
+        <translation>原始大小</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="360"/>
+        <location filename="mainwindow.ui" line="364"/>
         <source>MoveToTop</source>
-        <translation type="unfinished"></translation>
+        <translation>移到顶层</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="369"/>
+        <location filename="mainwindow.ui" line="373"/>
         <source>MoveToBottom</source>
-        <translation type="unfinished"></translation>
+        <translation>移到底层</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="381"/>
+        <location filename="mainwindow.ui" line="385"/>
         <source>CloseCurve</source>
-        <translation type="unfinished"></translation>
+        <translation>闭合曲线</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="390"/>
+        <location filename="mainwindow.ui" line="394"/>
         <source>Divide</source>
-        <translation type="unfinished"></translation>
+        <translation>分解</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="399"/>
+        <location filename="mainwindow.ui" line="403"/>
         <source>DivideToEnd</source>
-        <translation type="unfinished"></translation>
+        <translation>彻底分解</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="408"/>
+        <location filename="mainwindow.ui" line="412"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>新建</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="411"/>
+        <location filename="mainwindow.ui" line="415"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="420"/>
+        <location filename="mainwindow.ui" line="424"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>复制</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="423"/>
+        <location filename="mainwindow.ui" line="427"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="432"/>
+        <location filename="mainwindow.ui" line="436"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>粘贴</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="435"/>
+        <location filename="mainwindow.ui" line="439"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="444"/>
+        <location filename="mainwindow.ui" line="448"/>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>扩展画布</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="453"/>
+        <location filename="mainwindow.ui" line="457"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>剪切</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="456"/>
+        <location filename="mainwindow.ui" line="460"/>
         <source>Ctrl+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="465"/>
+        <location filename="mainwindow.ui" line="469"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>撤销</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="468"/>
+        <location filename="mainwindow.ui" line="472"/>
         <source>Ctrl+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="477"/>
+        <location filename="mainwindow.ui" line="481"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>重做</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="480"/>
+        <location filename="mainwindow.ui" line="484"/>
         <source>Ctrl+Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="489"/>
+        <location filename="mainwindow.ui" line="493"/>
         <source>SaveAs</source>
-        <translation type="unfinished"></translation>
+        <translation>另存为</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="23"/>
+        <location filename="mainwindow.ui" line="502"/>
+        <source>Print</source>
+        <translation type="unfinished">打印</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="511"/>
+        <source>PrintPreview</source>
+        <translation type="unfinished">打印预览</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="18"/>
         <source>DRAW</source>
-        <translation type="unfinished"></translation>
+        <translation>绘图</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="261"/>
-        <location filename="mainwindow.cpp" line="287"/>
+        <location filename="mainwindow.cpp" line="262"/>
+        <location filename="mainwindow.cpp" line="293"/>
         <source>multipal shapes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">多个图形</translation>
+    </message>
+</context>
+<context>
+    <name>TabWidget</name>
+    <message>
+        <location filename="tabwidget.cpp" line="12"/>
+        <source>Font</source>
+        <translation type="unfinished">字体</translation>
+    </message>
+    <message>
+        <location filename="tabwidget.cpp" line="17"/>
+        <source>Content</source>
+        <translation type="unfinished">内容</translation>
     </message>
 </context>
 </TS>

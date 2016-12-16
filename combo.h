@@ -20,8 +20,10 @@ public:
     QString name();
     virtual shared_ptr<GeneralShape>  copyPaste();
     void setShapes(QDomElement shapesElement);
+    void setShapesFromNode(QDomNode node);
     QDomElement toElement();
-
+    QDomElement toElement(shared_ptr<GeneralShape>sp);
+    QDomDocument toDocument();
 
     //QString virtual qStringFromThis();
 

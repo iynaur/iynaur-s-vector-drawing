@@ -14,6 +14,10 @@ public:
     QString name();
     virtual shared_ptr<GeneralShape>  copyPaste();
     //QString virtual qStringFromThis();
+    void virtual mousePress(QPointF p);
+    void virtual mouseMove(QPointF p);
+    void virtual mouseRelease(QPointF p);
+
 
  
 protected:

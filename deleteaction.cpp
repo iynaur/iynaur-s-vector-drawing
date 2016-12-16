@@ -3,6 +3,7 @@
 DeleteAction::DeleteAction()
 {
     //actiontype=Delete;
+    setText(name());
 
 }
 //DeleteAction::DeleteAction(GeneralShape* sp, int index){

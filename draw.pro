@@ -6,8 +6,10 @@
 
 QT       += core gui
 QT += xml
-QMAKE_CXXFLAGS+= -std=gnu++0x
-
+QT += printsupport
+#QMAKE_CXXFLAGS+= -std=gnu++0x
+#QMAKE_CXXFLAGS += /MP
+PRECOMPILED_HEADER=stable.h
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = draw
@@ -47,7 +49,10 @@ SOURCES += main.cpp\
     mycolordialog.cpp \
     myfontdialog.cpp \
     Label.cpp \
-    LineEdit.cpp
+    LineEdit.cpp \
+    codeeditdlg.cpp \
+    setpenaction.cpp \
+    ruler.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -63,30 +68,31 @@ HEADERS  += mainwindow.h \
     generalshape.h \
     combo.h \
     scroll.h \
-    abstractaction.h \
-    addaction.h \
-    deleteaction.h \
-    editaction.h \
-    combineaction.h \
-    divideaction.h \
-    topaction.h \
-    bottomaction.h \
     polygon.h \
     polyline.h \
-    setbrushaction.h \
-    slightmoveaction.h \
-    texteditaction.h \
+#    abstractaction.h \
+#    addaction.h \
+#    deleteaction.h \
+#    editaction.h \
+#    combineaction.h \
+#    divideaction.h \
+#    topaction.h \
+#    bottomaction.h \
+#    setbrushaction.h \
+#    slightmoveaction.h \
+#    texteditaction.h \
     tabwidget.h \
     edittextdialog.h \
-    mycolordialog.h \
-    myfontdialog.h \
+#    mycolordialog.h \
+#    myfontdialog.h \
     Label.h \
     LineEdit.h \
-    ruler.h
+    ruler.h \
+    codeeditdlg.h \
+    setpenaction.h \
+    stable.h
 
-FORMS    += mainwindow.ui \
-    gettextdialog.ui \
-    edittextdialog.ui
+FORMS    += mainwindow.ui
 
 DISTFILES += log.txt
 

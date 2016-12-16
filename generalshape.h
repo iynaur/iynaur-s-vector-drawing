@@ -39,9 +39,9 @@ public:
          //为了画任意曲线特意留的一个口子
 
     double virtual minDistance(QPointF point)=0;
-    void  drawClosure(QPainter &painter,qreal zoomRatio);
-    QPointF  rotationHandlePoint();
-    QPointF  scaleHandlePoint();
+    void  virtual drawClosure(QPainter &painter,qreal zoomRatio);
+    QPointF virtual rotationHandlePoint();
+    QPointF virtual scaleHandlePoint();
     QPointF  centralPoint();
 
     void virtual zoom(qreal zoomratio);
@@ -66,9 +66,10 @@ public:
     double virtual getsx();
 //    double  sy();
 //    double  sx();
+    void virtual mousePress(QPointF p);
+    void virtual mouseMove(QPointF p);
+    void virtual mouseRelease(QPointF p);
 
-
-protected:    
     QPen pen;
 
 public:

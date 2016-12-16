@@ -2,7 +2,7 @@
 
 BottomAction::BottomAction()
 {
-
+setText(name());
 }
 ActionType BottomAction::actiontype(){
     return Bottom;
@@ -18,9 +18,12 @@ void BottomAction::undo(){
     pickedShapes=shapes;
 }
 void BottomAction::redo(){
+    pickedShapes.clear();
     for(int i=0;i<shapes.size();i++){
+        indexOfShapes.append(allShapes->indexOf(shapes.at(i)));
         allShapes->removeOne(shapes.at(i));
         allShapes->prepend(shapes.at(i));
+        pickedShapes.prepend(shapes.at(i));
     }
-    pickedShapes =  shapes;
+    //pickedShapes =  shapes;//order reverse!!!!
 }

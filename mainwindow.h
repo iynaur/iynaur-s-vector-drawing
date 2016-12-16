@@ -80,6 +80,12 @@ private slots:
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
 
+    void on_actionPrint_triggered();
+
+    void on_actionPrintPreview_triggered();
+    void updateStatusBar(QMouseEvent *, QPointF p);
+    void clearStatusBar();
+
 public slots:
     void handleMessage(QString message);
     //void onscrollContentsBy(int dx, int dy);

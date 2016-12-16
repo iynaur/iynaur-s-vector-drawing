@@ -30,8 +30,11 @@
 #include"texteditaction.h"
 #include"slightmoveaction.h"
 #include <memory>
-
-
+#include<QtPrintSupport/QPrinter>
+#include<QtPrintSupport/QPrintDialog>
+#include <QPrintPreviewDialog>
+#include"codeeditdlg.h"
+#include"setpenaction.h"
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
                RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
@@ -75,6 +78,7 @@ public:
     void undo();
     void redo();
     void addaction(AbstractAction* act);
+    void addaction(QList<AbstractAction*> alist);
     void openfile(QString file);
 
     void copyPaste();
@@ -87,6 +91,9 @@ public:
     void divideToEnd();
     void divideToEnd(shared_ptr<GeneralShape> shape);
     void test();
+    void print();
+    void printPreview();
+    shared_ptr<GeneralShape> newShape(Category c);
 //    void getOutOfCombo(shared_ptr<GeneralShape> sp, shared_ptr<Combo> tmp);
 //    void getIntoCombo(shared_ptr<GeneralShape> sp,shared_ptr<Combo> tmp);
 
@@ -109,19 +116,26 @@ public slots:
     void moveToTop();
     void moveToBottom();
     void setBrush();
+    void setPen();
+    void setPen(shared_ptr<GeneralShape> sp);
     void editText();
+    void onPaintRequested(QPrinter* printer);
+    void codeEdit();
+    void contextMenuEvent( QContextMenuEvent * event );
 protected:
     void paintEvent(QPaintEvent *);
     //void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
-    void contextMenuEvent( QContextMenuEvent * event );
 
+    void leaveEvent(QEvent *event);
+    void rightMousePressEvent(QMouseEvent *event);
 signals:
     void categoryChanged();
     void statusChanged();
-    void mouseMoved(QMouseEvent *event);
+    void mouseMoved(QMouseEvent *event,QPointF realPoint);
+    void mouseLeave();
      
 
 public:
@@ -133,7 +147,7 @@ public:
     QPoint startCursorPoint,endCursorPoint;
     Category currentCategory;
     MouseHanded currentMouseHanded;
-    bool isMouseButtonPressed;
+    bool isLeftMouseButtonPressed;
     int dx,dy;//坐标原点的画布位置
     //bool isScrolling;
 
@@ -146,7 +160,8 @@ public:
     QColor backcolor;
     QAction*  actionMoveToTop;
     QAction* actionMoveToBottom;
-    QAction* actionSetBrush,*actionEditText;
+    QAction* actionSetBrush,*actionEditText,*actionCodeEdit;
+    QAction* actionSetPen;
     //Combo* root;
 };
  

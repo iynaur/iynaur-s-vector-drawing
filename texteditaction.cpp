@@ -2,7 +2,7 @@
 
 TextEditAction::TextEditAction()
 {
-
+setText(name());
 }
 void TextEditAction::undo(){
     dynamic_pointer_cast<Text>(shapes.at(0))->setText(oldtext);

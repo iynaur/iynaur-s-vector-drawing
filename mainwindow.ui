@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
+    <width>818</width>
     <height>600</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
-    <normaloff>:/image/5624330_201027415000_2.jpg</normaloff>:/image/5624330_201027415000_2.jpg</iconset>
+    <normaloff>:/image/8.png</normaloff>:/image/8.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -23,7 +23,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>900</width>
+     <width>818</width>
      <height>23</height>
     </rect>
    </property>
@@ -63,6 +63,8 @@
     <addaction name="actionAdd"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="actionPrint"/>
+    <addaction name="actionPrintPreview"/>
    </widget>
    <widget class="QMenu" name="menuCombination">
     <property name="title">
@@ -115,6 +117,8 @@
    <addaction name="actionAdd"/>
    <addaction name="actionSave"/>
    <addaction name="actionSaveAs"/>
+   <addaction name="actionPrintPreview"/>
+   <addaction name="actionPrint"/>
   </widget>
   <widget class="QToolBar" name="toolBar_1">
    <property name="windowTitle">
@@ -171,7 +175,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/pencapstyle.png</normaloff>:/image/pencapstyle.png</iconset>
+     <normaloff>:/image/8.png</normaloff>:/image/8.png</iconset>
    </property>
    <property name="text">
     <string>Curve</string>
@@ -183,7 +187,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/polyline.png</normaloff>:/image/polyline.png</iconset>
+     <normaloff>:/image/Maps-Polyline-icon.png</normaloff>:/image/Maps-Polyline-icon.png</iconset>
    </property>
    <property name="text">
     <string>Polyline</string>
@@ -195,7 +199,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/polygon.png</normaloff>:/image/polygon.png</iconset>
+     <normaloff>:/image/Maps-Polygon-icon.png</normaloff>:/image/Maps-Polygon-icon.png</iconset>
    </property>
    <property name="text">
     <string>Polygon</string>
@@ -207,7 +211,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/th.jpg</normaloff>:/image/th.jpg</iconset>
+     <normaloff>:/image/pointer.png</normaloff>:/image/pointer.png</iconset>
    </property>
    <property name="text">
     <string>Pick</string>
@@ -219,7 +223,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/circle.PNG</normaloff>:/image/circle.PNG</iconset>
+     <normaloff>:/image/check-circle-outline-blank-128 (1).png</normaloff>:/image/check-circle-outline-blank-128 (1).png</iconset>
    </property>
    <property name="text">
     <string>Circle</string>
@@ -228,7 +232,7 @@
   <action name="actionFixcanvas">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/fit.jpg</normaloff>:/image/fit.jpg</iconset>
+     <normaloff>:/image/图片1.png</normaloff>:/image/图片1.png</iconset>
    </property>
    <property name="text">
     <string>Fitcanvas</string>
@@ -240,7 +244,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/rect.png</normaloff>:/image/rect.png</iconset>
+     <normaloff>:/image/Editing-Rectangle-icon.png</normaloff>:/image/Editing-Rectangle-icon.png</iconset>
    </property>
    <property name="text">
     <string>Rect</string>
@@ -252,7 +256,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/ellipse.png</normaloff>:/image/ellipse.png</iconset>
+     <normaloff>:/image/Editing-Ellipse-icon.png</normaloff>:/image/Editing-Ellipse-icon.png</iconset>
    </property>
    <property name="text">
     <string>Ellipse</string>
@@ -264,7 +268,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/text.png</normaloff>:/image/text.png</iconset>
+     <normaloff>:/image/applixware.png</normaloff>:/image/applixware.png</iconset>
    </property>
    <property name="text">
     <string>Text</string>
@@ -306,7 +310,7 @@
   <action name="actionCombination">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/combine.jpg</normaloff>:/image/combine.jpg</iconset>
+     <normaloff>:/image/group.gif</normaloff>:/image/group.gif</iconset>
    </property>
    <property name="text">
     <string>Combination</string>
@@ -336,7 +340,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/hand.jpg</normaloff>:/image/hand.jpg</iconset>
+     <normaloff>:/image/hand-ol-512.png</normaloff>:/image/hand-ol-512.png</iconset>
    </property>
    <property name="text">
     <string>Palm</string>
@@ -354,7 +358,7 @@
   <action name="actionMoveToTop">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/up.png</normaloff>:/image/up.png</iconset>
+     <normaloff>:/image/arrowup.PNG</normaloff>:/image/arrowup.PNG</iconset>
    </property>
    <property name="text">
     <string>MoveToTop</string>
@@ -363,7 +367,7 @@
   <action name="actionMoveToBottom">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/down.png</normaloff>:/image/down.png</iconset>
+     <normaloff>:/image/arrow.png</normaloff>:/image/arrow.png</iconset>
    </property>
    <property name="text">
     <string>MoveToBottom</string>
@@ -375,7 +379,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/5624330_201027415000_2.jpg</normaloff>:/image/5624330_201027415000_2.jpg</iconset>
+     <normaloff>:/image/图片1 (2).png</normaloff>:/image/图片1 (2).png</iconset>
    </property>
    <property name="text">
     <string>CloseCurve</string>
@@ -384,7 +388,7 @@
   <action name="actionDivide">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/divide.jpg</normaloff>:/image/divide.jpg</iconset>
+     <normaloff>:/image/ungroup.gif</normaloff>:/image/ungroup.gif</iconset>
    </property>
    <property name="text">
     <string>Divide</string>
@@ -393,7 +397,7 @@
   <action name="actionDivideToEnd">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/dividetoend.jpg</normaloff>:/image/dividetoend.jpg</iconset>
+     <normaloff>:/image/sc_ungroup (2).png</normaloff>:/image/sc_ungroup (2).png</iconset>
    </property>
    <property name="text">
     <string>DivideToEnd</string>
@@ -438,7 +442,7 @@
   <action name="actionExpand">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/expand.jpg</normaloff>:/image/expand.jpg</iconset>
+     <normaloff>:/image/图片2.png</normaloff>:/image/图片2.png</iconset>
    </property>
    <property name="text">
     <string>Expand</string>
@@ -487,6 +491,24 @@
    </property>
    <property name="text">
     <string>SaveAs</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/print.png</normaloff>:/image/print.png</iconset>
+   </property>
+   <property name="text">
+    <string>Print</string>
+   </property>
+  </action>
+  <action name="actionPrintPreview">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/print-preview-icon-54533.png</normaloff>:/image/print-preview-icon-54533.png</iconset>
+   </property>
+   <property name="text">
+    <string>PrintPreview</string>
    </property>
   </action>
  </widget>

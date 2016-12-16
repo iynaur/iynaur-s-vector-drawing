@@ -24,3 +24,14 @@ shared_ptr<GeneralShape> Curve::copyPaste(){
     tmp->updateRange();
     return static_pointer_cast<GeneralShape>(tmp);
 }
+void Curve::mousePress(QPointF p){
+    addPoint(p);
+}
+
+void Curve::mouseMove(QPointF p){
+    addPoint(p);
+}
+
+void Curve::mouseRelease(QPointF p){
+
+}

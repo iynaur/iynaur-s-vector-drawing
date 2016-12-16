@@ -1,4 +1,4 @@
-#include "combo.h"
+//#include "combo.h"
 
 Combo::Combo()
 {
@@ -42,10 +42,7 @@ QString Combo::name(){
     //tmp->updatedrawcombo();
     return static_pointer_cast<GeneralShape>(tmp);
 }
-
-void Combo::setShapes(QDomElement shapesElement){
-
-    QDomNode node=shapesElement.firstChild(); //获得第一个子节点
+void Combo::setShapesFromNode(QDomNode node){
     while(!node.isNull())  //如果节点不空
     {
         if(node.isElement()) //如果节点是元素
@@ -147,6 +144,9 @@ void Combo::setShapes(QDomElement shapesElement){
             g=n.toElement().attribute("green").toInt();
             b=n.toElement().attribute("blue").toInt();
 
+
+
+
             brushstyle=n.toElement().attribute("brushstyle").toInt();
             Qt::BrushStyle castStyle = (Qt::BrushStyle)brushstyle;
             //currentShape->brush.setColor(QColor(r,g,b));//this code has no effect,why?
@@ -154,6 +154,13 @@ void Combo::setShapes(QDomElement shapesElement){
             QBrush brush=QBrush(QColor(r,g,b),castStyle);
             currentShape->setBrush(brush);
 
+            n=e.namedItem("pen");
+
+            //int r,g,b,brushstyle;
+            r=n.toElement().attribute("red").toInt();
+            g=n.toElement().attribute("green").toInt();
+            b=n.toElement().attribute("blue").toInt();
+            currentShape->setPen(QPen(QColor(r,g,b)));
 
 
             currentShape->setsx ( e.attribute("sx").toDouble()!=0 ? e.attribute("sx").toDouble() : 1);
@@ -171,6 +178,94 @@ void Combo::setShapes(QDomElement shapesElement){
     updateRange();
 }
 
+void Combo::setShapes(QDomElement shapesElement){
+
+    QDomNode node=shapesElement.firstChild(); //获得第一个子节点
+    setShapesFromNode(node);
+}
+//QDomDocument Combo::toDocument(){
+//    QDomDocument doc;
+//    //QDomElement shapesElement=doc.createElement("shapes");
+
+//    doc.appendChild(toElement());
+//    return doc;
+//}
+QDomElement Combo::toElement(shared_ptr<GeneralShape>sp){
+    QDomDocument doc;
+    QDomElement shape=doc.createElement("shape");
+    shape.setAttribute("sx",sp->getsx()); //方式一：创建属性  其中键值对的值可以是各种类型
+    shape.setAttribute("sy",sp->getsy());
+
+    QDomText text; //设置括号标签中间的值
+
+    QDomElement name=doc.createElement("name"); //创建子元素
+    text=doc.createTextNode(sp->name());
+    shape.appendChild(name);
+    name.appendChild(text);
+
+    QDomElement points=doc.createElement("points"); //创建子元素
+    text=doc.createTextNode(sp->qStringFromPoints());
+    shape.appendChild(points);
+    points.appendChild(text);
+
+    QDomElement Rotationangle=doc.createElement("Rotationangle"); //创建子元素
+    text=doc.createTextNode(QString::number(sp->rotationangle()) );
+    shape.appendChild(Rotationangle);
+    Rotationangle.appendChild(text);
+
+    QDomElement brush=doc.createElement("brush"); //创建子元素
+    brush.setAttribute("red",sp->brush.color().red());
+    brush.setAttribute("green",sp->brush.color().green());
+    brush.setAttribute("blue",sp->brush.color().blue());
+    brush.setAttribute("brushstyle",sp->brush.style());
+    shape.appendChild(brush);
+
+    QDomElement pen=doc.createElement("pen"); //创建子元素
+    pen.setAttribute("red",sp->pen.color().red());
+    pen.setAttribute("green",sp->pen.color().green());
+    pen.setAttribute("blue",sp->pen.color().blue());
+    shape.appendChild(pen);
+
+
+    if (sp->name()=="Text"){
+        QDomElement mytext=doc.createElement("mytext"); //创建子元素
+        QDomElement myfont=doc.createElement("myfont");
+
+        shared_ptr<Text >pm = dynamic_pointer_cast< Text >( sp );
+        if ( pm ){
+        text=doc.createTextNode(pm->text());
+        shape.appendChild(mytext);
+        mytext.appendChild(text);
+
+        myfont.setAttribute("pointSize",pm->myfont.pointSize());
+        shape.appendChild(myfont);
+
+        }
+
+    }
+    if (sp->name()=="Combo"){
+        shared_ptr<Combo >pm = dynamic_pointer_cast< Combo >( sp );
+        if ( pm ){
+            QDomElement shapes=pm->toElement();
+        shape.appendChild(shapes);
+        }
+
+    }
+    return shape;
+}
+QDomDocument Combo::toDocument(){
+    QDomDocument doc;
+    QDomElement shapesElement=doc.createElement("shapes");//just to avoid "Calling appendChild() on a null node does nothing."
+    foreach(shared_ptr<GeneralShape>sp, shapes){
+
+
+        doc.appendChild(toElement(sp));
+//        out << shape->qStringFromThis();
+//        out<<endl;
+    }
+    return doc;
+}
+
 QDomElement Combo::toElement(){
     QDomDocument doc;
     QDomElement shapesElement=doc.createElement("shapes");
@@ -181,61 +276,9 @@ QDomElement Combo::toElement(){
 
 
     foreach(shared_ptr<GeneralShape>sp, shapes){
-        QDomElement shape=doc.createElement("shape");
-        shape.setAttribute("sx",sp->getsx()); //方式一：创建属性  其中键值对的值可以是各种类型
-        shape.setAttribute("sy",sp->getsy());
-
-        QDomText text; //设置括号标签中间的值
-
-        QDomElement name=doc.createElement("name"); //创建子元素
-        text=doc.createTextNode(sp->name());
-        shape.appendChild(name);
-        name.appendChild(text);
-
-        QDomElement points=doc.createElement("points"); //创建子元素
-        text=doc.createTextNode(sp->qStringFromPoints());
-        shape.appendChild(points);
-        points.appendChild(text);
-
-        QDomElement Rotationangle=doc.createElement("Rotationangle"); //创建子元素
-        text=doc.createTextNode(QString::number(sp->rotationangle()) );
-        shape.appendChild(Rotationangle);
-        Rotationangle.appendChild(text);
-
-        QDomElement brush=doc.createElement("brush"); //创建子元素
-        brush.setAttribute("red",sp->brush.color().red());
-        brush.setAttribute("green",sp->brush.color().green());
-        brush.setAttribute("blue",sp->brush.color().blue());
-        brush.setAttribute("brushstyle",sp->brush.style());
-        shape.appendChild(brush);
 
 
-        if (sp->name()=="Text"){
-            QDomElement mytext=doc.createElement("mytext"); //创建子元素
-            QDomElement myfont=doc.createElement("myfont");
-
-            shared_ptr<Text >pm = dynamic_pointer_cast< Text >( sp );
-            if ( pm ){
-            text=doc.createTextNode(pm->text());
-            shape.appendChild(mytext);
-            mytext.appendChild(text);
-
-            myfont.setAttribute("pointSize",pm->myfont.pointSize());
-            shape.appendChild(myfont);
-
-            }
-
-        }
-        if (sp->name()=="Combo"){
-            shared_ptr<Combo >pm = dynamic_pointer_cast< Combo >( sp );
-            if ( pm ){
-                QDomElement shapes=pm->toElement();
-            shape.appendChild(shapes);
-            }
-
-        }
-
-        shapesElement.appendChild(shape);
+        shapesElement.appendChild(toElement(sp));
 //        out << shape->qStringFromThis();
 //        out<<endl;
     }

@@ -28,26 +28,35 @@
         <file>image/select.png</file>
         <file>image/text.png</file>
         <file>image/undo.png</file>
-        <file>image/xuanze.png</file>
-        <file>image/th.jpg</file>
         <file>image/circle.PNG</file>
-        <file>image/hand.jpg</file>
-        <file>image/down.png</file>
-        <file>image/up.png</file>
         <file>image/zoomin.png</file>
         <file>image/zoomone.png</file>
         <file>image/zoomout.png</file>
-        <file>image/expand.jpg</file>
-        <file>image/5624330_201027415000_2.jpg</file>
-        <file>image/divide.jpg</file>
-        <file>image/dividetoend.jpg</file>
-        <file>image/combine.jpg</file>
-        <file>image/fit.jpg</file>
         <file>image/blue-plus-sign-md.png</file>
         <file>image/save_all_download-512.png</file>
-        <file>image/th.png</file>
         <file>image/search.png</file>
         <file>image/clear.png</file>
         <file>draw_zh_cn.qm</file>
+        <file>image/print-preview-icon-54533.png</file>
+        <file>image/print (2).png</file>
+        <file>image/check-circle-outline-blank-128 (1).png</file>
+        <file>image/applixware.png</file>
+        <file>image/Maps-Polyline-icon.png</file>
+        <file>image/Maps-Polygon-icon.png</file>
+        <file>image/Editing-Rectangle-icon.png</file>
+        <file>image/Editing-Ellipse-icon.png</file>
+        <file>image/8.png</file>
+        <file>image/hand-ol-512.png</file>
+        <file>image/arrow.png</file>
+        <file>image/arrowup.PNG</file>
+        <file>image/pointer.png</file>
+        <file>image/图片1.png</file>
+        <file>image/图片2.png</file>
+        <file>image/sc_group.png</file>
+        <file>image/sc_ungroup.png</file>
+        <file>image/sc_ungroup (2).png</file>
+        <file>image/group.gif</file>
+        <file>image/ungroup.gif</file>
+        <file>image/图片1 (2).png</file>
     </qresource>
 </RCC>

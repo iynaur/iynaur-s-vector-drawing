@@ -1,6 +1,7 @@
 #include "addaction.h"
 AddAction::AddAction(){
     //actiontype=Add;
+    setText(name());
 
 }
 

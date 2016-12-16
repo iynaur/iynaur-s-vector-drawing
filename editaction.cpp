@@ -8,6 +8,7 @@ EditAction::EditAction()
     newRotationangle=0;
     dsx=1;
     dsy=1;
+    setText(name());
 }
 ActionType EditAction::actiontype(){
     return Edit;

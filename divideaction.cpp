@@ -3,6 +3,7 @@
 DivideAction::DivideAction()
 {
     //actiontype=Divide;
+    setText(name());
 }
 
 ActionType DivideAction::actiontype(){
@@ -50,18 +51,11 @@ void getOutOfCombo(shared_ptr<GeneralShape> sp,shared_ptr<Combo> tmp){
     //sp->drag(-tmp->centralPoint());
     sp->zoom(tmp->getsx());
     sp->drag(tmp->centralPoint());//scale done
-    //shapes.append(sp);
-    //shapes.insert(index,sp);
+
 }
 
 void getIntoCombo(shared_ptr<GeneralShape> sp, shared_ptr<Combo> tmp){
-//    QPointF spcentralPoint=sp->centralPoint();
-//    sp->drag(-spcentralPoint);
-//    sp->Rotationangle=sp->Rotationangle+tmp->Rotationangle;
-//    sp->drag(rotated(spcentralPoint-tmp->centralPoint(),-tmp->Rotationangle/180*M_PI));//rotate done
-//    sp->zoom(tmp->sx);
-//    sp->drag(tmp->centralPoint());//scale done
-    //shapes.append(sp);
+
 
     QPointF spcentralPoint=sp->centralPoint();
     sp->drag(-spcentralPoint);

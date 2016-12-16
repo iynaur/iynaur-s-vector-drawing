@@ -113,21 +113,18 @@ void GeneralShape:: drawClosure(QPainter &painter, qreal zoomRatio){
     painter.setPen(pen);
     //QBrush defaultbrush=QBrush(QColor(ARGB 1, 0, 0, 0) , Qt::NoBrush );
     painter.setBrush( QBrush( Qt::NoBrush ));
-    double left=minx;
-    double right=maxx;
-    double top=miny;
-    double bottom=maxy;
-    painter.translate((left+right)/2*zoomRatio, (top+bottom)/2*zoomRatio);
+
+    painter.translate((minx+maxx)/2*zoomRatio, (miny+maxy)/2*zoomRatio);
     painter.rotate( Rotationangle );
-    painter.drawRect((left-right)/2*zoomRatio*sx,(top-bottom)/2*zoomRatio*sy,
-                     (right-left)*zoomRatio*sx,(bottom-top)*zoomRatio*sy);
-    painter.drawLine(QPointF(0,(top-bottom)/2*zoomRatio*sy) ,
-                     QPointF(0,(top-bottom)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
+    painter.drawRect((minx-maxx)/2*zoomRatio*sx,(miny-maxy)/2*zoomRatio*sy,
+                     (maxx-minx)*zoomRatio*sx,(maxy-miny)*zoomRatio*sy);
+    painter.drawLine(QPointF(0,(miny-maxy)/2*zoomRatio*sy) ,
+                     QPointF(0,(miny-maxy)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
     painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(left-right)/2*zoomRatio*sx,-(top-bottom)/2*zoomRatio*sy);
+    painter.drawPoint(-(minx-maxx)/2*zoomRatio*sx,-(miny-maxy)/2*zoomRatio*sy);
     painter.setPen(pen);
     painter.rotate( -Rotationangle );
-    painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
+    painter.translate(-((minx+maxx)/2)*zoomRatio, -((miny+maxy)/2)*zoomRatio);
 }
 QPointF GeneralShape:: rotationHandlePoint(){
     double left=minx;
@@ -152,4 +149,17 @@ QPointF GeneralShape:: scaleHandlePoint(){
     double x1=x*cos(sita)-y*sin(sita);
     double y1=x*sin(sita)+y*cos(sita);
     return QPointF(-x1+(left+right)/2,-y1+(top+bottom)/2);
+}
+void GeneralShape::mousePress(QPointF p){
+    addPoint(p);
+    addPoint(p);
+}
+
+void GeneralShape::mouseMove(QPointF p){
+    points.removeLast();
+    addPoint(p);
+}
+
+void GeneralShape::mouseRelease(QPointF p){
+
 }
