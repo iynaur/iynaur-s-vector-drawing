@@ -1,5 +1,6 @@
 #include "gettextdialog.h"
-
+#include<QGridLayout>
+#include <QApplication>
 GetTextDialog::GetTextDialog(QWidget *parent) :
     QDialog(parent)
 {

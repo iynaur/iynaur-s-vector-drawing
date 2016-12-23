@@ -1,8 +1,8 @@
 #ifndef EDITTEXTDIALOG_H
 #define EDITTEXTDIALOG_H
 
-//#include <QDialog>
-//#include"tabwidget.h"
+#include <QDialog>
+#include"tabwidget.h"
 #include <QtWidgets/QDialogButtonBox>
 namespace Ui {
 class EditTextDialog;

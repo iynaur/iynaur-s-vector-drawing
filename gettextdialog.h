@@ -1,8 +1,8 @@
 #ifndef GETTEXTDIALOG_H
 #define GETTEXTDIALOG_H
 
-//#include <QDialog>
-//#include <QDebug>
+#include <QDialog>
+#include <QDebug>
 #include <QtWidgets/QDialogButtonBox>
 #include"LineEdit.h"
 

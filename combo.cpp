@@ -1,4 +1,4 @@
-//#include "combo.h"
+#include "combo.h"
 
 Combo::Combo()
 {
@@ -408,9 +408,9 @@ void Combo:: removeLastPoint(){
 }
 
 void Combo:: setPen(const QPen &pen){
-    for (int i=0;i<shapes.size();i++){
-        shapes.at(i)->setPen(pen);
-    }
+//    for (int i=0;i<shapes.size();i++){
+//        shapes.at(i)->setPen(pen);
+//    }
 }
 
 void Combo:: setBrush(const QBrush &brush){

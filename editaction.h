@@ -10,7 +10,7 @@ public:
     EditAction();
     QPointF dpoint;
     qreal oldRotationangle,newRotationangle;
-    qreal dsx,dsy;
+    qreal oldsx,oldsy,newsx,newsy;
     //QBrush oldbrush,newbrush;
     ActionType actiontype();
     virtual QString name();

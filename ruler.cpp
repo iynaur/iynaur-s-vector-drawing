@@ -193,7 +193,12 @@ void QDRuler::drawFromOriginTo(QPainter* painter, QRectF rulerRect, qreal startM
     if (mDrawText)
     {
         QPainterPath txtPath;
-        txtPath.addText(x1 + 2,y1 + (isHorzRuler ? 15 : -5),this->font(),QString::number(int(qAbs(step/mRulerZoom * startTickNo++)+0.5)));
+        txtPath.addText(x1 + 2,y1 + (isHorzRuler ? 15 : -5),
+                        this->font(),
+                        QString::number(((step/mRulerZoom * startTickNo)+0.5)>0?
+                            int((step/mRulerZoom * startTickNo)+0.5)
+                                          :-(int(qAbs(step/mRulerZoom * startTickNo)+0.5))));
+        startTickNo++;
         if (!isHorzRuler){
         QMatrix mat;
         mat.translate(x1,y1);

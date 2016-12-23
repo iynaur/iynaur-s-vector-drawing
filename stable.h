@@ -83,6 +83,7 @@
 
 //#include "drawareawidget.h"
 #include "scroll.h"
-
+#include"rotatewidget.h"
+#include"mywidget.h"
 
 #endif // STABLE_H

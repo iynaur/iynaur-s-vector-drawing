@@ -1,12 +1,15 @@
 #include "text.h"
 #include<cmath>
 #include <QGraphicsTextItem>
+#include<QDebug>
+#include"mywidget.h"
+#include"rotatewidget.h"
 Text::Text()
 {
     //name="Text";
 
     mytext="";
-    myfont=QFont("Times", 20, QFont::Normal);
+    myfont=QFont("宋体", 20, QFont::Normal);
 
 
 }
@@ -26,6 +29,7 @@ bool Text::isEmpty(){
 
 void Text::draw(QPainter &painter, qreal zoomRatio)
 {
+    painter.save();
     QPen qpen=pen;
     qpen.setColor(brush.color());
     painter.setPen(qpen);
@@ -47,13 +51,25 @@ void Text::draw(QPainter &painter, qreal zoomRatio)
 
 
     painter.setFont(myfont);
+    //qDebug()<<(painter.fontInfo().family());
     //drag(QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
     painter.drawText(-(maxx-minx)/2*abs(sx) , (maxy-miny)/2*abs(sx) , mytext);
     //drag(-QPointF((maxx-minx)/2-item->boundingRect().width()/2,(maxy-miny)/2-item->boundingRect().height()/2));
-    painter.scale(1/zoomRatio,1/zoomRatio);
-    painter.rotate( -sita );
-    painter.translate(-((left+right)/2*zoomRatio), -((top+bottom)/2)*zoomRatio);
 
+    painter.restore();
+/*    MyLineEdit* currentLine=new MyLineEdit;
+    currentLine->setText(mytext);
+    shared_ptr<Text> tmp=dynamic_pointer_cast<Text>(copyPaste());
+    tmp->setRotationangle(0);
+    currentLine->move(tmp->left,
+                      tmp->top);
+    currentLine->setFixedHeight((maxy-miny)*getsx());
+    currentLine->setFixedWidth((maxx-minx)*getsx());
+    currentLine->setFont(myfont);
+    RotateWidget* currentRotateLine=new RotateWidget;
+    currentRotateLine->setBaseWidget(currentLine);
+    currentRotateLine->setRotation(rotationangle());
+    currentRotateLine->draw(painter);*/
 }
 double Text::minDistance(QPointF point){
 
@@ -145,7 +161,15 @@ void  Text::setsx(double x){//性能！！！！！
     myfont.setPointSize(i);
     item->setFont(myfont);//为文本设置字体
     item->setHtml(mytext);
-    while (item->boundingRect().width()<(maxx-minx)*abs(sx))
+    if (mytext=="")//in this case,width() will never >=(maxx-minx)*abs(sx),always be 8
+    while (item->boundingRect().height()<(maxy-miny)*abs(sx))
+    {
+        //qDebug()<<"item->boundingRect().width()"<<item->boundingRect().width();
+        i=(maxy-miny)*abs(sx)/(item->boundingRect().height())*i+1;
+        myfont.setPointSize(i);
+        item->setFont(myfont);
+
+    }else while (item->boundingRect().width()<(maxx-minx)*abs(sx))
     {
         i=(maxx-minx)*abs(sx)/(item->boundingRect().width())*i+1;
         myfont.setPointSize(i);
@@ -156,7 +180,7 @@ void  Text::setsx(double x){//性能！！！！！
     myfont.setPointSize(max(i-1,1));
     updateBand();
 }
-void  Text::setsy(double y){
+void  Text::setsy(double ){
     //do nothing
 }
 double  Text::getsy(){

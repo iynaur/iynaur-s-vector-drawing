@@ -35,6 +35,9 @@
 #include <QPrintPreviewDialog>
 #include"codeeditdlg.h"
 #include"setpenaction.h"
+#include"hlineedit.h"
+#include"mywidget.h"
+#include"rotatewidget.h"
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
                RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
@@ -55,10 +58,11 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    //bool event(QEvent *event);
     bool inRange(QPointF Point,QList<shared_ptr<GeneralShape>> sps);
 
     void del(shared_ptr<GeneralShape> sp);
-    void pickedMove(qreal x,qreal y);
+    //void pickedMove(qreal x,qreal y);
     void save();
     void saveAs();
     void open();
@@ -122,13 +126,14 @@ public slots:
     void onPaintRequested(QPrinter* printer);
     void codeEdit();
     void contextMenuEvent( QContextMenuEvent * event );
+    void currentTextChanged(QString text);
 protected:
     void paintEvent(QPaintEvent *);
     //void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
-
+    //void clicke
     void leaveEvent(QEvent *event);
     void rightMousePressEvent(QMouseEvent *event);
 signals:
@@ -162,6 +167,12 @@ public:
     QAction* actionMoveToBottom;
     QAction* actionSetBrush,*actionEditText,*actionCodeEdit;
     QAction* actionSetPen;
+    MyLineEdit* currentLine;
+    RotateWidget* currentRotateLine;
+    shared_ptr<Text> currentText;
+    QSize realSize;
+    QPoint realDp;
+    bool needKeyboard;
     //Combo* root;
 };
  

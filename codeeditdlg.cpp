@@ -1,5 +1,5 @@
 #include "codeeditdlg.h"
-
+#include<QGridLayout>
 CodeEditDlg::CodeEditDlg(QWidget *parent) :
     QDialog(parent)//,
     //ui(new Ui::CodeEditDlg)

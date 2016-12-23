@@ -1,10 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "drawareawidget.h"
-#include "scroll.h"
-#include <QScrollBar>
-#include <QMdiSubWindow>
-#include <QString>
+
 
 
 
@@ -15,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    le=0;
     setWindowTitle(tr("DRAW"));
     //ui->actionCloseCurve->setIcon(QIcon(tr(":/image/pencapstyle.png")));
     mdiArea = new QMdiArea;
@@ -27,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     currentCategory = PickCategory;
-    setWindowState(Qt::WindowMaximized);
+    settings=new QSettings ("draw.ini",QSettings::IniFormat);
+    qDebug() << settings->fileName();
+    readSettings();
     menuUndoTo=new QMenu;
     menuRedoTo=new QMenu;
 
@@ -47,7 +46,16 @@ MainWindow::MainWindow(QWidget *parent) :
     copyShapes=new QList<shared_ptr<GeneralShape>>;//mem leak
     connect(menuRedoTo, SIGNAL(triggered(QAction*)), this, SLOT(RedoTo(QAction*)));
     connect(menuUndoTo, SIGNAL(triggered(QAction*)), this, SLOT(UndoTo(QAction*)));
-
+    sld=new QSlider(this);
+    sld->setOrientation(Qt::Horizontal);
+    sld->setRange(-12,12);//对数坐标
+    sld->setFixedWidth(100);
+    ui->statusBar->addPermanentWidget(sld);
+    lb=new QLabel(this);
+    lb->setFixedWidth(40);
+    ui->statusBar->addPermanentWidget(lb);
+    zoom(0);
+    connect(sld,SIGNAL(valueChanged(int)),this,SLOT(zoom(int)));
 
 
 
@@ -57,8 +65,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
     //qDebug()<<activeMdiChild();
+
     if (window!=0)
     {
+        settings->setValue(tr("subWindowIsMaximized"),window->isMaximized());
         if (le!=window){
             le=window;
             scrollArea=(Scroll *)(le->widget());
@@ -255,16 +265,9 @@ void MainWindow::updateToolBar(){
         //menuUndoTo->clear();
         menuUndoTo->setEnabled(false);
         for (int i=scrollArea->drawAreaWidget->undoStack.index()-1;  i>=0;  i--){
-            QAction* action =new QAction((const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text()
-                                         +" "
-                                         +(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))!=0?
-                                             ( dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->shapes.size()>1?
-                                                   tr("multipal shapes")
-                                                 :
-                                                   dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->shapes.at(0)->name())
-                                           :
-                                             dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i))->child(0)))->shapes.at(0)->name()
-                                             ),this);
+            QString actionText=(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text();
+
+            QAction* action =new QAction(actionText,this);
                     action->setData(i+1);
 
                     menuUndoTo->addAction(action);
@@ -287,15 +290,7 @@ void MainWindow::updateToolBar(){
          menuRedoTo->setEnabled(false);
         for (int i=scrollArea->drawAreaWidget->undoStack.index();  i<scrollArea->drawAreaWidget->undoStack.count();  i++){
             QAction* action =new QAction((const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text()
-                                         +" "
-                                         +(dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))!=0?
-                                             ( dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->shapes.size()>1?
-                                                   tr("multipal shapes")
-                                                 :
-                                                   dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->shapes.at(0)->name())
-                                           :
-                                             dynamic_cast<AbstractAction*>(const_cast<QUndoCommand*>(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i))->child(0)))->shapes.at(0)->name()
-                                             ),this);
+                                         ,this);
                     action->setData(i);
 
                     menuRedoTo->addAction(action);
@@ -405,38 +400,42 @@ void MainWindow::handleMessage(QString message){
 
 void MainWindow::keyPressEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！只有WSAD
     qDebug()<<"MainWindow "<<__FUNCTION__<<event->text()<<event->key();
-//    switch (event->key())
-//    case Qt::Key_Delete:
-//    case Qt::Key_W:
-//    case Qt::Key_S:
-//    case Qt::Key_A:
-//    case Qt::Key_D:{
 
+        if (event->matches(QKeySequence::Cut))
+        {
+            on_actionCut_triggered();
+            return;
+        }
+        if (event->matches(QKeySequence::Copy))
+        {
+            on_actionCopy_triggered();
+            return;
+        }
+        if (event->matches(QKeySequence::Paste))
+        {
+            on_actionPaste_triggered();
+            return;
+        }
+
+
+    if (scrollArea){
         scrollArea->drawAreaWidget->keyPressEvent(event);
-        //return;
-//    }
-        if (event->matches(QKeySequence::Undo))
-        {
-            scrollArea->drawAreaWidget->undo();
-            //return;
-        }
-        if (event->matches(QKeySequence::Redo))
-        {
-            scrollArea->drawAreaWidget->redo();
-            //return;
-        }
+
+
+    }
     QMainWindow::keyPressEvent(event);
 }
 void MainWindow::keyReleaseEvent(QKeyEvent *event){//上下左右键被scroll bar拦截了，到不了这里！！只有WSAD
-    qDebug()<<"MainWindow "<<__FUNCTION__<<event->text()<<event->key();
+    //qDebug()<<"MainWindow "<<__FUNCTION__<<event->text()<<event->key();
 //    switch (event->key())
 //    case Qt::Key_Delete:
 //    case Qt::Key_W:
 //    case Qt::Key_S:
 //    case Qt::Key_A:
 //    case Qt::Key_D:{
-
+    if (scrollArea){
         scrollArea->drawAreaWidget->keyReleaseEvent(event);
+    }
 //        break;
 //    }
     QMainWindow::keyReleaseEvent(event);
@@ -453,6 +452,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     event->setAccepted(false);
     foreach(QMdiSubWindow * swin,mdiArea->subWindowList()){
+        settings->setValue(tr("subWindowIsMaximized"),swin->isMaximized());
+
         QCloseEvent *e=new QCloseEvent;
         e->setAccepted(false);
         scrollArea=(Scroll *)(swin->widget());
@@ -462,6 +463,16 @@ void MainWindow::closeEvent(QCloseEvent *event)
         }
         else return;
     }
+    settings->setValue(tr("mainWindowIsMaximized"),this->isMaximized());
+    settings->setValue(tr("pos"),this->pos());
+    settings->setValue(tr("size"),this->size());
+     settings->setValue(tr("toolBar_0_Area"),toolBarArea(ui->toolBar_0));
+     settings->setValue(tr("toolBar_0_Visible"),ui->toolBar_0->isVisible());
+     settings->setValue(tr("toolBar_1_Area"),toolBarArea(ui->toolBar_1));
+     settings->setValue(tr("toolBar_1_Visible"),ui->toolBar_1->isVisible());
+     settings->setValue(tr("toolBar_2_Area"),toolBarArea(ui->toolBar_2));
+     settings->setValue(tr("toolBar_2_Visible"),ui->toolBar_2->isVisible());
+     settings->sync();
     event->accept();
 }
 void MainWindow::on_actionCurve_triggered(){
@@ -528,6 +539,12 @@ void  MainWindow::on_actionZoomOne_triggered(){
     scrollArea->drawAreaWidget->zoomone();
 
 }
+void MainWindow::zoom(int z){
+    if (scrollArea){
+        scrollArea->drawAreaWidget->zoom(pow(2.0,z/4.0)/scrollArea->drawAreaWidget->zoomRatio);
+        lb->setText(QString("%1").arg(int(pow(2.0,z/4.0)*100))+"%");
+    }
+}
 
 void  MainWindow::on_actionPalm_triggered(){
     currentCategory=PalmCategory;
@@ -583,12 +600,17 @@ void  MainWindow::on_actionNew_triggered(){
 
 
     scrollArea = new Scroll;
+    scrollArea->setParent(this);
     scrollArea->drawAreaWidget->setCategory(currentCategory);
     le= mdiArea->addSubWindow(scrollArea);
 
     le->resize(1000,600);
     le->setGeometry(30*DrawAreaWidget::numOfFiles,30*DrawAreaWidget::numOfFiles,1000,600);
     //le->setWindowState(Qt::WindowMaximized);
+    bool state = settings->value("subWindowIsMaximized",true).toBool();
+    if (state){
+        le->setWindowState(Qt::WindowMaximized);
+    }
     le->show();
     connect(scrollArea->drawAreaWidget, SIGNAL(categoryChanged()),
             this, SLOT(updateToolBar()));
@@ -638,4 +660,34 @@ void MainWindow::on_actionPrint_triggered()
 void MainWindow::on_actionPrintPreview_triggered()
 {
     scrollArea->drawAreaWidget->printPreview();
+}
+void MainWindow::on_actionClearSettings_triggered()
+{
+    //clearSettings=true;
+    //QSettings settings("MySoft", "draw");
+    settings->clear();
+    settings->sync();
+    readSettings();
+}
+void MainWindow::readSettings(){
+    //QSettings settings("MySoft", "draw");
+    ui->toolBar_0->setVisible(settings->value("toolBar_0_Visible",true).toBool());
+    addToolBar(Qt::ToolBarArea(settings->value("toolBar_0_Area",Qt::TopToolBarArea).toInt()),ui->toolBar_0);
+    ui->toolBar_1->setVisible(settings->value("toolBar_1_Visible",true).toBool());
+    addToolBar(Qt::ToolBarArea(settings->value("toolBar_1_Area",Qt::TopToolBarArea).toInt()),ui->toolBar_1);
+    ui->toolBar_2->setVisible(settings->value("toolBar_2_Visible",true).toBool());
+    addToolBar(Qt::ToolBarArea(settings->value("toolBar_2_Area",Qt::TopToolBarArea).toInt()),ui->toolBar_2);
+    if (settings->value("mainWindowIsMaximized",true).toBool()){
+        setWindowState(Qt::WindowMaximized);
+    }else{
+        move(settings->value("pos").toPoint());
+        resize(settings->value("size").toSize());
+    }
+    if (le!=0){
+        if (settings->value("subWindowIsMaximized",true).toBool()){
+        le->setWindowState(Qt::WindowMaximized);
+        }else{
+            le->setWindowState(Qt::WindowNoState);
+        }
+    }
 }

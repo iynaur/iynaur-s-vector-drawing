@@ -1,5 +1,5 @@
 #include "edittextdialog.h"
-
+#include<QGridLayout>
 EditTextDialog::EditTextDialog(QWidget *parent) :
     QDialog(parent)//,
     //ui(new Ui::EditTextDialog)

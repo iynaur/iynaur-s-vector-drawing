@@ -14,7 +14,7 @@ public:
     QString name();
     virtual shared_ptr<GeneralShape>  copyPaste();
     bool virtual isEmpty();
-    void drag(QPoint point);
+    void drag(QPointF point);
     void draw(QPainter &painter,qreal zoomRatio);
     void removeLastPoint();
     double   minDistance(QPointF point);

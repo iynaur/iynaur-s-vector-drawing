@@ -8,6 +8,7 @@ TabWidget::TabWidget(QWidget *parent) :
     //ui->setupUi(this);
     fdlg=new MyFontDialog;
     fdlg->setOption(QFontDialog::NoButtons);
+    fdlg->setOption(QFontDialog::DontUseNativeDialog);
     //resize(fdlg->size());
     addTab(fdlg,tr("Font"));
 

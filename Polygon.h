@@ -1,8 +1,8 @@
 ﻿#ifndef PG_H
 #define PG_H
  
-#include "Polyline.h"
-#include <Qpainter>
+#include "polyline.h"
+#include <QPainter>
 #include <QVector>
 #include <QPointF>
 #include <QPolygon>
@@ -12,7 +12,7 @@ class Polygon : public Polyline
 public:
     Polygon();
     QString name();
-    virtual Polygon *  copyPaste();
+    virtual shared_ptr<GeneralShape>  copyPaste();
     //QString virtual qStringFromThis();
     double  virtual minDistance(QPointF point);
 

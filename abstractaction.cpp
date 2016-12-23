@@ -3,6 +3,7 @@
 
 AbstractAction::AbstractAction()
 {
+
 }
 AbstractAction::~AbstractAction(){
 //    foreach (GeneralShape*sp,shapes){

@@ -50,13 +50,19 @@
         <file>image/arrow.png</file>
         <file>image/arrowup.PNG</file>
         <file>image/pointer.png</file>
-        <file>image/图片1.png</file>
-        <file>image/图片2.png</file>
         <file>image/sc_group.png</file>
         <file>image/sc_ungroup.png</file>
         <file>image/sc_ungroup (2).png</file>
         <file>image/group.gif</file>
         <file>image/ungroup.gif</file>
-        <file>image/图片1 (2).png</file>
+        <file>image/down.png</file>
+        <file>image/Pen.ico</file>
+        <file>image/th.png</file>
+        <file>image/up.png</file>
+        <file>image/xuanze.png</file>
+        <file>image/edit-set-9-512.png</file>
+        <file>image/pic1 (2).png</file>
+        <file>image/pic1.png</file>
+        <file>image/pic2.png</file>
     </qresource>
 </RCC>

@@ -25,7 +25,7 @@ public:
     //QPointF rotationHandlePoint();
     //QPointF scaleHandlePoint();
     void setsx(double x);
-    void setsy(double y);
+    void setsy(double);
     double virtual getsy();
     void  zoom(qreal zoomratio);
     QString name();

@@ -14,6 +14,9 @@ public:
     //void draw(QPainter &painter,qreal zoomRatio);
 
     bool virtual isEmpty();
+    void virtual mousePress(QPointF p);
+    void virtual mouseMove(QPointF p);
+    void virtual mouseRelease(QPointF p);
 };
 
 #endif // CLOSECURVE_H

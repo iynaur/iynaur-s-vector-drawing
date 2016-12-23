@@ -7,7 +7,9 @@
 QT       += core gui
 QT += xml
 QT += printsupport
-#QMAKE_CXXFLAGS+= -std=gnu++0x
+QTPLUGIN += cocoaprintersupport
+QMAKE_CXXFLAGS+= -std=gnu++0x
+#                -Wno-unused-parameter
 #QMAKE_CXXFLAGS += /MP
 PRECOMPILED_HEADER=stable.h
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -52,7 +54,8 @@ SOURCES += main.cpp\
     LineEdit.cpp \
     codeeditdlg.cpp \
     setpenaction.cpp \
-    ruler.cpp
+    ruler.cpp \
+    hlineedit.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -70,31 +73,36 @@ HEADERS  += mainwindow.h \
     scroll.h \
     polygon.h \
     polyline.h \
-#    abstractaction.h \
-#    addaction.h \
-#    deleteaction.h \
-#    editaction.h \
-#    combineaction.h \
-#    divideaction.h \
-#    topaction.h \
-#    bottomaction.h \
-#    setbrushaction.h \
-#    slightmoveaction.h \
-#    texteditaction.h \
+    abstractaction.h \
+    addaction.h \
+    deleteaction.h \
+    editaction.h \
+    combineaction.h \
+    divideaction.h \
+    topaction.h \
+    bottomaction.h \
+    setbrushaction.h \
+    slightmoveaction.h \
+    texteditaction.h \
     tabwidget.h \
     edittextdialog.h \
-#    mycolordialog.h \
-#    myfontdialog.h \
+    mycolordialog.h \
+    myfontdialog.h \
     Label.h \
     LineEdit.h \
     ruler.h \
     codeeditdlg.h \
     setpenaction.h \
-    stable.h
+    stable.h \
+    hlineedit.h \
+    rotatewidget.h \
+    mywidget.h
 
 FORMS    += mainwindow.ui
 
 DISTFILES += log.txt
 
-RESOURCES+=res.qrc
+RESOURCES+
+
+RESOURCES +=   res.qrc
 

@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>818</width>
-     <height>23</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDraw">
@@ -94,6 +94,12 @@
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionClearSettings"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuDraw"/>
@@ -101,6 +107,7 @@
    <addaction name="menuFix"/>
    <addaction name="menuCombination"/>
    <addaction name="menuZoom"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="toolBar_0">
    <property name="windowTitle">
@@ -232,7 +239,7 @@
   <action name="actionFixcanvas">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/图片1.png</normaloff>:/image/图片1.png</iconset>
+     <normaloff>:/image/pic1.png</normaloff>:/image/pic1.png</iconset>
    </property>
    <property name="text">
     <string>Fitcanvas</string>
@@ -379,7 +386,7 @@
    </property>
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/图片1 (2).png</normaloff>:/image/图片1 (2).png</iconset>
+     <normaloff>:/image/pic1 (2).png</normaloff>:/image/pic1 (2).png</iconset>
    </property>
    <property name="text">
     <string>CloseCurve</string>
@@ -423,9 +430,6 @@
    <property name="text">
     <string>Copy</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+C</string>
-   </property>
   </action>
   <action name="actionPaste">
    <property name="icon">
@@ -435,14 +439,11 @@
    <property name="text">
     <string>Paste</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+V</string>
-   </property>
   </action>
   <action name="actionExpand">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/image/图片2.png</normaloff>:/image/图片2.png</iconset>
+     <normaloff>:/image/pic2.png</normaloff>:/image/pic2.png</iconset>
    </property>
    <property name="text">
     <string>Expand</string>
@@ -456,9 +457,6 @@
    <property name="text">
     <string>Cut</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+X</string>
-   </property>
   </action>
   <action name="actionUndo">
    <property name="icon">
@@ -468,9 +466,6 @@
    <property name="text">
     <string>Undo</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Z</string>
-   </property>
   </action>
   <action name="actionRedo">
    <property name="icon">
@@ -479,9 +474,6 @@
    </property>
    <property name="text">
     <string>Redo</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Y</string>
    </property>
   </action>
   <action name="actionSaveAs">
@@ -509,6 +501,15 @@
    </property>
    <property name="text">
     <string>PrintPreview</string>
+   </property>
+  </action>
+  <action name="actionClearSettings">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/image/clear.png</normaloff>:/image/clear.png</iconset>
+   </property>
+   <property name="text">
+    <string>ClearSettings</string>
    </property>
   </action>
  </widget>

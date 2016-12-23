@@ -56,7 +56,7 @@ double Ellipse::minDistance(QPointF point){//need re-caculate
     return  max(( sqrt( (x/a)*(x/a) + (y/b)*(y/b) ) - 1 )*(a+b)/2 , 0.0) ;
 
 }
-void Ellipse::drag(QPoint point){
+void Ellipse::drag(QPointF point){
     for (int i=0;i<points.size();i++){
         points[i].setX(points.at(i).x()+point.x());
         points[i].setY(points.at(i).y()+point.y());
@@ -89,7 +89,7 @@ void Ellipse::updateRange(){
      tmp->updateRange();
      return static_pointer_cast<GeneralShape>(tmp);
 }
-bool Ellipse:: isEmpty(){
-    if (points.at(0)==points.at(1)) return true;
-    else return false;
-}
+ bool Ellipse:: isEmpty(){
+     if (points.size()>1 && (points.at(0)-points.at(1)).x()*(points.at(0)-points.at(1)).y()!=0) return false;
+     else return true;
+ }

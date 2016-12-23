@@ -1,7 +1,7 @@
 #include "mainwindow.h"
-//#include <QApplication>
-//#include <string>
-
+#include <QApplication>
+#include <string>
+#include"stable.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

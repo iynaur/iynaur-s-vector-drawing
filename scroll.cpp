@@ -7,7 +7,7 @@ Scroll::Scroll()
     drawAreaWidget->setBackgroundRole(QPalette::Base);
     drawAreaWidget->vBar=verticalScrollBar();
     drawAreaWidget->hBar=horizontalScrollBar();
-    drawAreaWidget->setFixedSize(900,500);
+    drawAreaWidget->setFixedSize(drawAreaWidget->realSize);
     drawAreaWidget->windowwidth=width();
     drawAreaWidget->windowheight=height();
     setBackgroundRole(QPalette::Dark);
@@ -103,16 +103,22 @@ void Scroll::updateruler(){
 }
 void Scroll::keyPressEvent(QKeyEvent *event){
     qDebug()<<"Scroll "<<__FUNCTION__<<event->text()<<event->key();
+
+        if (drawAreaWidget->needKeyboard){
+            drawAreaWidget->keyPressEvent(event);
+            return;
+        }
+
     //drawAreaWidget->keyPressEvent(event);
-    event->ignore();
+    event->ignore();//propagated to mdi!!
 }
 
 void Scroll::keyReleaseEvent(QKeyEvent *event){
-    qDebug()<<"Scroll "<<__FUNCTION__<<event->text()<<event->key();
+    //qDebug()<<"Scroll "<<__FUNCTION__<<event->text()<<event->key();
     //drawAreaWidget->keyReleaseEvent(event);
     event->ignore();
 }
 void  Scroll::contextMenuEvent( QContextMenuEvent * event ){
-    qDebug()<<"Scroll "<<__FUNCTION__;
+    //qDebug()<<"Scroll "<<__FUNCTION__;
     drawAreaWidget->contextMenuEvent(event);
 }

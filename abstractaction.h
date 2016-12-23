@@ -1,11 +1,13 @@
 #ifndef DRAWACTION_H
 #define DRAWACTION_H
-//#include "generalshape.h"
+#include "generalshape.h"
 
-//#include <QList>
-//#include <memory>
-//#include <QUndoCommand>
-//#include "drawareawidget.h"
+#include <QList>
+#include <memory>
+#include <QUndoCommand>
+#include <QString>
+#include <string>
+#include <QTranslator>
 enum ActionType {Add,Delete,Edit,Combine,Divide,Top,Bottom,SetBrush,TextEdit,SetPen};
 
 class AbstractAction : public QUndoCommand//, public DrawAreaWidget

@@ -91,6 +91,6 @@ void Rect::updateRange(){
      return static_pointer_cast<GeneralShape>(tmp);
 }
 bool Rect:: isEmpty(){
-    if (points.size()>1 && points.at(0)!=points.at(1)) return false;
+    if (points.size()>1 && (points.at(0)-points.at(1)).x()*(points.at(0)-points.at(1)).y()!=0) return false;
     else return true;
 }

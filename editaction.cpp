@@ -6,8 +6,8 @@ EditAction::EditAction()
     dpoint=QPointF(0,0);
     oldRotationangle=0;
     newRotationangle=0;
-    dsx=1;
-    dsy=1;
+    oldsx=newsx=1;
+    oldsy=newsy=1;
     setText(name());
 }
 ActionType EditAction::actiontype(){
@@ -23,8 +23,10 @@ void EditAction::undo(){
     if (newRotationangle!=oldRotationangle){
         sp->setRotationangle(oldRotationangle);
     }
-    sp->setsx(shapes.at(0)->getsx()/dsx);
-    sp->setsy(shapes.at(0)->getsy()/dsy);
+    if (newsx!=oldsx){
+    sp->setsx(oldsx);}
+    if (newsy!=oldsy){
+    sp->setsy(oldsy);}
     }
     pickedShapes=shapes;
 }
@@ -34,8 +36,11 @@ void EditAction::redo(){
         if (newRotationangle!=oldRotationangle){
             sp->setRotationangle(newRotationangle);
         }
-        sp->setsx(shapes.at(0)->getsx()*dsx);
-        sp->setsy(shapes.at(0)->getsy()*dsy);
+        if (newsx!=oldsx){
+        sp->setsx(newsx);}
+        if (newsy!=oldsy){
+        sp->setsy(newsy);}
+
     }
     pickedShapes=shapes;
 }

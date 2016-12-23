@@ -1,10 +1,10 @@
 #ifndef TABWIDGET_H
 #define TABWIDGET_H
 
-//#include <QTabWidget>
-//#include "gettextdialog.h"
-//#include "myfontdialog.h"
-//#include "mycolordialog.h"
+#include <QTabWidget>
+#include "gettextdialog.h"
+#include "myfontdialog.h"
+#include "mycolordialog.h"
 namespace Ui {
 class TabWidget;
 }

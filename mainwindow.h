@@ -7,6 +7,13 @@
 #include <QScrollArea>
 #include <QMdiArea>
 #include <QToolButton>
+#include <QSettings>
+#include<cmath>
+#include <algorithm>
+#include<QLabel>
+#include <QSlider>
+#include <QMdiSubWindow>
+#include <QString>
 //enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
 //               RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
 namespace Ui {
@@ -26,6 +33,9 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
     void closeEvent(QCloseEvent *event);
+
+
+    void readSettings();
 
     QList<shared_ptr<GeneralShape>>* copyShapes;
     Category currentCategory;
@@ -85,9 +95,10 @@ private slots:
     void on_actionPrintPreview_triggered();
     void updateStatusBar(QMouseEvent *, QPointF p);
     void clearStatusBar();
-
+    void on_actionClearSettings_triggered();
 public slots:
     void handleMessage(QString message);
+    void zoom(int z);
     //void onscrollContentsBy(int dx, int dy);
 signals:
     //scrollDone();
@@ -101,6 +112,9 @@ private:
     QToolButton*redoButton;
     QMenu* menuUndoTo;
     QMenu* menuRedoTo;
+    QSettings *settings;
+    QSlider* sld;
+    QLabel* lb;
 };
 
 #endif // MAINWINDOW_H

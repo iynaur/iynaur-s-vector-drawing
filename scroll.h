@@ -1,9 +1,9 @@
 #ifndef SCROLL_H
 #define SCROLL_H
 //#include <QScrollArea>
-//#include <QGridLayout>
+#include <QGridLayout>
 #include "drawareawidget.h"
-//#include"ruler.h"
+#include"ruler.h"
 class Scroll : public QScrollArea
 {
     Q_OBJECT
