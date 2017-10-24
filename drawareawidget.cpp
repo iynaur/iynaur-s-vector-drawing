@@ -71,6 +71,10 @@ void DrawAreaWidget::currentTextChanged(QString text){
     //currentText->setText(text);
     update();
 }
+void DrawAreaWidget::setTool(Tool* tool){
+    currentTool=tool;
+    currentTool->canvas=this;
+}
 
 void DrawAreaWidget::codeEdit(){
     if ( pickedShapes.size()==1 ){
@@ -198,6 +202,7 @@ void DrawAreaWidget::init()
     //delete pickRect;
     pickRect=NULL;
     currentCategory = PickCategory;
+    //mInstrumentHandler=CurveLineInstrument;
     isLeftMouseButtonPressed = false;
     shapes.clear();
     dx=dy=0;
@@ -972,6 +977,12 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
     switch(currentCategory)
     {
 
+    case ToolCategory:{
+        currentTool->mousePress(realPoint);
+
+        break;
+    }
+
     case PalmCategory:{
         //setMouseTracking(false);
         startCursorPoint=event->pos();
@@ -1080,6 +1091,9 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
         break;
     }
     }
+
+    //mInstrumentHandler = mInstrumentsHandlers.at(DataSingleton::Instance()->getInstrument());
+    //mInstrumentHandler->mousePressEvent(event, *this);
     update();
 
 }
@@ -1140,6 +1154,11 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 
     switch(currentCategory)
     {
+    case ToolCategory:{
+        currentTool->mouseRelease(realPoint);
+
+        break;
+    }
     case CloseCurveCategory:
     case CurveCategory:{
         isLeftMouseButtonPressed = false;
@@ -1446,6 +1465,12 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
     //if (event->pos().x()>this->width() || event->pos().y()>this->height()) expand(event->pos());
     switch(currentCategory)
     {
+    case ToolCategory:{
+        currentTool->mouseMove(realPoint);
+
+        break;
+    }
+
     case CloseCurveCategory:
     case CurveCategory:
 
@@ -1545,7 +1570,7 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 
     }
     }
-
+    update();
     emit mouseMoved(event,realPoint);
 }
 
@@ -1564,6 +1589,7 @@ void DrawAreaWidget::setCategory(Category c){
         update();
     }
     currentCategory=c;
+    //mInstrumentHandler=CurveLineInstrument;
     emit categoryChanged();
 }
 void DrawAreaWidget::finishcurrentShape(){

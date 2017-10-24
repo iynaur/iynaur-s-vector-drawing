@@ -5,6 +5,7 @@
 #include <QPainter>
  
 #include "generalshape.h"
+#include"facetool.h"
 #include "curve.h"
 #include "closecurve.h"
 #include "circle.h"
@@ -38,13 +39,18 @@
 #include"hlineedit.h"
 #include"mywidget.h"
 #include"rotatewidget.h"
+#include"curvelineinstrument.h"
+
 enum MouseHanded {None, RotationPoint,ScalePoint};
 enum Category {CurveCategory,CloseCurveCategory, PolylineCategory,PolygonCategory,PickCategory,CircleCategory,
-               RectCategory,EllipseCategory,TextCategory,PalmCategory};//Line, Rect, Text,
+               RectCategory,EllipseCategory,TextCategory,PalmCategory,ToolCategory};//Line, Rect, Text,
+class AbstractInstrument;
+
 class DrawAreaWidget : public QWidget
 {
     Q_OBJECT
 public:
+    void setTool(Tool* tool);
     explicit DrawAreaWidget(QWidget *parent = 0);
     ~DrawAreaWidget();
     void init();
@@ -151,6 +157,7 @@ public:
     QPointF startPoint,endPoint;
     QPoint startCursorPoint,endCursorPoint;
     Category currentCategory;
+    Tool* currentTool;
     MouseHanded currentMouseHanded;
     bool isLeftMouseButtonPressed;
     int dx,dy;//坐标原点的画布位置
@@ -173,6 +180,7 @@ public:
     QSize realSize;
     QPoint realDp;
     bool needKeyboard;
+    AbstractInstrument *mInstrumentHandler;
     //Combo* root;
 };
  

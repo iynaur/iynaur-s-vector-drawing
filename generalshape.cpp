@@ -163,3 +163,13 @@ void GeneralShape::mouseMove(QPointF p){
 void GeneralShape::mouseRelease(QPointF p){
 
 }
+void  GeneralShape::addPoint(QPointF point) {
+
+        points.append(point);
+        updateRange();
+
+}
+     //为了画任意曲线特意留的一个口子
+void  GeneralShape::removeLastPoint(){
+    points.removeLast();
+}

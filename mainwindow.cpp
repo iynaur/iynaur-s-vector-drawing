@@ -691,3 +691,14 @@ void MainWindow::readSettings(){
         }
     }
 }
+
+void MainWindow::on_actionFace_triggered()
+{
+//    currentCategory=CircleCategory;
+//    scrollArea->drawAreaWidget->setCategory(CircleCategory);
+    currentCategory=ToolCategory;
+    scrollArea->drawAreaWidget->setCategory(ToolCategory);
+    faceTool=new FaceTool();
+    scrollArea->drawAreaWidget->setTool(faceTool);
+
+}

@@ -399,13 +399,13 @@ qreal Combo::rotationangle(){
 void Combo::setRotationangle(qreal angle){
     Rotationangle=angle;
 }
-void Combo:: addPoint(QPointF point){
+//void Combo:: addPoint(QPointF point){
 
-}
+//}
 
-void Combo:: removeLastPoint(){
+//void Combo:: removeLastPoint(){
 
-}
+//}
 
 void Combo:: setPen(const QPen &pen){
 //    for (int i=0;i<shapes.size();i++){

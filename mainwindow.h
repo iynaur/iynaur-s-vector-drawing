@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "drawareawidget.h"
 #include "scroll.h"
+#include "facetool.h"
 #include <QScrollArea>
 #include <QMdiArea>
 #include <QToolButton>
@@ -96,6 +97,8 @@ private slots:
     void updateStatusBar(QMouseEvent *, QPointF p);
     void clearStatusBar();
     void on_actionClearSettings_triggered();
+    void on_actionFace_triggered();
+
 public slots:
     void handleMessage(QString message);
     void zoom(int z);
@@ -115,6 +118,7 @@ private:
     QSettings *settings;
     QSlider* sld;
     QLabel* lb;
+    FaceTool* faceTool;
 };
 
 #endif // MAINWINDOW_H

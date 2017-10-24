@@ -16,6 +16,7 @@
 #include <QWidget>
 #include <QPixmap>
 #include <QPainter>
+#include <QMenu>
 #include<cmath>
 #include"qmath.h"
 #include"mywidget.h"

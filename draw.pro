@@ -55,7 +55,11 @@ SOURCES += main.cpp\
     codeeditdlg.cpp \
     setpenaction.cpp \
     ruler.cpp \
-    hlineedit.cpp
+    hlineedit.cpp \
+    abstractinstrument.cpp \
+    curvelineinstrument.cpp \
+    tool.cpp \
+    facetool.cpp
 
 HEADERS  += mainwindow.h \
     abstractshape.h \
@@ -96,13 +100,18 @@ HEADERS  += mainwindow.h \
     stable.h \
     hlineedit.h \
     rotatewidget.h \
-    mywidget.h
+    mywidget.h \
+    abstractinstrument.h \
+    curvelineinstrument.h \
+    tool.h \
+    facetool.h
 
 FORMS    += mainwindow.ui
 
 DISTFILES += log.txt
 
-RESOURCES+
+
 
 RESOURCES +=   res.qrc
+
 

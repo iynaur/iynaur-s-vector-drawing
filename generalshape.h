@@ -56,8 +56,8 @@ public:
     bool virtual isEmpty();
     qreal rotationangle();
     void setRotationangle(qreal angle);
-    void virtual addPoint(QPointF point)=0;
-    void virtual removeLastPoint()=0;
+    void virtual addPoint(QPointF point);
+    void virtual removeLastPoint();
     void virtual setPen(const QPen &pen)=0;
     void virtual setBrush(const QBrush &brush)=0;
     void virtual setsx(double x);

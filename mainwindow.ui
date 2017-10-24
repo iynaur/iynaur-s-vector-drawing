@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>818</width>
-     <height>19</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDraw">
@@ -175,6 +175,18 @@
    <addaction name="actionDivide"/>
    <addaction name="actionDivideToEnd"/>
    <addaction name="actionPalm"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_3">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFace"/>
   </widget>
   <action name="actionCurve">
    <property name="checkable">
@@ -510,6 +522,11 @@
    </property>
    <property name="text">
     <string>ClearSettings</string>
+   </property>
+  </action>
+  <action name="actionFace">
+   <property name="text">
+    <string>Face</string>
    </property>
   </action>
  </widget>
