@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IShapeEditor" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DIAADAAAQAAgCAAAAIAAAAAQAAAAAAAAgAAAAEAQBBA=</HashCode>
+      <FileName>IShapeEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolylineEditor" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BICALBAAQAQgCABAAMAAAAAYAAAAEAAAwABAEEAQBBA=</HashCode>
+      <FileName>PolylineEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolygonEditor" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAABAAAAAAQA=</HashCode>
+      <FileName>PolygonEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseShapeEditor" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAQAAAAAAAAEEAAAAYAAAAAAAAgEAAAAAAABA=</HashCode>
+      <FileName>BaseShapeEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShapeEditorBase" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAADAARAAAwCAAgAIAIAAAAAAAAMAAAAAAAAEAQBBA=</HashCode>
+      <FileName>ShapeEditorBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextEditor" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAgDAAAQAAgCAIAAMAAAAAYQAAAAEAEgAAAAEQQBBA=</HashCode>
+      <FileName>TextEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultiShapesEditor" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAQAAAAAAAAEAAAAAYAAAAAAACgAAAAAAAABA=</HashCode>
+      <FileName>MultiShapesEditor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="qt_meta_stringdata_PolygonEditor_t" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_PolygonEditor.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_PolylineEditor_t" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_PolylineEditor.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="qt_meta_stringdata_TextEditor_t" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>GeneratedFiles\Debug\moc_TextEditor.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="MouseHanded" Collapsed="true">
+    <Position X="9.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IShapeEditor.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei" Size="9" />
+</ClassDiagram>

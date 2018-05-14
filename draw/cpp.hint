@@ -1,0 +1,6 @@
+#    define foreach Q_FOREACH
+#define Q_FOREACH(variable, container)                                \
+for (QForeachContainer<typename QtPrivate::remove_reference<decltype(container)>::type> _container_((container)); \
+     _container_.control && _container_.i != _container_.e;         \
+     ++_container_.i, _container_.control ^= 1)                     \
+    for (variable = *_container_.i; _container_.control; _container_.control = 0)

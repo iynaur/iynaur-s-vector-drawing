@@ -1,0 +1,11 @@
+#pragma once
+#include "generalshape.h"
+#include "curve.h"
+#include "closecurve.h"
+#include "circle.h"
+#include "polyline.h"
+#include "polygon.h"
+#include "rect.h"
+#include "ellipse.h"
+#include "text.h"
+#include "combo.h"

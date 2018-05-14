@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FaceTool" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQAAAAAAAAIAAAAAYAAEgAAASggAQAAAAAAA=</HashCode>
+      <FileName>facetool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoPointsShapeBuilder&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQAAQAAAAAAAAAAAQAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>TwoPointsShapeBuilder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsecutiveBuilder&lt;T&gt;" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQABAAAAAAAAAAAAQAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsecutiveBuilder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IShapeBuilder" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAAQBBAQAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>IShapeBuilder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolyBuilder&lt;T&gt;" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAABAQAAAAAAEAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PolyBuilder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShapeBuilderBase" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAQABAAAAgAAAAAACIAAAAAAAAEAAAAAAAAAAABAA=</HashCode>
+      <FileName>ShapeBuilderBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextBuilder" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAQAAAAAAAAAAAAAAQIAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>TextBuilder.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei" Size="9" />
+</ClassDiagram>

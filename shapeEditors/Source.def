@@ -1,0 +1,3 @@
+LIBRARY shapeeditors
+EXPORTS
+updateIShapeEditor = ?updateIShapeEditor@@YAXV?$QList@V?$shared_ptr@VGeneralShape@@@std@@@@AEAV?$shared_ptr@VIShapeEditor@@@std@@@Z

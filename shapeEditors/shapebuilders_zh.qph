@@ -1,0 +1,19 @@
+<!DOCTYPE QPH>
+<QPH language="zh_CN">
+<phrase>
+    <source>DelPoint</source>
+    <target>删除顶点</target>
+</phrase>
+<phrase>
+    <source>AddPoint</source>
+    <target>增加顶点</target>
+</phrase>
+<phrase>
+    <source>EditText</source>
+    <target>文本编辑</target>
+</phrase>
+<phrase>
+    <source>MoveToTop</source>
+    <target>移到顶层</target>
+</phrase>
+</QPH>

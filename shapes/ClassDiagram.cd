@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AbstractShape" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIBAAAAgFAAACAEIAABAEAAAAAAAAAAAAgAACQAA=</HashCode>
+      <FileName>abstractshape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Circle" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAAAAAABAAACAEIAIAAABAgEAAAAAACAAAAAQAA=</HashCode>
+      <FileName>circle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CloseCurve" Collapsed="true">
+    <Position X="7.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAAAAAAAEAQAAAAAAAEAAAAAAAAAAAAQgA=</HashCode>
+      <FileName>closecurve.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Combo" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAaAAAAAgBAAAiDEIAIBAABAgEBAAAAAAAgAACRAA=</HashCode>
+      <FileName>combo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Curve" Collapsed="true">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAEAQAAAAAAAEAAAAgAAAAAAAAgA=</HashCode>
+      <FileName>curve.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ellipse" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAACAAABAAACAEIAAAAAAAAEAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>ellipse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneralShape" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>sIIAaBCwgggBKBBCAEowIBgEBIgMAAAAAACAgAICwgg=</HashCode>
+      <FileName>generalshape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Poly" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAgAABAABCAEIgAAAAAEAEAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>poly.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Polygon" Collapsed="true">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAEIAAAAAAAAEAAAAAAAAAAAAQCA=</HashCode>
+      <FileName>polygon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Polyline" Collapsed="true">
+    <Position X="6.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAABAAACAEICAAAAAAAEAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>polyline.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rect" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAABAAACAEIAAAAAACAEAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>rect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Text" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAA4AAAAAABAAACAEIAIBCABIAEgAAIAAAACAAAQAA=</HashCode>
+      <FileName>text.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei" Size="9" />
+</ClassDiagram>

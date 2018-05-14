@@ -1,0 +1,5 @@
+Import('env')
+src = Glob('*.cpp')   
+src += Glob('*.cxx')
+#src += Glob('*.h')
+env.Program(source = src   , target = 'hello_world')

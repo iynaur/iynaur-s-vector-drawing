@@ -1,0 +1,21 @@
+
+debug = ARGUMENTS.get('debug',0)  
+vars = Variables(None,ARGUMENTS)  
+vars.Add('debug','Set to 1 to build for debug', 0)  
+env = Environment(variables = vars)  
+Help(vars.GenerateHelpText(env))  
+env.Append(CCFLAGS='/EHsc')
+if int(debug) == 1:  
+    env.Append(CPPDEFINES = ['DEBUG', '_DEBUG'])
+    env.Append(CCFLAGS=Split('/c /ZI /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _WINDOWS /D _USRDLL /D SHAPES_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline'))
+    env.Append(CCFLAGS='/Fd${TARGET}.pdb')
+    env.Append(LINKFLAGS = ['/DEBUG'])
+    variant = 'Debug'
+else:
+    env.Append(CCFLAGS=Split('/c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D NDEBUG /D _WINDOWS /D _USRDLL /D SHAPES_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline'))
+    variant = 'Release'
+    
+SConscript(dirs='.',
+           variant_dir=variant,
+           duplicate=False,
+           exports="env")

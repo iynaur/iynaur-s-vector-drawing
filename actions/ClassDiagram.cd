@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AbstractAction" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAAAAAAAAAIAAAAAAAAAUAAAAAAAAAAAQBAA=</HashCode>
+      <FileName>abstractaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="actions" Collapsed="true">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>actions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AddAction" Collapsed="true">
+    <Position X="18.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAwAAA=</HashCode>
+      <FileName>addaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BottomAction" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAkAAEAAAAAAAEAAAAAAAAEAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>bottomaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CombineAction" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAkAAAAAAAAAAEAAQAAAAAEAAAAAEAACAAQAAA=</HashCode>
+      <FileName>combineaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeleteAction" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAkAAAAAAAAAAEAAAAAAAAEAAAAAAAAABAQAAA=</HashCode>
+      <FileName>deleteaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DivideAction" Collapsed="true">
+    <Position X="20.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAQAAAAAEAAQAQAAAEAAAAAAAAAABQAAA=</HashCode>
+      <FileName>divideaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EditAction" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACEAAAAAgAIAAUAAAAAAAAESAAAAAAAAAAQAQA=</HashCode>
+      <FileName>editaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetBrushAction" Collapsed="true">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAEAAAAAIAAEAAAAAAAAEEAQAAA=</HashCode>
+      <FileName>setbrushaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetPenAction" Collapsed="true">
+    <Position X="16.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAgBAAAAAEQAAAAAAAEAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>setpenaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SlightMoveAction" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAABAAAAAAAAAAAAAIAAAAAAAAgA=</HashCode>
+      <FileName>slightmoveaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextEditAction" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAEAAAAAAAAEAFABAAAAAAUAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>texteditaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TopAction" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAkAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>topaction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ActionType" Collapsed="true">
+    <Position X="23.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAQAAAAAAAAAQAAAAAIEIAAACAAIBAAAAAIA=</HashCode>
+      <FileName>abstractaction.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei" Size="9" />
+</ClassDiagram>

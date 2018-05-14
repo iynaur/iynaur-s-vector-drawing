@@ -1,0 +1,4 @@
+LIBRARY ShapeBuilders
+EXPORTS
+getBuilder = ?getBuilder@@YA?AV?$shared_ptr@VIShapeBuilder@@@std@@W4Category@@@Z
+getAllBuilders = ?getAllBuilders@@YA?AV?$vector@U?$pair@VQString@@W4Category@@@std@@V?$allocator@U?$pair@VQString@@W4Category@@@std@@@2@@std@@XZ

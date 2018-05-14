@@ -1,0 +1,279 @@
+<!DOCTYPE QPH>
+<QPH language="zh_CN">
+<phrase>
+    <source>padding:0px %1px 0px 0px;</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>MoveToTop</source>
+    <target>移到顶层</target>
+</phrase>
+<phrase>
+    <source>MoveToBottom</source>
+    <target>移到底层</target>
+</phrase>
+<phrase>
+    <source>SetBrush</source>
+    <target>画刷</target>
+</phrase>
+<phrase>
+    <source>SetPen</source>
+    <target>画笔</target>
+</phrase>
+<phrase>
+    <source>EditText</source>
+    <target>文本编辑</target>
+</phrase>
+<phrase>
+    <source>CodeEdit</source>
+    <target>源码编辑</target>
+</phrase>
+<phrase>
+    <source>New Pic </source>
+    <target>新建图形 </target>
+</phrase>
+<phrase>
+    <source>Unsaved changes in file: &quot;</source>
+    <target>文件：“</target>
+</phrase>
+<phrase>
+    <source>&quot; will be lost!</source>
+    <target>”中未保存的修改将会丢失！</target>
+</phrase>
+<phrase>
+    <source>Do you want to save your changes?</source>
+    <target>你想保存你的修改吗？</target>
+</phrase>
+<phrase>
+    <source>The document is unknown.</source>
+    <target>未知格式文件</target>
+</phrase>
+<phrase>
+    <source>The XML_document is unknown.</source>
+    <target>未知XML格式</target>
+</phrase>
+<phrase>
+    <source>Dialog</source>
+    <target>编辑文本</target>
+</phrase>
+<phrase>
+    <source>Enter text here!</source>
+    <target>在这里输入文字！</target>
+</phrase>
+<phrase>
+    <source>Enter Content</source>
+    <target>输入文字</target>
+</phrase>
+<phrase>
+    <source>MainWindow</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Draw</source>
+    <target>绘图</target>
+</phrase>
+<phrase>
+    <source>Tools</source>
+    <target>工具</target>
+</phrase>
+<phrase>
+    <source>Fit</source>
+    <target>画布</target>
+</phrase>
+<phrase>
+    <source>File</source>
+    <target>文件</target>
+</phrase>
+<phrase>
+    <source>Combination</source>
+    <target>组合</target>
+</phrase>
+<phrase>
+    <source>Zoom</source>
+    <target>缩放</target>
+</phrase>
+<phrase>
+    <source>Edit</source>
+    <target>编辑</target>
+</phrase>
+<phrase>
+    <source>Curve</source>
+    <target>曲线</target>
+</phrase>
+<phrase>
+    <source>Polyline</source>
+    <target>折线</target>
+</phrase>
+<phrase>
+    <source>Polygon</source>
+    <target>多边形</target>
+</phrase>
+<phrase>
+    <source>Pick</source>
+    <target>选取</target>
+</phrase>
+<phrase>
+    <source>Circle</source>
+    <target>圆</target>
+</phrase>
+<phrase>
+    <source>Fitcanvas</source>
+    <target>收缩画布</target>
+</phrase>
+<phrase>
+    <source>Rect</source>
+    <target>矩形</target>
+</phrase>
+<phrase>
+    <source>Ellipse</source>
+    <target>椭圆</target>
+</phrase>
+<phrase>
+    <source>Text</source>
+    <target>文本</target>
+</phrase>
+<phrase>
+    <source>Open</source>
+    <target>打开</target>
+</phrase>
+<phrase>
+    <source>Ctrl+O</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Save</source>
+    <target>保存</target>
+</phrase>
+<phrase>
+    <source>Ctrl+S</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Add</source>
+    <target>加入</target>
+</phrase>
+<phrase>
+    <source>ZoomIn</source>
+    <target>缩小</target>
+</phrase>
+<phrase>
+    <source>ZoomOut</source>
+    <target>放大</target>
+</phrase>
+<phrase>
+    <source>Palm</source>
+    <target>拖动</target>
+</phrase>
+<phrase>
+    <source>ZoomOne</source>
+    <target>原始大小</target>
+</phrase>
+<phrase>
+    <source>CloseCurve</source>
+    <target>闭合曲线</target>
+</phrase>
+<phrase>
+    <source>Divide</source>
+    <target>分解</target>
+</phrase>
+<phrase>
+    <source>DivideToEnd</source>
+    <target>彻底分解</target>
+</phrase>
+<phrase>
+    <source>New</source>
+    <target>新建</target>
+</phrase>
+<phrase>
+    <source>Ctrl+N</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Copy</source>
+    <target>复制</target>
+</phrase>
+<phrase>
+    <source>Ctrl+C</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Paste</source>
+    <target>粘贴</target>
+</phrase>
+<phrase>
+    <source>Ctrl+V</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Expand</source>
+    <target>扩展画布</target>
+</phrase>
+<phrase>
+    <source>Cut</source>
+    <target>剪切</target>
+</phrase>
+<phrase>
+    <source>Ctrl+X</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Undo</source>
+    <target>撤销</target>
+</phrase>
+<phrase>
+    <source>Ctrl+Z</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>Redo</source>
+    <target>重做</target>
+</phrase>
+<phrase>
+    <source>Ctrl+Y</source>
+    <target></target>
+</phrase>
+<phrase>
+    <source>SaveAs</source>
+    <target>另存为</target>
+</phrase>
+<phrase>
+    <source>Print</source>
+    <target>打印</target>
+</phrase>
+<phrase>
+    <source>PrintPreview</source>
+    <target>打印预览</target>
+</phrase>
+<phrase>
+    <source>DRAW</source>
+    <target>绘图</target>
+</phrase>
+<phrase>
+    <source>multipal shapes</source>
+    <target>多个图形</target>
+</phrase>
+<phrase>
+    <source>Font</source>
+    <target>字体</target>
+</phrase>
+<phrase>
+    <source>Content</source>
+    <target>内容</target>
+</phrase>
+  <phrase>
+    <source>DelPoint</source>
+    <target>删除顶点</target>
+  </phrase>
+  <phrase>
+    <source>AddPoint</source>
+    <target>增加顶点</target>
+  </phrase>
+  <phrase>
+    <source>EditText</source>
+    <target>文本编辑</target>
+  </phrase>
+  <phrase>
+    <source>MoveToTop</source>
+    <target>移到顶层</target>
+  </phrase>
+</QPH>

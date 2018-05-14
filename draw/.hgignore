@@ -1,0 +1,14 @@
+syntax: glob
+*[Dd]ebug/*
+*[Rr]elease/*
+*[Bb]in/*
+*[Xx]86/*
+*[Xx]64/*
+.vs/draw/v14/.suo
+GeneratedFiles/qrc_res.cpp
+GeneratedFiles/ui_mainwindow.h
+cpp.hint
+draw.VC.VC.opendb
+draw.VC.db
+draw.cppcheck
+ipch/DRAW-5d5c9cf0/DRAW-9e7048b4.ipch
