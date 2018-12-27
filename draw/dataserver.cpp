@@ -1,5 +1,5 @@
 #include "dataserver.h"
-#include "DrawAreaWidget.h"
+#include "drawareawidget.h"
 using namespace std;
 dataserver::dataserver(DrawAreaWidget* fa) :
 	QObject()

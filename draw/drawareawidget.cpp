@@ -13,8 +13,8 @@
 #include"edittextdialog.h"
 #include"codeeditdlg.h"
 #include "drawareawidget.h"
-#include "callback.h"
-#include "ISHAPEBUILDER.h"
+#include "CallBack.h"
+#include "IShapeBuilder.h"
 
 #include "polyline.h"
 #include "polygon.h"

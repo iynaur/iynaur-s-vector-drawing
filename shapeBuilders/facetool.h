@@ -3,7 +3,7 @@
 
 #include<QPointF>
 #include"ShapeBuilderBase.h"
-#include"Shapes.h"
+#include"shapes.h"
 class FaceTool : public ShapeBuilderBase
 {
 public:

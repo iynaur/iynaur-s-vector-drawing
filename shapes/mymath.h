@@ -15,6 +15,7 @@
 
 #include<cmath>
 #include<memory>
+//#include <bits/shared_ptr.h>
 #include <algorithm>
 #include <QPointF>
 #include"shapes_g.h"

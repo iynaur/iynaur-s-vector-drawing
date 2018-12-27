@@ -4,6 +4,7 @@
 
 TEMPLATE = subdirs
 CONFIG += ordered
+CONFIG += c++11
 SUBDIRS += \
     shapes/shapes.pro \
     ICallback/ICallback.pro \

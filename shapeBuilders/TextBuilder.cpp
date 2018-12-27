@@ -1,6 +1,6 @@
 #include "TextBuilder.h"
-#include "Text.h"
-#include "GetTextDialog.h"
+#include "text.h"
+#include "gettextdialog.h"
 
 TextBuilder::TextBuilder()
 {

@@ -4,10 +4,11 @@
 
 TEMPLATE = lib
 TARGET = actions
+CONFIG += c++11
 
 QT += core xml widgets gui
 
-DEFINES += WIN64 QT_WIDGETS_LIB QT_XML_LIB ACTIONS_LIB
+DEFINES +=  QT_WIDGETS_LIB QT_XML_LIB ACTIONS_LIB
 INCLUDEPATH += ./GeneratedFiles \
     . \
     ./../shapes \

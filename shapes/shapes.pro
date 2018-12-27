@@ -4,12 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core xml xmlpatterns widgets gui
+QT       += core xml  widgets gui
+
+CONFIG += c++11
 
 TARGET = shapes
 TEMPLATE = lib
 
-DEFINES += WIN64 QT_WIDGETS_LIB QT_XML_LIB QT_XMLPATTERNS_LIB SHAPES_LIB
+DEFINES +=  QT_WIDGETS_LIB QT_XML_LIB  SHAPES_LIB
 
 
 

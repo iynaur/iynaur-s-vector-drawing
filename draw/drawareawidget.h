@@ -38,8 +38,8 @@
 #include"mywidget.h"
 #include"rotatewidget.h"
 #include "dataserver.h"
-#include "ishapeeditor.h"
-#include "ISHAPEBUILDER.h"
+#include "IShapeEditor.h"
+#include "IShapeBuilder.h"
 
 class DrawAreaWidget : public QWidget
 {

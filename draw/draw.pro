@@ -4,10 +4,11 @@
 
 TEMPLATE = app
 TARGET = draw
+CONFIG += c++11
 
 QT += core sql xml widgets gui printsupport
 
-DEFINES += WIN64 QT_PRINTSUPPORT_LIB QT_WIDGETS_LIB QT_XML_LIB QT_SQL_LIB QT_OPENGL_LIB
+DEFINES +=  QT_PRINTSUPPORT_LIB QT_WIDGETS_LIB QT_XML_LIB QT_SQL_LIB QT_OPENGL_LIB
 INCLUDEPATH += ./../ICallback \
     ./../Dialog \
     ./../actions \

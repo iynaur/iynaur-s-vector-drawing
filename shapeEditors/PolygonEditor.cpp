@@ -1,5 +1,5 @@
 #include "PolygonEditor.h"
-#include "Polygon.h"
+#include "polygon.h"
 
 
 PolygonEditor::PolygonEditor()

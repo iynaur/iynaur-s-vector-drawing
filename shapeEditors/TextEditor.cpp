@@ -1,8 +1,8 @@
 #include "TextEditor.h"
-#include "Text.h"
+#include "text.h"
 #include "editaction.h"
-#include "TextEditAction.h"
-#include "EditTextDialog.h"
+#include "texteditaction.h"
+#include "edittextdialog.h"
 TextEditor::TextEditor()
 {
 	currentLine = new MyLineEdit;

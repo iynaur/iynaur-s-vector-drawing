@@ -1,6 +1,6 @@
 #include "PolylineEditor.h"
 #include "editaction.h"
-#include "keypointmoveaction.h"
+#include "KeyPointMoveAction.h"
 #include "AddPointAction.h"
 #include "DelPointAction.h"
 #include "polyline.h"

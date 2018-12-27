@@ -1,12 +1,12 @@
 #include "ShapeBuilderBase.h"
 #include "generalshape.h"
 #include"facetool.h"
-#include "shapebuilderbase.h"
-#include "callback.h"
-#include "polybuilder.h"
+#include "ShapeBuilderBase.h"
+#include "CallBack.h"
+#include "PolyBuilder.h"
 #include "TwoPointsShapeBuilder.h"
-#include "textBuilder.h"
-#include "consecutiveBuilder.h"
+#include "TextBuilder.h"
+#include "ConsecutiveBuilder.h"
 
 
 ShapeBuilderBase::ShapeBuilderBase()
@@ -87,7 +87,7 @@ SHAPEBUILDERS_EXPORT allBuilders getAllBuilders() {
 	all.push_back({ "rect", RectCategory });
 	all.push_back({ "ellipse", EllipseCategory });
 	all.push_back({ "circle", CircleCategory });
-	all.push_back({ "Text", TextCategory });
+    all.push_back({ "text", TextCategory });
 	all.push_back({ "face", FaceCategory });
 	return all;
 }

@@ -1,8 +1,8 @@
 #pragma once
 #include "shapes.h"
 #include <memory>
-#include "AbstractAction.h"
-#include "GeneralShape.h"
+#include "abstractaction.h"
+#include "generalshape.h"
 class DrawAreaWidget;
 class dataserver : public QObject
 {

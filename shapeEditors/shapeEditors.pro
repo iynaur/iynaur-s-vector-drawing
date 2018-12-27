@@ -4,10 +4,11 @@
 
 TEMPLATE = lib
 TARGET = shapeEditors
+CONFIG += c++11
 
 QT += core xml uitools widgets gui printsupport
 
-DEFINES += WIN64 QT_PRINTSUPPORT_LIB QT_UITOOLS_LIB QT_WIDGETS_LIB QT_XML_LIB SHAPEEDITORS_LIB
+DEFINES +=  QT_PRINTSUPPORT_LIB QT_UITOOLS_LIB QT_WIDGETS_LIB QT_XML_LIB SHAPEEDITORS_LIB
 INCLUDEPATH += ./../ICallback \
     ./../actions \
     ./../Dialog \

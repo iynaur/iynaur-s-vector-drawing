@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#include "ICallBack_global.h"
+#include "icallback_global.h"
 class ICALLBACK_EXPORT ICallBack
 {
 public:

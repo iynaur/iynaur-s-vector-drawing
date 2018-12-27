@@ -2,7 +2,7 @@
 #include <QObject>
 #include "ShapeEditorBase.h"
 #include "mywidget.h"
-#include "RotateWidget.h"
+#include "rotatewidget.h"
 class TextEditor :
 	public QObject, public ShapeEditorBase
 {

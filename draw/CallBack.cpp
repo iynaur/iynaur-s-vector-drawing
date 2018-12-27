@@ -1,6 +1,6 @@
 #include "stable.h"
 #include "CallBack.h"
-#include "DrawAreaWidget.h"
+#include "drawareawidget.h"
 
 CallBack::CallBack()
 {

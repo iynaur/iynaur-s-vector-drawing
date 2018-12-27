@@ -4,10 +4,11 @@
 
 TEMPLATE = lib
 TARGET = ICallback
+CONFIG += c++11
 
 QT += core xml widgets gui
 
-DEFINES += WIN64 QT_DLL ICALLBACK_LIB QT_WIDGETS_LIB QT_XML_LIB QT_XMLPATTERNS_LIB
+DEFINES +=  QT_DLL ICALLBACK_LIB QT_WIDGETS_LIB QT_XML_LIB
 INCLUDEPATH += ./../shapebuilders \
     ./../actions \
     ./../Shapes \

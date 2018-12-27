@@ -1,8 +1,8 @@
 #pragma once
 #include "generalshape.h"
 //#include <memory>
-#include "ICallBack.h"
-#include "ICallBack_global.h"
+#include "ICallback.h"
+#include "icallback_global.h"
 enum Category {
 	CurveCategory, CloseCurveCategory, PolylineCategory, PolygonCategory, PickCategory, CircleCategory,
 	RectCategory, EllipseCategory, TextCategory, PalmCategory, FaceCategory

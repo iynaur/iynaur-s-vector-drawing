@@ -1,5 +1,5 @@
 #pragma once
-#include "ICallBack.h"
+#include "ICallback.h"
 class DrawAreaWidget;
 class CallBack :
 	public ICallBack

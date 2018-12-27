@@ -5,9 +5,11 @@
 TEMPLATE = lib
 TARGET = Dialog
 
+CONFIG += c++11
+
 QT += core xml widgets gui printsupport
 
-DEFINES += WIN64 QT_PRINTSUPPORT_LIB QT_WIDGETS_LIB QT_XML_LIB DIALOG_LIB
+DEFINES +=  QT_PRINTSUPPORT_LIB QT_WIDGETS_LIB QT_XML_LIB DIALOG_LIB
 INCLUDEPATH += ./../draw \
     ./../ICallback \
     ./../actions \

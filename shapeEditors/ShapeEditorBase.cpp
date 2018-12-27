@@ -1,10 +1,10 @@
 #include "ShapeEditorBase.h"
-#include "scaleaction.h"
-#include "polylineeditor.h"
-#include "texteditor.h"
+#include "ScaleAction.h"
+#include "PolylineEditor.h"
+#include "TextEditor.h"
 #include "BaseShapeEditor.h"
 #include "MultiShapesEditor.h"
-#include "polygoneditor.h"
+#include "PolygonEditor.h"
 
 ShapeEditorBase::ShapeEditorBase()
 {

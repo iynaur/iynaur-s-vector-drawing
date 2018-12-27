@@ -1,9 +1,9 @@
 #pragma once
-#include "ICallBack_global.h"
+#include "icallback_global.h"
 #include <QWidget>
 #include "generalshape.h"
 #include "abstractaction.h"
-#include "ICallBack.h"
+#include "ICallback.h"
 /*SHAPEEDITORS_EXPORT*/ enum MouseHanded { None, RotationPoint, ScalePoint, KeyPoint };
 class IShapeEditor
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "IShapeBuilder.h"
-#include "ShapeBuilders_global.h"
+#include "shapeBuilders_global.h"
 
 class ShapeBuilderBase :
 	public IShapeBuilder

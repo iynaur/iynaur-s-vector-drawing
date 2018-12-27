@@ -12,7 +12,7 @@
 #include<cmath>
 #include<mymath.h>
 #include<memory>
-#include<ishape.h>
+#include<IShape.h>
 //#include<memleak.h>
 using namespace std;
 
