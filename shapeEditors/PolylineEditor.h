@@ -16,8 +16,8 @@ public:
 	virtual bool mouseDown(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
 	virtual void mouseMove(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
 	virtual void mouseUp(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
-	virtual bool keyDown(QKeyEvent *event) { return 0; };
-	virtual bool keyUp(QKeyEvent *event) { return 0; };
+    virtual bool keyDown(QKeyEvent *event) { return 0; }
+    virtual bool keyUp(QKeyEvent *event) { return 0; }
 	virtual void publishEditFinished();
 	virtual void setCallBack(ICallBack* callBack);
 	void virtual drawControlPoints(QPainter &painter, qreal zoomRatio);

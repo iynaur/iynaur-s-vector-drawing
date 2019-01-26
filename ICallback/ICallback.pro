@@ -11,7 +11,7 @@ QT += core xml widgets gui
 DEFINES +=  QT_DLL ICALLBACK_LIB QT_WIDGETS_LIB QT_XML_LIB
 INCLUDEPATH += ./../shapebuilders \
     ./../actions \
-    ./../Shapes \
+    ./../shapes \
     ./GeneratedFiles \
     . \
     ./GeneratedFiles/Debug
