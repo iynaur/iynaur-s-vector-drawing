@@ -227,7 +227,7 @@ void  GeneralShape::appendPoint(QPointF point) {
         updateRange();
 
 }
-     //为了画任意曲线特意留的一个口子
+     //为了画任意曲线特意留的一个口子--
 void  GeneralShape::removeLastPoint(){
     points.removeLast();
 }

@@ -47,7 +47,7 @@ public:
         p.translate(m_baseWidget->pos());
         p.translate(m_baseWidget->width()/2.0,m_baseWidget->height()/2.0);
         p.scale(zoomRatio,zoomRatio);
-        p.rotate(m_ang+(m_baseWidget->isReverse?180.0:0.0));//顺时针
+        p.rotate(m_ang+(m_baseWidget->isReverse?180.0:0.0));//顺时针--
         //if (m_baseWidget->isReverse) p.rotate(180);
         p.translate(-m_baseWidget->width()/2.0,-m_baseWidget->height()/2.0);
         p.drawPixmap(0,0,basePixmap);
@@ -117,7 +117,7 @@ public:
     }
 private:
     MyLineEdit* m_baseWidget;
-    qreal m_ang;//角度制
+    qreal m_ang;//角度制--
 };
 
 #endif // ROTATEWIDGET_H

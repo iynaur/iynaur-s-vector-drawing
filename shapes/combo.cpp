@@ -38,16 +38,16 @@ QString Combo::name(){
     tmp->sy=sy;
     tmp->brush=brush;
 
-    tmp->updateRange();//这一步不能少！！！！！！
+    tmp->updateRange();//这一步不能少！！！！！！--
     //tmp->updatedrawcombo();
     return static_pointer_cast<GeneralShape>(tmp);
 }
 void Combo::setShapesFromNode(QDomNode node){
-    while(!node.isNull())  //如果节点不空
+    while(!node.isNull())  //如果节点不空--
     {
-        if(node.isElement()) //如果节点是元素
+        if(node.isElement()) //如果节点是元素---
         {
-            QDomElement e=node.toElement(); //转换为元素，注意元素和节点是两个数据结构，其实差不多
+            QDomElement e=node.toElement(); //转换为元素，注意元素和节点是两个数据结构，其实差不多--
 
             shared_ptr<GeneralShape> currentShape;
 
@@ -228,7 +228,7 @@ QDomElement Combo::toElement(shared_ptr<GeneralShape>sp){
 
 
     if (sp->name()=="Text"){
-        QDomElement mytext=doc.createElement("mytext"); //创建子元素
+        QDomElement mytext=doc.createElement("mytext"); //创建子元素--
         QDomElement myfont=doc.createElement("myfont");
 
         shared_ptr<Text >pm = dynamic_pointer_cast< Text >( sp );

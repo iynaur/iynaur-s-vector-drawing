@@ -29,7 +29,7 @@ public:
 protected:
 
 
-    //QVector<QPoint> points; //曲线其实就是一堆QPoint的点集合，此处存放，鼠标移动时候将点存入此处
+    //QVector<QPoint> points; //曲线其实就是一堆QPoint的点集合，此处存放，鼠标移动时候将点存入此处--
 };
 #endif // RECT
 
