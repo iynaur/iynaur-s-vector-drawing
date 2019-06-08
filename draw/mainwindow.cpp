@@ -8,19 +8,19 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui=nullptr;//to test dump
     ui->setupUi(this);
 
-	m_allBuilders = getAllBuilders();
+    m_allBuilders = getAllBuilders();
 
-	for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
-		QAction* act = new QAction(it->first);
-		act->setCheckable(true);
-		QIcon icon1;
-		icon1.addFile(QStringLiteral("image/")+ it->first + QStringLiteral(".png"), QSize(), QIcon::Normal, QIcon::Off);
-		act->setIcon(icon1);
-		connect(act, &QAction::triggered, this, &MainWindow::onAutoAction);
-		ui->toolBar_1->addAction(act);
-		ui->menuDraw->addAction(act);
-	}
-	//setIconSize(QSize(20, 20));
+    for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
+        QAction* act = new QAction(it->first, 0);
+        act->setCheckable(true);
+        QIcon icon1;
+        icon1.addFile(QStringLiteral("image/")+ it->first + QStringLiteral(".png"), QSize(), QIcon::Normal, QIcon::Off);
+        act->setIcon(icon1);
+        connect(act, &QAction::triggered, this, &MainWindow::onAutoAction);
+        ui->toolBar_1->addAction(act);
+        ui->menuDraw->addAction(act);
+    }
+    //setIconSize(QSize(20, 20));
     le=0;
     setWindowTitle(tr("DRAW"));
     //ui->actionCloseCurve->setIcon(QIcon(tr("./image/pencapstyle.png")));
@@ -68,21 +68,21 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(sld,SIGNAL(valueChanged(int)),this,SLOT(zoom(int)));
 }
 void MainWindow::onAutoAction() {
-	QObject* obj = sender();
-	auto act = dynamic_cast<QAction*>(obj);
-	if (act) {
-		for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
-			if (it->first == act->text()) {
-				currentCategory = it->second;
-				scrollArea->drawAreaWidget->setCategory(currentCategory);
-				break;
-			}
-		}
-	}
-	for (auto a : ui->toolBar_1->actions()) {
-		a->setChecked(false);
-	}
-	act->setChecked(true);
+    QObject* obj = sender();
+    auto act = dynamic_cast<QAction*>(obj);
+    if (act) {
+        for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
+            if (it->first == act->text()) {
+                currentCategory = it->second;
+                scrollArea->drawAreaWidget->setCategory(currentCategory);
+                break;
+            }
+        }
+    }
+    for (auto a : ui->toolBar_1->actions()) {
+        a->setChecked(false);
+    }
+    act->setChecked(true);
 }
 
 void  MainWindow::onSubWindowActivated(QMdiSubWindow *window){
@@ -209,67 +209,67 @@ void MainWindow::updateToolBar(){
         if (scrollArea->drawAreaWidget->undoStack.index()==scrollArea->drawAreaWidget->undoStack.count()) ui->actionRedo->setEnabled(false);
         else         ui->actionRedo->setEnabled(true);
 
-		//setAllShapeBuildersChecked(false);
-		ui->actionPalm->setChecked(false);
-		ui->actionPick->setChecked(false);
+        //setAllShapeBuildersChecked(false);
+        ui->actionPalm->setChecked(false);
+        ui->actionPick->setChecked(false);
 
 
-		switch (currentCategory){
-		case PalmCategory: {
-				ui->actionPalm->setChecked(true);
-				setAllShapeBuildersChecked(false);
-				break;
-			}
-		case PickCategory: {
-				ui->actionPick->setChecked(true);
-				setAllShapeBuildersChecked(false);
-				break;
-			}
-		}
-		if (scrollArea->drawAreaWidget->undoStack.count()>0) {
-			while(!undoList.isEmpty()){
-				QAction *qaction=undoList.at(0);
-				menuUndoTo->removeAction(qaction);
-				delete qaction;
-				undoList.removeFirst();
-			}
-			//menuUndoTo->clear();
-			menuUndoTo->setEnabled(false);
-			for (int i=scrollArea->drawAreaWidget->undoStack.index()-1;  i>=0;  i--){
-				QString actionText=(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text();
+        switch (currentCategory){
+        case PalmCategory: {
+                ui->actionPalm->setChecked(true);
+                setAllShapeBuildersChecked(false);
+                break;
+            }
+        case PickCategory: {
+                ui->actionPick->setChecked(true);
+                setAllShapeBuildersChecked(false);
+                break;
+            }
+        }
+        if (scrollArea->drawAreaWidget->undoStack.count()>0) {
+            while(!undoList.isEmpty()){
+                QAction *qaction=undoList.at(0);
+                menuUndoTo->removeAction(qaction);
+                delete qaction;
+                undoList.removeFirst();
+            }
+            //menuUndoTo->clear();
+            menuUndoTo->setEnabled(false);
+            for (int i=scrollArea->drawAreaWidget->undoStack.index()-1;  i>=0;  i--){
+                QString actionText=(const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text();
 
-				QAction* action =new QAction(actionText,this);
-						action->setData(i+1);
+                QAction* action =new QAction(actionText,this);
+                        action->setData(i+1);
 
-						menuUndoTo->addAction(action);
-						undoList.append(action);
-						//qDebug()<<"addaction";
-						menuUndoTo->setEnabled(true);
-			}
+                        menuUndoTo->addAction(action);
+                        undoList.append(action);
+                        //qDebug()<<"addaction";
+                        menuUndoTo->setEnabled(true);
+            }
 
-			while(!redoList.isEmpty()){
-				QAction *qaction=redoList.at(0);
-				menuRedoTo->removeAction(qaction);
-				delete qaction;
-				redoList.removeFirst();
-			}
-			//menuRedoTo->clear();
-			menuRedoTo->setEnabled(false);
-			for (int i=scrollArea->drawAreaWidget->undoStack.index();  i<scrollArea->drawAreaWidget->undoStack.count();  i++){
-				QAction* action =new QAction((const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text()
-											 ,this);
-						action->setData(i);
+            while(!redoList.isEmpty()){
+                QAction *qaction=redoList.at(0);
+                menuRedoTo->removeAction(qaction);
+                delete qaction;
+                redoList.removeFirst();
+            }
+            //menuRedoTo->clear();
+            menuRedoTo->setEnabled(false);
+            for (int i=scrollArea->drawAreaWidget->undoStack.index();  i<scrollArea->drawAreaWidget->undoStack.count();  i++){
+                QAction* action =new QAction((const_cast<QUndoCommand*>(scrollArea->drawAreaWidget->undoStack.command(i)))->text()
+                                             ,this);
+                        action->setData(i);
 
-						menuRedoTo->addAction(action);
-						redoList.append(action);
-						//qDebug()<<"addaction";
-						menuRedoTo->setEnabled(true);
-			}
-		}
-		else{
-			menuUndoTo->setEnabled(false);
-			menuRedoTo->setEnabled(false);
-		}
+                        menuRedoTo->addAction(action);
+                        redoList.append(action);
+                        //qDebug()<<"addaction";
+                        menuRedoTo->setEnabled(true);
+            }
+        }
+        else{
+            menuUndoTo->setEnabled(false);
+            menuRedoTo->setEnabled(false);
+        }
     }
 }
 
@@ -404,7 +404,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
         settings->setValue(tr("subWindowIsMaximized"),swin->isMaximized());
 
         if (!swin->close()) {
-			return;
+            return;
         }
     }
     settings->setValue(tr("mainWindowIsMaximized"),this->isMaximized());
@@ -421,15 +421,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 void MainWindow::setAllShapeBuildersEnabled(bool enable)
 {
-	for (auto a : ui->toolBar_1->actions()) {
-		a->setEnabled(enable);
-	}
+    for (auto a : ui->toolBar_1->actions()) {
+        a->setEnabled(enable);
+    }
 }
 void MainWindow::setAllShapeBuildersChecked(bool enable)
 {
-	for (auto a : ui->toolBar_1->actions()) {
-		a->setChecked(enable);
-	}
+    for (auto a : ui->toolBar_1->actions()) {
+        a->setChecked(enable);
+    }
 }
 void MainWindow::on_actionPick_triggered(){
     currentCategory=PickCategory;
