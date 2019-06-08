@@ -111,9 +111,9 @@ void Text::drag(QPointF point){
 }
 void Text::updateRange(){
     //qDebug()<<"Text::updateRange()";
-        QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+        QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景--
         QFont stand=QFont("Times", 20, QFont::Normal);
-        item->setFont(stand);//为文本设置字体
+        item->setFont(stand);//为文本设置字体--
 
 
         item->setHtml(mytext);
@@ -149,17 +149,17 @@ QString  Text::name(){
     return "Text";
 }
 
-void  Text::setsx(double x){//性能！！！！！
+void  Text::setsx(double x){//性能！！！！！--
     sx=x;
     sy=x;
 
 
 
     //QFont font=myfont;
-    QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景
+    QGraphicsTextItem *item = new QGraphicsTextItem( 0);//文本的父item为对应的场景--
     int i=1;
     myfont.setPointSize(i);
-    item->setFont(myfont);//为文本设置字体
+    item->setFont(myfont);//为文本设置字体--
     item->setHtml(mytext);
     if (mytext=="")//in this case,width() will never >=(maxx-minx)*abs(sx),always be 8
     while (item->boundingRect().height()<(maxy-miny)*abs(sx))
