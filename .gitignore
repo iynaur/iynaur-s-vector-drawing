@@ -255,3 +255,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+*.sln
+*.vcxproj
+*.filters
+*.ini
+*.stash
