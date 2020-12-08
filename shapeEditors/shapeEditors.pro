@@ -6,7 +6,7 @@ TEMPLATE = lib
 TARGET = shapeEditors
 CONFIG += c++11
 
-QT += core xml uitools widgets gui printsupport
+QT += core xml  widgets gui printsupport
 
 DEFINES +=  QT_PRINTSUPPORT_LIB QT_UITOOLS_LIB QT_WIDGETS_LIB QT_XML_LIB SHAPEEDITORS_LIB
 INCLUDEPATH += ./../ICallback \
