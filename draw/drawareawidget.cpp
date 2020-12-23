@@ -140,8 +140,8 @@ void DrawAreaWidget::onPaintRequested(QPrinter* printer) {
 	QPainter painter;
 	painter.begin(printer);
 
-	double xscale = printer->pageRect().width() / double(width());
-	double yscale = printer->pageRect().height() / double(height());
+    double xscale = printer->pageRect(QPrinter::DevicePixel).width() / double(width());
+    double yscale = printer->pageRect(QPrinter::DevicePixel).height() / double(height());
 	double scale = qMin(xscale, yscale);
 	zoom(scale);
 	painter.translate(printer->paperRect().x() + printer->pageRect().width() / 2,
