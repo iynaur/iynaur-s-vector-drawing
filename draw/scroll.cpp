@@ -18,7 +18,7 @@ Scroll::Scroll()
 
     QGridLayout* gridLayout = new QGridLayout();
     gridLayout->setSpacing(0);
-    gridLayout->setMargin(0);
+    //gridLayout->setMargin(0);
 
     mHorzRuler = new QDRuler(QDRuler::Horizontal,this);
     mHorzRuler->setMouseTrack(true);
