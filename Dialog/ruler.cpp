@@ -1,5 +1,5 @@
-#include"ruler.h"
-
+#include "ruler.h"
+#include <QPainterPath>
 
 
 QDRuler::QDRuler(QDRuler::RulerType rulerType, QWidget* parent)
@@ -100,7 +100,7 @@ void QDRuler::mouseMoveEvent(QMouseEvent* event)
 void QDRuler::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
-    painter.setRenderHints(QPainter::TextAntialiasing | QPainter::HighQualityAntialiasing);
+    painter.setRenderHints(QPainter::TextAntialiasing | QPainter::Antialiasing);
     QPen pen(Qt::black,0); // zero width pen is cosmetic pen
     //pen.setCosmetic(true);
     painter.setPen(pen);
@@ -199,7 +199,7 @@ void QDRuler::drawFromOriginTo(QPainter* painter, QRectF rulerRect, qreal startM
                                           :-(int(qAbs(step/mRulerZoom * startTickNo)+0.5))));
         startTickNo++;
         if (!isHorzRuler){
-        QMatrix mat;
+        QTransform mat;
         mat.translate(x1,y1);
         mat.rotate(90);
         mat.translate(-x1,-y1);

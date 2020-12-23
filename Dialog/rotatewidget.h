@@ -43,7 +43,7 @@ public:
         //QPainter p(parentWidget());
         p.setRenderHint(QPainter::Antialiasing);
         //p.setRenderHint(QPainter::SmoothPixmapTransform);
-        p.setRenderHint(QPainter::HighQualityAntialiasing);
+        p.setRenderHint(QPainter::Antialiasing);
         p.translate(m_baseWidget->pos());
         p.translate(m_baseWidget->width()/2.0,m_baseWidget->height()/2.0);
         p.scale(zoomRatio,zoomRatio);
