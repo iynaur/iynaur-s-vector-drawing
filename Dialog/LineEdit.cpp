@@ -21,7 +21,7 @@ void CLineEdit::initWidgets()
    m_qpClearLbl=new CLabel(this);  
    QPixmap  pixmap;
    //qDebug()<<"currentPath"<<QDir::currentPath();
-   pixmap.load("./image/clear.png");
+   pixmap.load(":image/clear.png");
    //pixmap.load(QDir::currentPath()+"/images/clear.png");
    QPixmap newPixmap = pixmap.scaled(QSize(lineHeight,lineHeight),Qt::KeepAspectRatio,Qt::SmoothTransformation);
    m_qpClearLbl->setPixmap(newPixmap);

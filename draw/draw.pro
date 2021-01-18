@@ -68,3 +68,6 @@ else:unix: LIBS += -L$$OUT_PWD/../shapeEditors/ -lshapeEditors
 
 INCLUDEPATH += $$PWD/../shapeEditors
 DEPENDPATH += $$PWD/../shapeEditors
+
+RESOURCES += \
+    res.qrc

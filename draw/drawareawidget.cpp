@@ -31,18 +31,18 @@ DrawAreaWidget::DrawAreaWidget(/*QWidget *parent*/) :
 	realSize = QSize(900, 500);
 	realDp = QPoint(0, 0);
 	actionMoveToTop = new QAction(tr("MoveToTop"), this);
-	actionMoveToTop->setIcon(QIcon(QString::fromUtf8("./image/arrowup.PNG")));
+	actionMoveToTop->setIcon(QIcon(QString::fromUtf8(":image/arrowup.PNG")));
 	actionMoveToBottom = new QAction(tr("MoveToBottom"), this);
-	actionMoveToBottom->setIcon(QIcon(QString::fromUtf8("./image/arrow.png")));
+	actionMoveToBottom->setIcon(QIcon(QString::fromUtf8(":image/arrow.png")));
 	actionSetBrush = new QAction(tr("SetBrush"), this);
-	actionSetBrush->setIcon(QIcon(QString::fromUtf8("./image/pallet.png")));
+	actionSetBrush->setIcon(QIcon(QString::fromUtf8(":image/pallet.png")));
 	actionSetPen = new QAction(tr("SetPen"), this);
-	actionSetPen->setIcon(QIcon(QString::fromUtf8("./image/pencapstyle.png")));
+	actionSetPen->setIcon(QIcon(QString::fromUtf8(":image/pencapstyle.png")));
 	
 	actionCodeEdit = new QAction(tr("CodeEdit"), this);
-	actionCodeEdit->setIcon(QIcon(QString::fromUtf8("./image/edit-set-9-512.png")));
+	actionCodeEdit->setIcon(QIcon(QString::fromUtf8(":image/edit-set-9-512.png")));
 	actionDelShape = new QAction(tr("DelShape"), this);
-	actionDelShape->setIcon(QIcon(QString::fromUtf8("./image/blue-del-sign-md.png")));
+	actionDelShape->setIcon(QIcon(QString::fromUtf8(":image/blue-del-sign-md.png")));
 
 	connect(actionMoveToTop, SIGNAL(triggered()), this, SLOT(moveToTop()), Qt::QueuedConnection);
 	connect(actionMoveToBottom, SIGNAL(triggered()), this, SLOT(moveToBottom()));

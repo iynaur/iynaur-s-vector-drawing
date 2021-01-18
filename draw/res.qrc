@@ -1,12 +1,31 @@
 <RCC>
     <qresource prefix="/">
         <file>image/arc.png</file>
+        <file>image/arrow.png</file>
+        <file>image/arrowup.PNG</file>
         <file>image/asave.png</file>
+        <file>image/blue-del-sign-md.png</file>
+        <file>image/blue-plus-sign-md.png</file>
+        <file>image/circle.png</file>
+        <file>image/clear.png</file>
+        <file>image/closecurve.png</file>
+        <file>image/combine.jpg</file>
         <file>image/copy.png</file>
+        <file>image/curve.png</file>
         <file>image/cut.png</file>
+        <file>image/divide.jpg</file>
+        <file>image/dividetoend.jpg</file>
+        <file>image/down.png</file>
         <file>image/editor.png</file>
+        <file>image/edit-set-9-512.png</file>
         <file>image/ellipse.png</file>
+        <file>image/expand.jpg</file>
+        <file>image/face.png</file>
         <file>image/find.png</file>
+        <file>image/fit.jpg</file>
+        <file>image/group.gif</file>
+        <file>image/hand.jpg</file>
+        <file>image/hand-ol-512.png</file>
         <file>image/line.png</file>
         <file>image/new.png</file>
         <file>image/open.png</file>
@@ -14,9 +33,14 @@
         <file>image/pallete.png</file>
         <file>image/paste.png</file>
         <file>image/pencapstyle.png</file>
+        <file>image/pic1.png</file>
+        <file>image/pic2.png</file>
+        <file>image/pointer.png</file>
         <file>image/polygon.png</file>
         <file>image/polyline.png</file>
+        <file>image/print (2).png</file>
         <file>image/print.png</file>
+        <file>image/print-preview-icon-54533.png</file>
         <file>image/qux.png</file>
         <file>image/quxian.png</file>
         <file>image/rdrect.png</file>
@@ -25,44 +49,22 @@
         <file>image/redo.png</file>
         <file>image/sanjiaox.png</file>
         <file>image/save.png</file>
+        <file>image/save_all_download-512.png</file>
+        <file>image/sc_group.png</file>
+        <file>image/sc_ungroup (2).png</file>
+        <file>image/sc_ungroup.png</file>
+        <file>image/search.png</file>
         <file>image/select.png</file>
         <file>image/text.png</file>
+        <file>image/th.jpg</file>
+        <file>image/th.png</file>
         <file>image/undo.png</file>
-        <file>image/circle.PNG</file>
+        <file>image/ungroup.gif</file>
+        <file>image/up.png</file>
+        <file>image/xuanze.png</file>
         <file>image/zoomin.png</file>
         <file>image/zoomone.png</file>
         <file>image/zoomout.png</file>
-        <file>image/blue-plus-sign-md.png</file>
-        <file>image/save_all_download-512.png</file>
-        <file>image/search.png</file>
-        <file>image/clear.png</file>
         <file>draw_zh_cn.qm</file>
-        <file>image/print-preview-icon-54533.png</file>
-        <file>image/print (2).png</file>
-        <file>image/check-circle-outline-blank-128 (1).png</file>
-        <file>image/applixware.png</file>
-        <file>image/Maps-Polyline-icon.png</file>
-        <file>image/Maps-Polygon-icon.png</file>
-        <file>image/Editing-Rectangle-icon.png</file>
-        <file>image/Editing-Ellipse-icon.png</file>
-        <file>image/8.png</file>
-        <file>image/hand-ol-512.png</file>
-        <file>image/arrow.png</file>
-        <file>image/arrowup.PNG</file>
-        <file>image/pointer.png</file>
-        <file>image/sc_group.png</file>
-        <file>image/sc_ungroup.png</file>
-        <file>image/sc_ungroup (2).png</file>
-        <file>image/group.gif</file>
-        <file>image/ungroup.gif</file>
-        <file>image/down.png</file>
-        <file>image/Pen.ico</file>
-        <file>image/th.png</file>
-        <file>image/up.png</file>
-        <file>image/xuanze.png</file>
-        <file>image/edit-set-9-512.png</file>
-        <file>image/pic1 (2).png</file>
-        <file>image/pic1.png</file>
-        <file>image/pic2.png</file>
     </qresource>
 </RCC>

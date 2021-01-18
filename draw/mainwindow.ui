@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>image/8.png</normaloff>image/8.png</iconset>
+    <normaloff>:image/8.png</normaloff>:image/8.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -163,7 +163,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>image/pointer.png</normaloff>image/pointer.png</iconset>
+     <normaloff>:image/pointer.png</normaloff>:image/pointer.png</iconset>
    </property>
    <property name="text">
     <string>Pick</string>
@@ -172,7 +172,7 @@
   <action name="actionFixcanvas">
    <property name="icon">
     <iconset>
-     <normaloff>image/pic1.png</normaloff>image/pic1.png</iconset>
+     <normaloff>:image/pic1.png</normaloff>:image/pic1.png</iconset>
    </property>
    <property name="text">
     <string>Fitcanvas</string>
@@ -181,7 +181,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>image/open.png</normaloff>image/open.png</iconset>
+     <normaloff>:image/open.png</normaloff>:image/open.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -193,7 +193,7 @@
   <action name="actionSave">
    <property name="icon">
     <iconset>
-     <normaloff>image/save.png</normaloff>image/save.png</iconset>
+     <normaloff>:image/save.png</normaloff>:image/save.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -205,7 +205,7 @@
   <action name="actionAdd">
    <property name="icon">
     <iconset>
-     <normaloff>image/blue-plus-sign-md.png</normaloff>image/blue-plus-sign-md.png</iconset>
+     <normaloff>:image/blue-plus-sign-md.png</normaloff>:image/blue-plus-sign-md.png</iconset>
    </property>
    <property name="text">
     <string>Add</string>
@@ -214,7 +214,7 @@
   <action name="actionCombination">
    <property name="icon">
     <iconset>
-     <normaloff>image/group.gif</normaloff>image/group.gif</iconset>
+     <normaloff>:image/group.gif</normaloff>:image/group.gif</iconset>
    </property>
    <property name="text">
     <string>Combination</string>
@@ -223,7 +223,7 @@
   <action name="actionZoomIn">
    <property name="icon">
     <iconset>
-     <normaloff>image/zoomin.png</normaloff>image/zoomin.png</iconset>
+     <normaloff>:image/zoomin.png</normaloff>:image/zoomin.png</iconset>
    </property>
    <property name="text">
     <string>ZoomIn</string>
@@ -232,7 +232,7 @@
   <action name="actionZoomOut">
    <property name="icon">
     <iconset>
-     <normaloff>image/zoomout.png</normaloff>image/zoomout.png</iconset>
+     <normaloff>:image/zoomout.png</normaloff>:image/zoomout.png</iconset>
    </property>
    <property name="text">
     <string>ZoomOut</string>
@@ -244,7 +244,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>image/hand-ol-512.png</normaloff>image/hand-ol-512.png</iconset>
+     <normaloff>:image/hand-ol-512.png</normaloff>:image/hand-ol-512.png</iconset>
    </property>
    <property name="text">
     <string>Palm</string>
@@ -253,7 +253,7 @@
   <action name="actionZoomOne">
    <property name="icon">
     <iconset>
-     <normaloff>image/zoomone.png</normaloff>image/zoomone.png</iconset>
+     <normaloff>:image/zoomone.png</normaloff>:image/zoomone.png</iconset>
    </property>
    <property name="text">
     <string>ZoomOne</string>
@@ -262,7 +262,7 @@
   <action name="actionMoveToTop">
    <property name="icon">
     <iconset>
-     <normaloff>image/arrowup.PNG</normaloff>image/arrowup.PNG</iconset>
+     <normaloff>:image/arrowup.PNG</normaloff>:image/arrowup.PNG</iconset>
    </property>
    <property name="text">
     <string>MoveToTop</string>
@@ -271,7 +271,7 @@
   <action name="actionMoveToBottom">
    <property name="icon">
     <iconset>
-     <normaloff>image/arrow.png</normaloff>image/arrow.png</iconset>
+     <normaloff>:image/arrow.png</normaloff>:image/arrow.png</iconset>
    </property>
    <property name="text">
     <string>MoveToBottom</string>
@@ -280,7 +280,7 @@
   <action name="actionDivide">
    <property name="icon">
     <iconset>
-     <normaloff>image/ungroup.gif</normaloff>image/ungroup.gif</iconset>
+     <normaloff>:image/ungroup.gif</normaloff>:image/ungroup.gif</iconset>
    </property>
    <property name="text">
     <string>Divide</string>
@@ -289,7 +289,7 @@
   <action name="actionDivideToEnd">
    <property name="icon">
     <iconset>
-     <normaloff>image/sc_ungroup (2).png</normaloff>image/sc_ungroup (2).png</iconset>
+     <normaloff>:image/sc_ungroup (2).png</normaloff>:image/sc_ungroup (2).png</iconset>
    </property>
    <property name="text">
     <string>DivideToEnd</string>
@@ -298,7 +298,7 @@
   <action name="actionNew">
    <property name="icon">
     <iconset>
-     <normaloff>image/new.png</normaloff>image/new.png</iconset>
+     <normaloff>:image/new.png</normaloff>:image/new.png</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -310,7 +310,7 @@
   <action name="actionCopy">
    <property name="icon">
     <iconset>
-     <normaloff>image/copy.png</normaloff>image/copy.png</iconset>
+     <normaloff>:image/copy.png</normaloff>:image/copy.png</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -319,7 +319,7 @@
   <action name="actionPaste">
    <property name="icon">
     <iconset>
-     <normaloff>image/paste.png</normaloff>image/paste.png</iconset>
+     <normaloff>:image/paste.png</normaloff>:image/paste.png</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -328,7 +328,7 @@
   <action name="actionExpand">
    <property name="icon">
     <iconset>
-     <normaloff>image/pic2.png</normaloff>image/pic2.png</iconset>
+     <normaloff>:image/pic2.png</normaloff>:image/pic2.png</iconset>
    </property>
    <property name="text">
     <string>Expand</string>
@@ -337,7 +337,7 @@
   <action name="actionCut">
    <property name="icon">
     <iconset>
-     <normaloff>image/cut.png</normaloff>image/cut.png</iconset>
+     <normaloff>:image/cut.png</normaloff>:image/cut.png</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -346,7 +346,7 @@
   <action name="actionUndo">
    <property name="icon">
     <iconset>
-     <normaloff>image/undo.png</normaloff>image/undo.png</iconset>
+     <normaloff>:image/undo.png</normaloff>:image/undo.png</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -355,7 +355,7 @@
   <action name="actionRedo">
    <property name="icon">
     <iconset>
-     <normaloff>image/redo.png</normaloff>image/redo.png</iconset>
+     <normaloff>:image/redo.png</normaloff>:image/redo.png</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -364,7 +364,7 @@
   <action name="actionSaveAs">
    <property name="icon">
     <iconset>
-     <normaloff>image/save_all_download-512.png</normaloff>image/save_all_download-512.png</iconset>
+     <normaloff>:image/save_all_download-512.png</normaloff>:image/save_all_download-512.png</iconset>
    </property>
    <property name="text">
     <string>SaveAs</string>
@@ -373,7 +373,7 @@
   <action name="actionPrint">
    <property name="icon">
     <iconset>
-     <normaloff>image/print.png</normaloff>image/print.png</iconset>
+     <normaloff>:image/print.png</normaloff>:image/print.png</iconset>
    </property>
    <property name="text">
     <string>Print</string>
@@ -382,7 +382,7 @@
   <action name="actionPrintPreview">
    <property name="icon">
     <iconset>
-     <normaloff>image/print-preview-icon-54533.png</normaloff>image/print-preview-icon-54533.png</iconset>
+     <normaloff>:image/print-preview-icon-54533.png</normaloff>:image/print-preview-icon-54533.png</iconset>
    </property>
    <property name="text">
     <string>PrintPreview</string>
@@ -391,7 +391,7 @@
   <action name="actionClearSettings">
    <property name="icon">
     <iconset>
-     <normaloff>image/clear.png</normaloff>image/clear.png</iconset>
+     <normaloff>:image/clear.png</normaloff>:image/clear.png</iconset>
    </property>
    <property name="text">
     <string>ClearSettings</string>

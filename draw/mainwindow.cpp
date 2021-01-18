@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QAction* act = new QAction(it->first, 0);
         act->setCheckable(true);
         QIcon icon1;
-        icon1.addFile(QStringLiteral("image/")+ it->first + QStringLiteral(".png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QStringLiteral(":image/")+ it->first + QStringLiteral(".png"), QSize(), QIcon::Normal, QIcon::Off);
         act->setIcon(icon1);
         connect(act, &QAction::triggered, this, &MainWindow::onAutoAction);
         ui->toolBar_1->addAction(act);
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //setIconSize(QSize(20, 20));
     le=0;
     setWindowTitle(tr("DRAW"));
-    //ui->actionCloseCurve->setIcon(QIcon(tr("./image/pencapstyle.png")));
+    //ui->actionCloseCurve->setIcon(QIcon(tr(":image/pencapstyle.png")));
     mdiArea = new QMdiArea;
     mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
