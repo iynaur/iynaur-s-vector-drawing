@@ -260,3 +260,4 @@ ModelManifest.xml
 *.filters
 *.ini
 *.stash
+*.vcproj
