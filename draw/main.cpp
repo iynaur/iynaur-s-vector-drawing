@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 {
 #ifdef WIN32
     EnableMemLeakCheck();
-    _CrtSetBreakAlloc(30923);
+    //_CrtSetBreakAlloc(30923);
     SetUnhandledExceptionFilter((LPTOP_LEVEL_EXCEPTION_FILTER)crashhandler);
 #endif
     QApplication a(argc, argv);
