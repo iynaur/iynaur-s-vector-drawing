@@ -11,6 +11,7 @@ QString Polygon::name(){
 
 void Polygon::draw(QPainter &painter, qreal zoomRatio)
 {
+    if (points.size() < 2) return;
     painter.setPen(pen);
     painter.setBrush(brush);
     //qDebug()<<brush.color();
@@ -29,7 +30,16 @@ void Polygon::draw(QPainter &painter, qreal zoomRatio)
     tmp->drag(QPointF(-(left+right)/2,-(top+bottom)/2));
     tmp->zoom(zoomRatio*sx,zoomRatio*sy);
 
-    painter.drawPolygon(QPolygonF(tmp->points));
+    auto &polygon = tmp->points;
+    QPainterPath path;
+    path.moveTo(polygon[0]);
+    path.quadTo(polygon[1], polygon[1]);
+    for (int i = 2; i < polygon.size(); ++i) {
+        path.lineTo(polygon[i]);
+    }
+    path.closeSubpath();
+
+    painter.drawPath(path);
     painter.rotate( -Rotationangle );
     painter.translate(-((left+right)/2)*zoomRatio, -((top+bottom)/2)*zoomRatio);
     delete tmp;
