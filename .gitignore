@@ -261,3 +261,4 @@ ModelManifest.xml
 *.ini
 *.stash
 *.vcproj
+draw/stable.h.cpp
