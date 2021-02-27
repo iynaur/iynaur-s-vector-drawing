@@ -132,7 +132,7 @@ void BaseShapeEditor::drawControlPoints(QPainter & painter, qreal zoomRatio)
 	painter.setPen(QPen(Qt::black, 3));
 	for (auto p : m_shape->scaleHandlePoints())
 	{
-		painter.drawPoint(p);
+        painter.drawPoint(p * zoomRatio);
 	}
 }
 
