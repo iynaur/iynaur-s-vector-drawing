@@ -5,7 +5,7 @@
 #include "icallback_global.h"
 enum Category {
 	CurveCategory, CloseCurveCategory, PolylineCategory, PolygonCategory, PickCategory, CircleCategory,
-	RectCategory, EllipseCategory, TextCategory, PalmCategory, FaceCategory
+    RectCategory, EllipseCategory, TextCategory, PalmCategory, FaceCategory, ArrowCategory
 };//Line, Rect, Text,
 class IShapeBuilder
 {

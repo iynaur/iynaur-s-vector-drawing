@@ -64,5 +64,6 @@
         <file>image/zoomone.png</file>
         <file>image/zoomout.png</file>
         <file>draw_zh_cn.qm</file>
+        <file>image/arrow_line.png</file>
     </qresource>
 </RCC>

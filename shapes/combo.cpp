@@ -1,4 +1,5 @@
 #include "combo.h"
+#include "arrow.h"
 
 Combo::Combo()
 {
@@ -67,6 +68,9 @@ void Combo::setShapesFromNode(QDomNode node){
             }
             if (n.toElement().text()=="Ellipse"){
                 currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Ellipse>(new Ellipse));
+            }
+            if (n.toElement().text()=="arrow"){
+                currentShape = static_pointer_cast<GeneralShape>(shared_ptr<Arrow>(new Arrow));
             }
             if (n.toElement().text()=="Polygon"
                     //|| n.toElement().text()=="Poly"

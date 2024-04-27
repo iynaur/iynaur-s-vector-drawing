@@ -792,6 +792,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 	case FaceCategory:
 	case RectCategory:
 	case EllipseCategory:
+    case ArrowCategory:
 	case CircleCategory:
 	case TextCategory:
 	case CloseCurveCategory:
@@ -847,6 +848,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 	case PolylineCategory:
 	case FaceCategory:
 	case EllipseCategory:
+    case ArrowCategory:
 	case RectCategory:
 	case CircleCategory:
 	case TextCategory:
@@ -992,6 +994,7 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 	case FaceCategory:
 	case RectCategory:
 	case EllipseCategory:
+    case ArrowCategory:
 	case CircleCategory:
 	case TextCategory:
 	case CloseCurveCategory:

@@ -7,6 +7,7 @@
 #include "TwoPointsShapeBuilder.h"
 #include "TextBuilder.h"
 #include "ConsecutiveBuilder.h"
+#include "arrow.h"
 
 
 ShapeBuilderBase::ShapeBuilderBase()
@@ -63,6 +64,9 @@ SHAPEBUILDERS_EXPORT shared_ptr<IShapeBuilder> getBuilder(Category c)
 	case EllipseCategory: {
 		return static_pointer_cast<IShapeBuilder>(shared_ptr<TwoPointsShapeBuilder<Ellipse>>(new TwoPointsShapeBuilder<Ellipse>));
 	}
+    case ArrowCategory: {
+        return static_pointer_cast<IShapeBuilder>(shared_ptr<TwoPointsShapeBuilder<Arrow>>(new TwoPointsShapeBuilder<Arrow>));
+    }
 	case TextCategory: {
 		return static_pointer_cast<IShapeBuilder>(shared_ptr<TextBuilder>(new TextBuilder));
 	}
@@ -89,5 +93,6 @@ SHAPEBUILDERS_EXPORT allBuilders getAllBuilders() {
 	all.push_back({ "circle", CircleCategory });
     all.push_back({ "text", TextCategory });
 	all.push_back({ "face", FaceCategory });
+    all.push_back({ "arrow_line", ArrowCategory });
 	return all;
 }
