@@ -3,14 +3,23 @@
 Scroll::Scroll()
 {
     setViewportMargins(RULER_BREADTH,RULER_BREADTH,0,0);
+
+    // setAutoFillBackground(true);
+    //setBackgroundRole(QPalette::Dark);
+
+    // QPalette palette = this->palette();
+    // palette.setBrush(QPalette::Dark, QColor("lime"));
+
+    // setPalette(palette);
+    setStyleSheet("QScrollArea{background: DarkGray;}");
+
     drawAreaWidget = new DrawAreaWidget(/*this*/);
-    drawAreaWidget->setBackgroundRole(QPalette::Base);
+    drawAreaWidget->setBackgroundRole(QPalette::Light);
     drawAreaWidget->vBar=verticalScrollBar();
     drawAreaWidget->hBar=horizontalScrollBar();
     drawAreaWidget->setFixedSize(drawAreaWidget->realSize);
     drawAreaWidget->windowwidth=width();
     drawAreaWidget->windowheight=height();
-    setBackgroundRole(QPalette::Dark);
     setWidget(drawAreaWidget);
     setAlignment(Qt::AlignCenter);
     setAcceptDrops(true);
