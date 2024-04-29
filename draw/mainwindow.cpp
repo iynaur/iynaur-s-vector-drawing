@@ -230,7 +230,7 @@ void MainWindow::updateToolBar(){
             while(!undoList.isEmpty()){
                 QAction *qaction=undoList.at(0);
                 menuUndoTo->removeAction(qaction);
-                delete qaction;
+                // delete qaction; // is child of other object?
                 undoList.removeFirst();
             }
             //menuUndoTo->clear();
@@ -250,7 +250,7 @@ void MainWindow::updateToolBar(){
             while(!redoList.isEmpty()){
                 QAction *qaction=redoList.at(0);
                 menuRedoTo->removeAction(qaction);
-                delete qaction;
+                // delete qaction;
                 redoList.removeFirst();
             }
             //menuRedoTo->clear();
