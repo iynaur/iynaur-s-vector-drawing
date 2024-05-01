@@ -58,11 +58,11 @@ DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
 	isLeftMouseButtonPressed = false;
 	server = new dataserver(this);
     m_thread = new QThread(this);
-    server->moveToThread(m_thread);
+    // server->moveToThread(m_thread);
     m_thread->start();
 	auto type = static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection);
 	connect(this, &DrawAreaWidget::undoStack_push, server, &dataserver::undoStack_push, type);
-	connect(this, &DrawAreaWidget::shapes_append, server, &dataserver::shapes_append, Qt::BlockingQueuedConnection);
+    connect(this, &DrawAreaWidget::shapes_append, server, &dataserver::shapes_append, Qt::QueuedConnection);
 	connect(server, SIGNAL(update()), this, SLOT(needUpdate()));
 	init();
 }
@@ -129,6 +129,7 @@ DrawAreaWidget::~DrawAreaWidget() {
 	delete actionSetBrush;
     m_thread->exit();
     m_thread->wait();
+    // m_thread->deleteLater();
     server->deleteLater();
 }
 void DrawAreaWidget::printPreview() {

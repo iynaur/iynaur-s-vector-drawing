@@ -17,6 +17,7 @@ ShapeBuilderBase::ShapeBuilderBase()
 
 ShapeBuilderBase::~ShapeBuilderBase()
 {
+    delete m_callBack;
 }
 void ShapeBuilderBase::publishShapeCreated()
 {
