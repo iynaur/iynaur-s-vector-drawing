@@ -128,6 +128,7 @@ DrawAreaWidget::~DrawAreaWidget() {
 	delete actionMoveToBottom;
 	delete actionSetBrush;
     m_thread->exit();
+    m_thread->wait();
     server->deleteLater();
 }
 void DrawAreaWidget::printPreview() {
