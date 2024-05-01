@@ -230,12 +230,12 @@ void MainWindow::updateToolBar(){
             while(!undoList.isEmpty()){
                 QAction *qaction=undoList.at(0);
                 menuUndoTo->removeAction(qaction);
-                QObject::dumpObjectTree();
+                // QObject::dumpObjectTree();
                 //delete qaction; // is child of other object, don't delete
                 qaction->deleteLater();
-                qDebug() << "deleted qaction\n";
+                // qDebug() << "deleted qaction\n";
                 //QObject::dumpObjectInfo();
-                QObject::dumpObjectTree();
+                // QObject::dumpObjectTree();
                 undoList.removeFirst();
             }
             //menuUndoTo->clear();
