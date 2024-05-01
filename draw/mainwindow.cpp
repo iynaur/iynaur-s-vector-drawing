@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_allBuilders = getAllBuilders();
 
     for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
-        QAction* act = new QAction(it->first, 0);
+        QAction* act = new QAction(it->first, this);
         act->setCheckable(true);
         QIcon icon1;
         icon1.addFile(QStringLiteral(":image/")+ it->first + QStringLiteral(".png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     currentCategory = PickCategory;
-    settings=new QSettings ("draw.ini",QSettings::IniFormat);
+    settings=new QSettings ("draw.ini",QSettings::IniFormat, this);
     qDebug() << settings->fileName();
     readSettings();
     menuUndoTo=new QMenu;

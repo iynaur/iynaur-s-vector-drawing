@@ -2,7 +2,7 @@
 #include "drawareawidget.h"
 using namespace std;
 dataserver::dataserver(DrawAreaWidget* fa) :
-	QObject()
+    QObject()
 {
 	init(fa);
 }

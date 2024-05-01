@@ -13,7 +13,7 @@ Scroll::Scroll()
     // setPalette(palette);
     setStyleSheet("QScrollArea{background: DarkGray;}");
 
-    drawAreaWidget = new DrawAreaWidget(/*this*/);
+    drawAreaWidget = new DrawAreaWidget(this);
     drawAreaWidget->setBackgroundRole(QPalette::Light);
     drawAreaWidget->vBar=verticalScrollBar();
     drawAreaWidget->hBar=horizontalScrollBar();
@@ -34,7 +34,7 @@ Scroll::Scroll()
     mVertRuler = new QDRuler(QDRuler::Vertical,this);
     mVertRuler->setMouseTrack(true);
 
-    QWidget* fake = new QWidget();
+    QWidget* fake = new QWidget(this);
     fake->setBackgroundRole(QPalette::Window);
     fake->setFixedSize(RULER_BREADTH,RULER_BREADTH);
     gridLayout->addWidget(fake,0,0);

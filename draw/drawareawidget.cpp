@@ -22,8 +22,8 @@
 #include "ellipse.h"
 using namespace std;
 int DrawAreaWidget::numOfFiles = 0;
-DrawAreaWidget::DrawAreaWidget(/*QWidget *parent*/) :
-	QWidget(/*parent*/),
+DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
+    QWidget(parent),
 	m_bDelayPaint(false),
 	m_bIsDuringOperation(false)
 {
@@ -57,9 +57,9 @@ DrawAreaWidget::DrawAreaWidget(/*QWidget *parent*/) :
 	setMouseTracking(true);
 	isLeftMouseButtonPressed = false;
 	server = new dataserver(this);
-	QThread *thread = new QThread;
-	server->moveToThread(thread);
-	thread->start();
+    m_thread = new QThread(this);
+    server->moveToThread(m_thread);
+    m_thread->start();
 	auto type = static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection);
 	connect(this, &DrawAreaWidget::undoStack_push, server, &dataserver::undoStack_push, type);
 	connect(this, &DrawAreaWidget::shapes_append, server, &dataserver::shapes_append, Qt::BlockingQueuedConnection);
@@ -127,6 +127,8 @@ DrawAreaWidget::~DrawAreaWidget() {
 	delete actionMoveToTop;
 	delete actionMoveToBottom;
 	delete actionSetBrush;
+    m_thread->exit();
+    server->deleteLater();
 }
 void DrawAreaWidget::printPreview() {
 	QPrinter printer;

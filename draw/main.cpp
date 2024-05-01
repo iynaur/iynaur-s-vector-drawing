@@ -14,7 +14,12 @@ void EnableMemLeakCheck()
 {
     int tmpFlag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
     tmpFlag |= _CRTDBG_LEAK_CHECK_DF;
+    tmpFlag |= _CRTDBG_ALLOC_MEM_DF;
     _CrtSetDbgFlag(tmpFlag);
+
+    // _CrtSetBreakAlloc(88890);
+    // _CrtSetBreakAlloc(9553);
+    // _CrtSetBreakAlloc(9552);
 }
 
 int crashhandler(EXCEPTION_POINTERS *pexception) {

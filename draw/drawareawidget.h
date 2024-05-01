@@ -46,7 +46,7 @@ class DrawAreaWidget : public QWidget
     Q_OBJECT
 public:
     //void setTool(Tool* tool);
-    explicit DrawAreaWidget(/*QWidget *parent = 0*/);
+    explicit DrawAreaWidget(QWidget *parent = 0);
     ~DrawAreaWidget();
     void initIShapeEditor();
     void init();
@@ -110,6 +110,7 @@ public:
 //private:
     static int numOfFiles;
 	dataserver* server;
+    QThread *m_thread;
 
 
 public slots:
