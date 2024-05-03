@@ -28,7 +28,7 @@ public:
 	shared_ptr<GeneralShape> m_shape;
 	QList<shared_ptr<GeneralShape>> m_shapes;
 	AbstractAction* m_action;
-	ICallBack* m_callBack;
+    ICallBack* m_callBack = nullptr;
 	double m_zoomRatio;
 	//bool m_bKeepCenterWhenScale;
 protected:

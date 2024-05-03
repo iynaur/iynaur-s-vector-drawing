@@ -19,7 +19,6 @@ public:
 	virtual bool keyDown(QKeyEvent *event);
 	virtual bool keyUp(QKeyEvent *event);
 	virtual void publishEditFinished();
-	virtual void setCallBack(ICallBack* callBack);
 	void virtual drawControlPoints(QPainter &painter, qreal zoomRatio);
 	bool contextMenu(QContextMenuEvent * event);
 	virtual QList<QAction*> QActions(QPointF p = QPointF(), QContextMenuEvent * event = nullptr);

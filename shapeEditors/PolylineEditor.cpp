@@ -198,11 +198,6 @@ void PolylineEditor::publishEditFinished()
 	m_callBack->call("editFinished");
 }
 
-void PolylineEditor::setCallBack(ICallBack * callBack)
-{
-	m_callBack = callBack;
-}
-
 void PolylineEditor::drawControlPoints(QPainter & painter, qreal zoomRatio)
 {
 	painter.translate((m_shape->minx + m_shape->maxx) / 2 * zoomRatio, (m_shape->miny + m_shape->maxy) / 2 * zoomRatio);

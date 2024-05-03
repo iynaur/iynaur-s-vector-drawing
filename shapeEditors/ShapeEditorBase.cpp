@@ -39,6 +39,7 @@ AbstractAction*& ShapeEditorBase::action()
 
 void ShapeEditorBase::setCallBack(ICallBack * callBack)
 {
+    delete m_callBack;
 	m_callBack = callBack;
 }
 

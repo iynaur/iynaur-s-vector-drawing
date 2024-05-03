@@ -268,11 +268,6 @@ void TextEditor::publishEditFinished()
 	m_callBack->call("editFinished");
 }
 
-void TextEditor::setCallBack(ICallBack * callBack)
-{
-	m_callBack = callBack;
-}
-
 void TextEditor::drawControlPoints(QPainter & painter, qreal zoomRatio)
 {
 	if (!m_isEditText) return;
