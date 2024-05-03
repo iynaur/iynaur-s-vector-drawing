@@ -90,6 +90,7 @@ private:
 	Ui::MainWindow *ui;
 	Scroll* scrollArea;
 	QList<shared_ptr<GeneralShape>>* copyShapes;
+    QString currentName;
 	Category currentCategory;
 	QList<QAction*> redoList;
 	QList<QAction*> undoList;

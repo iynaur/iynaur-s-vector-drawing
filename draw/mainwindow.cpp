@@ -74,7 +74,8 @@ void MainWindow::onAutoAction() {
         for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
             if (it->first == act->text()) {
                 currentCategory = it->second;
-                scrollArea->drawAreaWidget->setCategory(currentCategory);
+                currentName = it->first;
+                scrollArea->drawAreaWidget->setCategory(currentCategory, currentName);
                 break;
             }
         }

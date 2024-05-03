@@ -50,7 +50,7 @@ public:
     ~DrawAreaWidget();
     void initIShapeEditor();
     void init();
-    void setCategory(Category c);
+    void setCategory(Category c, QString name = "");
     void finishcurrentShape();
     QList<shared_ptr<GeneralShape>>  pickShape(QPointF point);
     QList<shared_ptr<GeneralShape>>  pickShape(QPointF p0, QPointF p1);
@@ -97,6 +97,8 @@ public:
 	void finishShape();
 	void editShape();
 	shared_ptr<IShapeBuilder> getBuilderFrom(Category c);
+
+    shared_ptr<Combo> fromFile(QString filename);
 
     QScrollBar *hBar, *vBar;
     qreal zoomRatio,previouszoomRatio;
@@ -150,6 +152,7 @@ public:
     QPointF startPoint,endPoint;
     QPoint startCursorPoint,endCursorPoint;
     Category currentCategory;
+    QString currentName;
     //Tool* currentTool;
     MouseHanded currentMouseHanded;
     bool isLeftMouseButtonPressed;

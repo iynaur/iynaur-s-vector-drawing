@@ -372,40 +372,7 @@ bool DrawAreaWidget::maybeSave() {//成功保存，或明确放弃保存，或�
 }
 
 void DrawAreaWidget::openfile(QString file) {
-	QFile openFile(file);
-
-	if (!openFile.open(QFile::ReadOnly))
-		return;
-
-	QDomDocument doc;
-	if (!doc.setContent(&openFile))
-	{
-		openFile.close();
-		QMessageBox msg;
-		msg.setText(tr("The document is unknown."));
-		msg.exec();
-		return;
-	}
-	openFile.close();
-
-	QDomElement root = doc.documentElement(); //返回根节点
-	QDomElement e = root.toElement();
-	if (e.nodeName() != "shapes") {
-		QMessageBox msg;
-		msg.setText(tr("The XML_document is unknown."));
-		msg.exec();
-		return;
-	}
-	if (e.hasAttribute("red")) {
-		int r, g, b;
-		r = e.attribute("red").toInt();
-		g = e.attribute("green").toInt();
-		b = e.attribute("blue").toInt();
-		backcolor = QColor(r, g, b);
-	}
-	////
-	shared_ptr<Combo> tmp = shared_ptr<Combo>(new Combo);//mem leak
-	tmp->setShapes(root);
+    auto tmp = fromFile(file);
 
 	if (openasadd) {
 		AbstractAction* action = new AddAction;
@@ -805,6 +772,9 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 		m_curIShapeBuilder->mouseDown(realPoint);
 		break;
 	}
+    case customCategory: {
+        startPoint = realPoint;
+    }
 	}
 	Update();
 }
@@ -904,6 +874,13 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 		}
 		break;
 	}
+    case customCategory: {
+        endPoint = realPoint;
+        auto combo = fromFile("./customShapes/" + currentName + ".xml");
+        shapes.append(combo);
+        currentShape = combo;
+        finishcurrentShape();
+    }
 	}
 	Update();
 	emit categoryChanged();
@@ -1057,7 +1034,7 @@ void DrawAreaWidget::Update() {
 	if (!m_bDelayPaint)update();
 }
 
-void DrawAreaWidget::setCategory(Category c) {
+void DrawAreaWidget::setCategory(Category c, QString name) {
 	//setMouseTracking(false);
 	finishcurrentShape();
 	//currentLine->hide();
@@ -1072,6 +1049,7 @@ void DrawAreaWidget::setCategory(Category c) {
 		Update();
 	}
 	currentCategory = c;
+    currentName = name;
 	m_curIShapeBuilder = getBuilderFrom(c);
 	if (m_curIShapeBuilder)
 	{
@@ -1234,6 +1212,45 @@ void DrawAreaWidget::editShape()
 shared_ptr<IShapeBuilder> DrawAreaWidget::getBuilderFrom(Category c)
 {
 	return getBuilder(c);
+}
+
+shared_ptr<Combo> DrawAreaWidget::fromFile(QString file)
+{
+    QFile openFile(file);
+
+    if (!openFile.open(QFile::ReadOnly))
+        return nullptr;
+
+    QDomDocument doc;
+    if (!doc.setContent(&openFile))
+    {
+        openFile.close();
+        QMessageBox msg;
+        msg.setText(tr("The document is unknown."));
+        msg.exec();
+        return nullptr;
+    }
+    openFile.close();
+
+    QDomElement root = doc.documentElement(); //返回根节点
+    QDomElement e = root.toElement();
+    if (e.nodeName() != "shapes") {
+        QMessageBox msg;
+        msg.setText(tr("The XML_document is unknown."));
+        msg.exec();
+        return nullptr;
+    }
+    if (e.hasAttribute("red")) {
+        int r, g, b;
+        r = e.attribute("red").toInt();
+        g = e.attribute("green").toInt();
+        b = e.attribute("blue").toInt();
+        backcolor = QColor(r, g, b);
+    }
+    ////
+    shared_ptr<Combo> tmp = shared_ptr<Combo>(new Combo);
+    tmp->setShapes(root);
+    return tmp;
 }
 
 void DrawAreaWidget::initIShapeEditor() {
