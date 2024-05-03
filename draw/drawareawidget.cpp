@@ -779,7 +779,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 			if (!isLeftMouseButtonPressed) break;
 			startPoint = realPoint;
 			// pickRect;
-			pickRect = shared_ptr<Rect>(new Rect);//mem leak
+            pickRect = shared_ptr<Rect>(new Rect);
 			pickRect->appendPoint(realPoint);
 			pickRect->appendPoint(realPoint);
 		}

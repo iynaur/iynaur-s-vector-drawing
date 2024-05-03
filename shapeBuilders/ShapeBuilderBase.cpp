@@ -95,5 +95,14 @@ SHAPEBUILDERS_EXPORT allBuilders getAllBuilders() {
     all.push_back({ "text", TextCategory });
 	all.push_back({ "face", FaceCategory });
     all.push_back({ "arrow_line", ArrowCategory });
+    // custom shape
+    QDir dir("./customShapes");
+    for (const QString& file : dir.entryList()) {
+        if (!file.endsWith(".xml")) {
+            continue;
+        }
+        auto name = file.mid(0, file.size() - 4);
+        all.push_back({ name, customCategory});
+    }
 	return all;
 }
