@@ -14,6 +14,7 @@ ShapeEditorBase::ShapeEditorBase()
 
 ShapeEditorBase::~ShapeEditorBase()
 {
+    delete m_callBack;
 }
 
 bool ShapeEditorBase::contextMenu(QContextMenuEvent * event)
