@@ -115,17 +115,9 @@ SHAPEEDITORS_EXPORT void updateIShapeEditor(const QList<shared_ptr<GeneralShape>
 	shared_ptr<IShapeEditor>& curIShapeEditor)
 {
 	QString shapename = pickedShapes[0]->name();
-	if (curIShapeEditor != nullptr &&
-		((pickedShapes.size() == 1 && curIShapeEditor->shapes().size() == 1 && curIShapeEditor->shape()->name() == shapename) ||
-		(curIShapeEditor->shapes().size() > 1 && dynamic_pointer_cast<MultiShapesEditor>(curIShapeEditor))
-			)) {
-		if (pickedShapes.size() == 1 && curIShapeEditor->shapes()[0] != pickedShapes[0]) {
-			curIShapeEditor->resetHasPicked();
-			curIShapeEditor->shapes() = pickedShapes;
-			curIShapeEditor->shape() = pickedShapes.at(0);
-            return;
-		}
+    if (curIShapeEditor != nullptr && curIShapeEditor->shapes() == pickedShapes) {
 
+        return;
 	}
 	if (pickedShapes.size() > 1) {
 		curIShapeEditor = shared_ptr<MultiShapesEditor>(new MultiShapesEditor);
