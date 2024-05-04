@@ -20,6 +20,8 @@
 #include "polygon.h"
 #include "rect.h"
 #include "ellipse.h"
+#include "combo.h"
+
 using namespace std;
 int DrawAreaWidget::numOfFiles = 0;
 DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
@@ -774,6 +776,11 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 	}
     case customCategory: {
         startPoint = realPoint;
+        auto combo = fromFile("./customShapes/" + currentName + ".xml");
+        combo->setsx(0);
+        combo->setsy(0);
+        shapes.append(combo);
+        currentShape = combo;
     }
 	}
 	Update();
@@ -877,6 +884,8 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
     case customCategory: {
         endPoint = realPoint;
         auto combo = fromFile("./customShapes/" + currentName + ".xml");
+        Combo::fitToPoints(startPoint, endPoint, combo.get());
+        shapes.removeLast();
         shapes.append(combo);
         currentShape = combo;
         finishcurrentShape();
@@ -983,6 +992,16 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 		m_curIShapeBuilder->mouseMove(realPoint);
 		break;
 	}
+    case customCategory: {
+        if (currentShape)
+        {
+            auto combo = fromFile("./customShapes/" + currentName + ".xml");
+            Combo::fitToPoints(startPoint, realPoint, combo.get());
+            shapes.removeLast();
+            shapes.append(combo);
+            currentShape = combo;
+        }
+    }
 	case PalmCategory: {
 		if (!isLeftMouseButtonPressed) break;
 		//startCursorPoint=endCursorPoint;

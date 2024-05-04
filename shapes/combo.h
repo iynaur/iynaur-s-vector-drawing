@@ -64,6 +64,8 @@ public:
 
 //private:
     QList<shared_ptr<GeneralShape>> shapes;
+
+    static void fitToPoints(QPointF startPoint, QPointF endPoint, Combo* combo);
     //Combo* drawcombo;
 };
 

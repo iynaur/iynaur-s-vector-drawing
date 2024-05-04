@@ -429,3 +429,16 @@ void Combo:: setsy(double y){
 double Combo:: getsy(){
     return sx;
 }
+
+void Combo::fitToPoints(QPointF startPoint, QPointF endPoint, Combo *combo)
+{
+    assert(combo->getsy() == 1);
+    assert(combo->getsy() == 1);
+    combo->updateRange();
+    auto center_combo_x = (combo->minx + combo->maxx)/2;
+    auto center_combo_y = (combo->miny + combo->maxy)/2;
+    auto center_pos = (startPoint + endPoint) / 2;
+    combo->drag(center_pos - QPointF(center_combo_x, center_combo_y));
+    combo->setsx( (-startPoint + endPoint).x() / (-combo->minx + combo->maxx));
+    combo->setsy( (-startPoint + endPoint).y() / (-combo->miny + combo->maxy));
+}
