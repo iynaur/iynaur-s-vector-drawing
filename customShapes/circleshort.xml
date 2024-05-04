@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shapes blue="255" green="255" red="255">
+    <shape sx="1" sy="1">
+        <name>Circle</name>
+        <points>(52,42)(73,75)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Rect</name>
+        <points>(15,72)(83,183)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(28,180)(28,182)(28,190)(26,203)(22,216)(21,222)(21,223)(21,224)(21,225)(21,226)(21,230)(21,236)(19,246)(16,254)(15,258)(14,259)(15,259)(16,259)(17,259)(18,259)(20,259)(21,259)(22,258)(23,258)(24,258)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(67,178)(67,180)(67,186)(67,193)(69,198)(70,202)(71,206)(71,208)(71,210)(71,211)(71,212)(71,213)(72,217)(72,222)(72,227)(73,229)(73,230)(73,233)(73,238)(73,243)(73,244)(73,245)(73,247)(73,250)(73,254)(73,257)(73,258)(73,259)(72,261)(71,261)(70,261)(68,262)(66,263)(65,263)(64,263)(63,264)(62,264)(60,264)(59,264)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(4,98)(5,98)(6,97)(7,95)(10,92)(11,91)(11,90)(13,89)(14,88)(15,88)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(80,87)(81,87)(83,87)(85,88)(86,88)(89,90)(91,91)(92,93)(93,93)(94,94)(94,95)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+</shapes>

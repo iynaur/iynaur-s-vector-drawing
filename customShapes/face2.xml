@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shapes blue="255" green="255" red="255">
+    <shape sx="1" sy="1">
+        <name>Combo</name>
+        <points></points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+        <shapes>
+            <shape sx="1" sy="1">
+                <name>Ellipse</name>
+                <points>(0,1)(113,99)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(28.25,74.5)(56.5,86.75)(84.75,74.5)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(28.25,37.75)(35.3125,25.5)(42.375,37.75)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(70.625,37.75)(77.6875,25.5)(84.75,37.75)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+        </shapes>
+    </shape>
+</shapes>

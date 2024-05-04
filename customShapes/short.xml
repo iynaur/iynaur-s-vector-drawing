@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shapes blue="255" green="255" red="255">
+    <shape sx="1" sy="1">
+        <name>Combo</name>
+        <points></points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+        <shapes>
+            <shape sx="1" sy="1">
+                <name>Ellipse</name>
+                <points>(0,4)(137,96)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(34.25,73)(68.5,84.5)(102.75,73)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(34.25,38.5)(42.8125,27)(51.375,38.5)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+            <shape sx="1" sy="1">
+                <name>Polyline</name>
+                <points>(85.625,38.5)(94.1875,27)(102.75,38.5)</points>
+                <Rotationangle>0</Rotationangle>
+                <brush blue="0" brushstyle="0" green="0" red="0"/>
+                <pen blue="0" green="0" red="0"/>
+            </shape>
+        </shapes>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Ellipse</name>
+        <points>(45,94)(89,220)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(84,114)(84,112)(97,106)(116,98)(138,93)(150,90)(155,90)(155,89)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(6,96)(7,96)(11,97)(15,99)(19,99)(24,102)(27,102)(29,103)(30,103)(31,103)(32,103)(33,104)(35,105)(38,106)(39,106)(40,107)(44,109)(45,109)(46,110)(48,110)(49,110)(49,111)(50,111)(51,111)(52,111)(53,112)(54,112)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(58,208)(57,208)(56,208)(53,208)(49,210)(46,210)(42,213)(41,213)(39,214)(29,218)(22,222)(18,224)(17,225)(16,226)(12,229)(8,238)(7,242)(7,243)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+    <shape sx="1" sy="1">
+        <name>Curve</name>
+        <points>(78,200)(80,200)(84,202)(85,203)(88,205)(90,208)(94,217)(103,233)(107,243)(111,249)(112,250)(114,253)(116,256)(117,258)(118,258)</points>
+        <Rotationangle>0</Rotationangle>
+        <brush blue="0" brushstyle="0" green="0" red="0"/>
+        <pen blue="0" green="0" red="0"/>
+    </shape>
+</shapes>
