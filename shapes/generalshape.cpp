@@ -157,11 +157,7 @@ void GeneralShape:: drawClosure(QPainter &painter, qreal zoomRatio){
     painter.rotate( Rotationangle );
     painter.drawRect((minx-maxx)/2*zoomRatio*sx,(miny-maxy)/2*zoomRatio*sy,
                      (maxx-minx)*zoomRatio*sx,(maxy-miny)*zoomRatio*sy);
-    painter.drawLine(QPointF(0,(miny-maxy)/2*zoomRatio*sy) ,
-                     QPointF(0,(miny-maxy)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine));
-    painter.setPen(QPen(Qt::black,3));
-    painter.drawPoint(-(minx-maxx)/2*zoomRatio*sx,-(miny-maxy)/2*zoomRatio*sy);
-    painter.setPen(pen);
+
     painter.rotate( -Rotationangle );
     painter.translate(-((minx+maxx)/2)*zoomRatio, -((miny+maxy)/2)*zoomRatio);
 }
