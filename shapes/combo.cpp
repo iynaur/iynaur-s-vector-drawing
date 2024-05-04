@@ -314,7 +314,7 @@ void Combo:: draw(QPainter &painter,qreal zoomRatio){//性能
     foreach (shared_ptr<GeneralShape> sp, drawcombo->shapes) {
         //shared_ptr<GeneralShape>tmp2=sp->copyPaste();
 //        if (sp->name()!="Text"){
-        sp->zoom(sx);
+        sp->zoom(sx, sy);
         sp->draw(painter,zoomRatio);
 
     }
@@ -352,7 +352,7 @@ double Combo:: minDistance(QPointF point){
     double minD=MAX;
     foreach (shared_ptr<GeneralShape> sp, shapes) {
         shared_ptr<GeneralShape> tmp=sp->copyPaste();
-        tmp->zoom(sx);
+        tmp->zoom(sx, sy);
         minD=min(minD,tmp->minDistance(point));
         //delete tmp;
     }
@@ -364,8 +364,11 @@ double Combo:: minDistance(QPointF point){
 
 
 
-void Combo:: zoom(qreal zx,qreal zy){
-
+void Combo:: zoom(qreal zx,qreal zy)
+{
+    foreach (shared_ptr<GeneralShape> sp, shapes) {
+        sp->zoom(zx, zy);
+    }
     updateRange();
 }
 
@@ -420,14 +423,15 @@ void Combo:: setBrush(const QBrush &brush){
 }
 void Combo:: setsx(double x){
     sx=x;
-    sy=x;
+
     //updatedrawcombo();
 }
 void Combo:: setsy(double y){
+    sy=y;
     //do nothing
 }
 double Combo:: getsy(){
-    return sx;
+    return sy;
 }
 
 void Combo::fitToPoints(QPointF startPoint, QPointF endPoint, Combo *combo)
