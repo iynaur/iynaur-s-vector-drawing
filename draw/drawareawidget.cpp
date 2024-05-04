@@ -22,6 +22,19 @@
 #include "ellipse.h"
 #include "combo.h"
 
+namespace {
+
+template <typename T>
+void mergeList (QList<T>& list, const T& obj) {
+    if (list.indexOf(obj) < 0) {
+        list.append(obj);
+    } else {
+        list.removeOne(obj);
+    }
+}
+
+}
+
 using namespace std;
 int DrawAreaWidget::numOfFiles = 0;
 DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
@@ -763,11 +776,10 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 			pickRect->appendPoint(realPoint);
 			pickRect->appendPoint(realPoint);
 
-            m_curIShapeEditor = nullptr;
-        } else {
-			if (pickedShapes.indexOf(pickShape(realPoint).at(0)) < 0) {//另选并拖动
-                pickedShapes.append(pickShape(realPoint));
-			}
+            // m_curIShapeEditor = nullptr;
+        } else { // size > 0 must = 1 //另选并拖动
+            mergeList(pickedShapes, pickShape(realPoint).at(0));
+
             if (!m_ctrl){
                 initIShapeEditor();
                 m_curIShapeEditor->mouseDown(realPoint, true, event);
@@ -871,7 +883,10 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 			if (pickRect == 0) break;
 			pickRect = NULL;
 			endPoint = realPoint;
-            pickedShapes.append(pickShape(startPoint, endPoint));
+            // pickedShapes.append(pickShape(startPoint, endPoint)); // merge
+            for (auto sp : pickShape(startPoint, endPoint)) {
+                mergeList(pickedShapes, sp);
+            }
 
             if (pickedShapes.size()) {
                 initIShapeEditor();

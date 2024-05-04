@@ -123,8 +123,9 @@ SHAPEEDITORS_EXPORT void updateIShapeEditor(const QList<shared_ptr<GeneralShape>
 			curIShapeEditor->resetHasPicked();
 			curIShapeEditor->shapes() = pickedShapes;
 			curIShapeEditor->shape() = pickedShapes.at(0);
+            return;
 		}
-		return;
+
 	}
 	if (pickedShapes.size() > 1) {
 		curIShapeEditor = shared_ptr<MultiShapesEditor>(new MultiShapesEditor);
