@@ -113,6 +113,8 @@ public:
     static int numOfFiles;
 	dataserver* server;
     QThread *m_thread;
+    bool m_ctrl; // ctrl key when mouse
+    bool m_rect_pick;
 
 
 public slots:

@@ -736,20 +736,25 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 	}
 	case PickCategory:
 	{
+        m_ctrl = event->modifiers() & Qt::KeyboardModifier::ControlModifier;
+        m_rect_pick = false;
 		if (event->button() == Qt::RightButton) {
 			pickedShapes.clear();
 		}
 
-		if (pickedShapes.size() > 0) {//rotate or scale pickedShape
+        if (pickedShapes.size() > 0 && !m_ctrl) {//rotate or scale pickedShape
 			initIShapeEditor();
-			if (m_curIShapeEditor->mouseDown(realPoint, isLeftMouseButtonPressed, event)) break;
-			else {
+            if (m_curIShapeEditor->mouseDown(realPoint, isLeftMouseButtonPressed, event)) {
+                break;
+            } else {
 				m_curIShapeEditor = nullptr;
 			}
 		}
 
+
+        if (!m_ctrl) pickedShapes.clear();
 		if (pickShape(realPoint).size() == 0) {//框选模式
-			pickedShapes.clear();
+            m_rect_pick = true;
 			//qDebug()<<"pickedShape==NULL";
 			if (!isLeftMouseButtonPressed) break;
 			startPoint = realPoint;
@@ -757,12 +762,18 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
             pickRect = shared_ptr<Rect>(new Rect);
 			pickRect->appendPoint(realPoint);
 			pickRect->appendPoint(realPoint);
+
+            m_curIShapeEditor = nullptr;
         } else {
 			if (pickedShapes.indexOf(pickShape(realPoint).at(0)) < 0) {//另选并拖动
-				pickedShapes = pickShape(realPoint);
+                pickedShapes.append(pickShape(realPoint));
 			}
-			initIShapeEditor();
-			m_curIShapeEditor->mouseDown(realPoint, true, event);
+            if (!m_ctrl){
+                initIShapeEditor();
+                m_curIShapeEditor->mouseDown(realPoint, true, event);
+            } else {
+                m_curIShapeEditor = nullptr;
+            }
 			endPoint = startPoint = realPoint;
 		}
 		break;
@@ -856,11 +867,17 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 	}
 	case PickCategory: {
 
-		if (pickedShapes.size() == 0) {//框选
+        if (m_rect_pick) {//框选
 			if (pickRect == 0) break;
 			pickRect = NULL;
 			endPoint = realPoint;
-			pickedShapes = pickShape(startPoint, endPoint);
+            pickedShapes.append(pickShape(startPoint, endPoint));
+
+            if (pickedShapes.size()) {
+                initIShapeEditor();
+                m_curIShapeEditor->mouseDown(realPoint); // here use mouse down
+            }
+
 			break;
 		}
 		if (m_curIShapeEditor) {
@@ -868,7 +885,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 			//m_curIShapeEditor = nullptr;
 			break;
 		}
-		if (pickedShapes.size() > 0) {
+        if (pickedShapes.size() > 0 && !m_ctrl && !m_rect_pick) {
 			EditAction* action = new EditAction();
 			action->shapes = pickedShapes;
 			action->dpoint = endPoint - startPoint;
@@ -1025,7 +1042,7 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 	case PickCategory: {
 		if (isLeftMouseButtonPressed) {
 
-			if (pickedShapes.size() == 0) {//框选模式
+            if (m_rect_pick) {//框选模式
 				pickRect->removeLastPoint();
 				pickRect->appendPoint(realPoint);
 				//expand();
@@ -1037,7 +1054,7 @@ void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 				break;
 			}
 
-			if (pickedShapes.size() > 0) {
+            if (!m_ctrl && !m_rect_pick) {
 
 				foreach(shared_ptr<GeneralShape> sp, pickedShapes) {
 					sp->drag(realPoint - endPoint);
