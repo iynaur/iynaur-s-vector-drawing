@@ -14,7 +14,7 @@ DeleteAction::DeleteAction()
 QString DeleteAction::name(){
     return "Delete";
 }
-void DeleteAction::undo(){
+void DeleteAction::undo(){ // prev crash on qt6?
     //DeleteAction* tmp=static_cast<DeleteAction*>(action);
     for (int i=shapes.size()-1;i>=0;i--){
         allShapes->insert(indexOfShapes.at(i),shapes.at(i));
@@ -22,7 +22,9 @@ void DeleteAction::undo(){
     pickedShapes=shapes;
 }
 void DeleteAction::reallyDo(){
+    indexOfShapes.clear();
     foreach(shared_ptr<GeneralShape>sp, shapes){
+        indexOfShapes.append(allShapes->indexOf(sp));
         allShapes->removeOne(sp);
     }
     pickedShapes.clear();

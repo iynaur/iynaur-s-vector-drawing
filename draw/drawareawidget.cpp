@@ -997,10 +997,11 @@ void DrawAreaWidget::keyReleaseEvent(QKeyEvent *event) {
 
 void DrawAreaWidget::del() {
 	DeleteAction *action = new DeleteAction();
-	foreach(shared_ptr<GeneralShape> sp, pickedShapes) {
-		action->shapes.append(sp);
-		action->indexOfShapes.append(shapes.indexOf(sp));
-	}
+    action->shapes = pickedShapes;
+    // foreach(shared_ptr<GeneralShape> sp, pickedShapes) {
+    // 	action->shapes.append(sp);
+    // 	action->indexOfShapes.append(shapes.indexOf(sp));
+    // }
 	addaction(static_cast<AbstractAction*>(action));
 	pickedShapes.clear();
 	Update();
