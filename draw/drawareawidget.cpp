@@ -453,6 +453,7 @@ void DrawAreaWidget::saveAs() {
 	//changed=false;
 	saveIndex = undoStack.index();
 	filename = files.at(0);
+    delete tmp;
 	emit categoryChanged();
 
 }
