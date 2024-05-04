@@ -24,9 +24,10 @@ public:
 	void doScale(QPointF p);
 	void finishScale(QPointF p);
 	virtual void resetHasPicked();
+    void clear() override;
 
 	shared_ptr<GeneralShape> m_shape;
-	QList<shared_ptr<GeneralShape>> m_shapes;
+    QList<shared_ptr<GeneralShape>> m_shapes;
 	AbstractAction* m_action;
     ICallBack* m_callBack = nullptr;
 	double m_zoomRatio;

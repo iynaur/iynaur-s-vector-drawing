@@ -560,8 +560,13 @@ void DrawAreaWidget::paintEvent(QPaintEvent *)
 		pickRect->setPen(pen);
 		pickRect->draw(painter, zoomRatio);
 	}
-	if (m_curIShapeEditor && shapes.indexOf(m_curIShapeEditor->shape()) >= 0) {
-		m_curIShapeEditor->drawControlPoints(painter, zoomRatio);
+    if (m_curIShapeEditor) {
+        if (shapes.indexOf(m_curIShapeEditor->shape()) >= 0
+            && currentCategory == PickCategory) {
+            m_curIShapeEditor->drawControlPoints(painter, zoomRatio);
+        } else {
+            m_curIShapeEditor->clear();
+        }
 	}
 	painter.translate(-dx, -dy);
 	painter.end();
@@ -752,8 +757,7 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
             pickRect = shared_ptr<Rect>(new Rect);
 			pickRect->appendPoint(realPoint);
 			pickRect->appendPoint(realPoint);
-		}
-		else {
+        } else {
 			if (pickedShapes.indexOf(pickShape(realPoint).at(0)) < 0) {//另选并拖动
 				pickedShapes = pickShape(realPoint);
 			}

@@ -24,7 +24,7 @@ bool ShapeEditorBase::contextMenu(QContextMenuEvent * event)
 
 QList<shared_ptr<GeneralShape>>& ShapeEditorBase::shapes()
 {
-	return m_shapes;
+    return m_shapes;
 }
 
 shared_ptr<GeneralShape>& ShapeEditorBase::shape()
@@ -103,6 +103,12 @@ void ShapeEditorBase::finishScale(QPointF realPoint)
 void ShapeEditorBase::resetHasPicked()
 {
 	m_hasPicked = 0;
+}
+
+void ShapeEditorBase::clear()
+{
+    m_shape = nullptr;
+    m_shapes.clear();
 }
 
 SHAPEEDITORS_EXPORT void updateIShapeEditor(const QList<shared_ptr<GeneralShape>> pickedShapes,

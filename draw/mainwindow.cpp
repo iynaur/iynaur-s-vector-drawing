@@ -29,8 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setCentralWidget(mdiArea);
     setAcceptDrops(true);
-    connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow* )),
-            this, SLOT(onSubWindowActivated(QMdiSubWindow* )));
+    connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
+            this, SLOT(onSubWindowActivated(QMdiSubWindow*)));
 
 
     currentCategory = PickCategory;
@@ -70,14 +70,15 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::onAutoAction() {
     QObject* obj = sender();
     auto act = dynamic_cast<QAction*>(obj);
-    if (act) {
-        for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
-            if (it->first == act->text()) {
-                currentCategory = it->second;
-                currentName = it->first;
-                scrollArea->drawAreaWidget->setCategory(currentCategory, currentName);
-                break;
-            }
+    if (!act) {
+        return;
+    }
+    for (auto it = m_allBuilders.begin(); it != m_allBuilders.end(); it++) {
+        if (it->first == act->text()) {
+            currentCategory = it->second;
+            currentName = it->first;
+            scrollArea->drawAreaWidget->setCategory(currentCategory, currentName);
+            break;
         }
     }
     for (auto a : ui->toolBar_1->actions()) {

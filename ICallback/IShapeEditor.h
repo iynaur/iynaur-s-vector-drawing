@@ -26,6 +26,7 @@ public:
 	virtual void setCallBack(ICallBack* callBack) = 0;
 	void virtual drawControlPoints(QPainter &painter, qreal zoomRatio) = 0;
 	virtual void resetHasPicked() = 0;
+    virtual void clear() = 0;
 
 };
 
