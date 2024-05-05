@@ -39,7 +39,7 @@ bool PolylineEditor::mouseDown(QPointF p, bool bLeft, QMouseEvent * event)
 		return 1;
 
 	}
-	else if (scaleHandlePointId(p, m_shape, m_zoomRatio)!=-1) {//scale pickedShape
+    else if (scaleHandlePointId(p, m_shape, m_zoomRatio)!=-1) {//scale pickedShape // need skip for 1st time
 															//qDebug()<<"scale pickedShape";
 		startScale(p);
 		return 1;
@@ -48,7 +48,7 @@ bool PolylineEditor::mouseDown(QPointF p, bool bLeft, QMouseEvent * event)
 		if (m_shape->minDistance(p)*m_zoomRatio > 4) return 0;
 		currentMouseHanded = None;
 		auto cp = m_shape->centralPoint();
-		Polyline *tmp = new Polyline;
+        shared_ptr<Polyline> tmp = make_shared<Polyline>();
 		tmp->points = m_shape->points;
 		tmp->drag(QPointF(0,0)-cp);
 		tmp->zoom(m_shape->getsx(), m_shape->getsy());
