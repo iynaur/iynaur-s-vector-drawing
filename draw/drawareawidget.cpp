@@ -891,6 +891,8 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
             if (pickedShapes.size()) {
                 initIShapeEditor();
                 m_curIShapeEditor->mouseDown(realPoint); // here use mouse down
+            } else {
+                m_curIShapeEditor = nullptr;
             }
 
 			break;
