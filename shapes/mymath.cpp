@@ -75,6 +75,9 @@ bool isRotationHandlePoint(QPointF realPoint, shared_ptr<GeneralShape> pickedSha
 	QPointF handlePoint = pickedShape->rotationHandlePoint();
 	//qDebug()<<handlePoint;
 	double sy = pickedShape->getsy();
+    if (sy == 0) {
+        sy = 1e-9;
+    }
 	double x = handlePoint.x() + sy / abs(sy)*lenthOfRotationHandleLine / zoomRatio*sin(pickedShape->rotationangle() / 180 * M_PI);
 	double y = handlePoint.y() - sy / abs(sy)*lenthOfRotationHandleLine / zoomRatio*cos(pickedShape->rotationangle() / 180 * M_PI);
 	//qDebug()<<x-realPoint.x()<<y-realPoint.y();
