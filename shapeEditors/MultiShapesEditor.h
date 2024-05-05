@@ -9,5 +9,6 @@ public:
 	virtual bool mouseDown(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
 	virtual void mouseMove(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
 	virtual void mouseUp(QPointF p, bool bLeft = true, QMouseEvent * event = nullptr);
+    virtual void drawControlPoints(QPainter &painter, qreal zoomRatio) {}
 };
 
