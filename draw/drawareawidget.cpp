@@ -101,7 +101,7 @@ void DrawAreaWidget::needUpdate()
 
 void DrawAreaWidget::codeEdit() {
 	if (pickedShapes.size() == 1) {
-		DeleteAction *daction = new DeleteAction();
+        unique_ptr<DeleteAction> daction = make_unique<DeleteAction>();
 		foreach(shared_ptr<GeneralShape> sp, pickedShapes) {
 			daction->shapes.append(sp);
 			daction->indexOfShapes.append(shapes.indexOf(sp));
@@ -127,7 +127,7 @@ void DrawAreaWidget::codeEdit() {
 					aaction->shapes.append(tmp->shapes.at(i - 1));
 				}
 				QList<AbstractAction*> alist;
-				alist.append(daction);
+                alist.append(daction.release());
 				alist.append(aaction);
 				addaction(alist);
 				pickedShapes.clear();
