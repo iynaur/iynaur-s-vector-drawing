@@ -85,7 +85,7 @@ void PolylineEditor::mouseMove(QPointF p, bool bLeft, QMouseEvent * event)
 			sita = -sita;
 		}
 		if (m_shape->getsy() < 0) {
-			sita = sita + M_PI;//½â¾öÍ¼ÐÎµ¹ÖÃÊ±µÄbug
+			sita = sita + M_PI;//è§£å†³å›¾å½¢å€’ç½®æ—¶çš„bug
 		}
 		m_shape->setRotationangle(sita / M_PI * 180);
 		return;
@@ -136,7 +136,7 @@ void PolylineEditor::mouseUp(QPointF realPoint, bool bLeft, QMouseEvent * event)
 			sita = -sita;
 		}
 		if (m_shape->getsy() < 0) {
-			sita = sita + M_PI;//½â¾öÍ¼ÐÎµ¹ÖÃÊ±µÄbug
+			sita = sita + M_PI;//è§£å†³å›¾å½¢å€’ç½®æ—¶çš„bug
 		}
 		m_shape->setRotationangle(sita / M_PI * 180);
 
@@ -200,6 +200,7 @@ void PolylineEditor::publishEditFinished()
 
 void PolylineEditor::drawControlPoints(QPainter & painter, qreal zoomRatio)
 {
+    ShapeEditorBase::drawControlPoints(painter, zoomRatio);
 	painter.translate((m_shape->minx + m_shape->maxx) / 2 * zoomRatio, (m_shape->miny + m_shape->maxy) / 2 * zoomRatio);
 	painter.rotate(m_shape->Rotationangle);
 	painter.setPen(QPen(Qt::black, 3));

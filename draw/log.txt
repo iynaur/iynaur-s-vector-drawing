@@ -23,5 +23,5 @@ add add and delete point to polyline
 NEED TO FIX: scale from zero 
 need to do: dependency inverse princeple DIP
 
-ctrl select not show shape editor
-polyline can not rotate
+ctrl select not show shape editor (must be this, otherwise what if mouse move?)
+polyline can not rotate // fixed

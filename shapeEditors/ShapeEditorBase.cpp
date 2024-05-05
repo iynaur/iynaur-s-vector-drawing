@@ -50,6 +50,26 @@ double & ShapeEditorBase::zoomRatio()
 
 void ShapeEditorBase::drawControlPoints(QPainter & painter, qreal zoomRatio)
 {
+    painter.setPen(QPen(Qt::black, 3));
+    for (auto p : m_shape->scaleHandlePoints())
+    {
+        painter.drawPoint(p * zoomRatio);
+    }
+
+    painter.save();
+    painter.translate((m_shape->minx+m_shape->maxx)/2*zoomRatio, (m_shape->miny+m_shape->maxy)/2*zoomRatio);
+    painter.rotate( m_shape->Rotationangle );
+    auto sy = m_shape->getsy();
+    auto pointEnd = QPointF(0,(m_shape->miny-m_shape->maxy)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine);
+    QPen pen;  // creates a default pen
+    pen.setStyle(Qt::DotLine);
+    painter.setPen(pen);
+    painter.drawLine(QPointF(0,(m_shape->miny-m_shape->maxy)/2*zoomRatio*sy) ,
+                     pointEnd);
+
+    painter.setPen(QPen(Qt::black, 3));
+    painter.drawPoint(pointEnd);
+    painter.restore();
 }
 void ShapeEditorBase::publishEditFinished()
 {
