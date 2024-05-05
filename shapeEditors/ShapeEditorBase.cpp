@@ -60,6 +60,9 @@ void ShapeEditorBase::drawControlPoints(QPainter & painter, qreal zoomRatio)
     painter.translate((m_shape->minx+m_shape->maxx)/2*zoomRatio, (m_shape->miny+m_shape->maxy)/2*zoomRatio);
     painter.rotate( m_shape->Rotationangle );
     auto sy = m_shape->getsy();
+    if (sy == 0) {
+        sy = 1e-9;
+    }
     auto pointEnd = QPointF(0,(m_shape->miny-m_shape->maxy)/2*zoomRatio*sy-sy/abs(sy)*lenthOfRotationHandleLine);
     QPen pen;  // creates a default pen
     pen.setStyle(Qt::DotLine);

@@ -398,7 +398,7 @@ void Combo:: drag(QPointF point)
     updateRange();
 }
 bool Combo:: isEmpty(){
-    return false;
+    return sx == 0 && sy == 0;
 }
 
 void Combo::setRotationangle(qreal angle){

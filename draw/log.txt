@@ -26,3 +26,5 @@ need to do: dependency inverse princeple DIP
 ctrl select not show shape editor (must be this, otherwise what if mouse move?)
 polyline can not rotate // fixed
 rect unpick still show shape editor - fixed
+
+exist empty combo
