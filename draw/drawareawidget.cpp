@@ -75,9 +75,9 @@ DrawAreaWidget::DrawAreaWidget(QWidget *parent) :
     m_thread = new QThread(this);
     // server->moveToThread(m_thread);
     m_thread->start();
-	auto type = static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection);
+    auto type = static_cast<Qt::ConnectionType>(/*Qt::QueuedConnection |*/ Qt::UniqueConnection);
 	connect(this, &DrawAreaWidget::undoStack_push, server, &dataserver::undoStack_push, type);
-    connect(this, &DrawAreaWidget::shapes_append, server, &dataserver::shapes_append, Qt::QueuedConnection);
+    connect(this, &DrawAreaWidget::shapes_append, server, &dataserver::shapes_append/*, Qt::QueuedConnection*/);
 	connect(server, SIGNAL(update()), this, SLOT(needUpdate()));
 	init();
 }
@@ -730,6 +730,7 @@ void DrawAreaWidget::rightMousePressEvent(QMouseEvent *event) {
 
 void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 {
+    recordEvent(event);
 	QPointF realPoint = (event->pos() - QPointF(dx, dy)) / zoomRatio;
 	m_bIsDuringOperation = true;
 	grabMouse();
@@ -813,6 +814,15 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 	}
 	Update();
 }
+
+void DrawAreaWidget::recordEvent(QMouseEvent *e)
+{
+#define out qDebug()
+    out << "=====";
+    out << e->pos();
+    out << e->flags();
+    out << e->type();
+}
 void DrawAreaWidget::addaction(AbstractAction* act) {
 	act->allShapes = &shapes;
 	act->setText(act->name() + " " + (act->shapes.size() > 1 ?
@@ -844,6 +854,7 @@ void DrawAreaWidget::addaction(QList<AbstractAction*> alist) {
 
 void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 {
+    recordEvent(event);
 	m_bIsDuringOperation = false;
 	releaseMouse();
 	QPointF realPoint = (event->pos() - QPointF(dx, dy)) / zoomRatio;
@@ -1014,6 +1025,7 @@ void DrawAreaWidget::leaveEvent(QEvent *event) {
 
 void DrawAreaWidget::mouseMoveEvent(QMouseEvent *event)
 {
+    recordEvent(event);
 	//qDebug()<<__FUNCTION__;
 	QPointF realPoint = (event->pos() - QPointF(dx, dy)) / zoomRatio;
 

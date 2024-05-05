@@ -7,7 +7,10 @@
 #pragma comment( lib, "Dbghelp.lib" )
 
 #ifdef _DEBUG
-#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+// #define NEW_DEBUG new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new(...) new(__VA_ARGS__, _NORMAL_BLOCK, __FILE__, __LINE__ )
+
+// #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 
 void EnableMemLeakCheck()
@@ -17,7 +20,7 @@ void EnableMemLeakCheck()
     tmpFlag |= _CRTDBG_ALLOC_MEM_DF;
     _CrtSetDbgFlag(tmpFlag);
 
-    // _CrtSetBreakAlloc(45979);
+    // _CrtSetBreakAlloc(28367);
     // _CrtSetBreakAlloc(9553);
     // _CrtSetBreakAlloc(9552);
 }
@@ -54,10 +57,14 @@ int crashhandler(EXCEPTION_POINTERS *pexception) {
 #include "mainwindow.h"
 #include <QApplication>
 #include <string>
-#include"stable.h"
+#include "stable.h"
+#include "test.h"
 
 int main(int argc, char *argv[])
 {
+    if (argc > 1 && std::string(argv[1]) == "t") {
+        return test(argc, argv);
+    }
 #ifdef WIN32
     EnableMemLeakCheck();
     //_CrtSetBreakAlloc(30923);

@@ -71,3 +71,9 @@ DEPENDPATH += $$PWD/../shapeEditors
 
 RESOURCES += \
     res.qrc
+
+SOURCES += \
+    test.cpp
+
+HEADERS += \
+    test.h

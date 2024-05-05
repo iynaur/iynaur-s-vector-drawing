@@ -14,8 +14,11 @@ SUBDIRS += \
     shapeEditors/shapeEditors.pro \
     draw/draw.pro
 
+DEFINES += _CRTDBG_MAP_ALLOC
+
 Dialog.depends = shapes
 actions.depends = shapes
 shapeBuilders.depends = shapes ICallback Dialog
 shapeEditors.depends = actions ICallback Dialog
 draw.depends = shapeEditors shapeBuilders
+test.depends = shapeEditors shapeBuilders draw

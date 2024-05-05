@@ -61,6 +61,7 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
     //bool event(QEvent *event);
+    void recordEvent(QMouseEvent *event);
     bool inRange(QPointF Point,QList<shared_ptr<GeneralShape>> sps);
 
 
@@ -129,7 +130,7 @@ public slots:
     void contextMenuEvent( QContextMenuEvent * event );
 	void needUpdate();
 	void del();
-protected:
+public:
     void paintEvent(QPaintEvent *);
     //void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
