@@ -813,14 +813,14 @@ void DrawAreaWidget::recordEvent(QMouseEvent *e)
         out << e->type();
     };
     static int consecutive_move_cnt = 0;
-    static QMouseEvent last_e(*e);
+    static unique_ptr<QMouseEvent> last_e = nullptr;
     if (e->type() == QEvent::MouseMove) {
         consecutive_move_cnt++;
-        last_e = *e;
+        last_e.reset(e->clone());
     } else {
         if (consecutive_move_cnt && consecutive_move_cnt % 20 != 1) {
             // must record last move event
-            write_to_file(&last_e);
+            write_to_file(last_e.get());
         }
         consecutive_move_cnt = 0;
     }
