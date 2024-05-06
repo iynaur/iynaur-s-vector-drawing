@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "test.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -66,6 +67,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->addPermanentWidget(lb);
     zoom(0);
     connect(sld,SIGNAL(valueChanged(int)),this,SLOT(zoom(int)));
+
+    auto* run = new QAction("run", this);
+    ui->toolBar_0->addAction(run);
+    connect(run, &QAction::triggered, this, &MainWindow::runScript);
+}
+
+void MainWindow::runScript()
+{
+    QFileDialog fd;
+    if (fd.exec() == QDialog::Accepted) {
+        auto file = fd.selectedFiles().at(0);
+        ::runScript(file.toStdString(), scrollArea->drawAreaWidget, 0, 0);
+    }
 }
 void MainWindow::onAutoAction() {
     QObject* obj = sender();

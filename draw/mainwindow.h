@@ -35,7 +35,7 @@ public:
 	void setAllShapeBuildersEnabled(bool enable);
 	void setAllShapeBuildersChecked(bool enable);
 	void readSettings();
-
+    void runScript();
 
 private slots:
 	void onAutoAction();
