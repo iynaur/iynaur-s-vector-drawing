@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
     if (argc > 1 && std::string(argv[1]) == "t") {
         return test(argc, argv);
     }
+    setRecord("./record.txt");
 #ifdef WIN32
     EnableMemLeakCheck();
     //_CrtSetBreakAlloc(30923);

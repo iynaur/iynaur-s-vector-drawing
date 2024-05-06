@@ -3,6 +3,7 @@
 #include <QTextStream>
 #include <QApplication>
 #include <sstream>
+#include <memory>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtXml>
@@ -101,7 +102,7 @@ void DrawAreaWidget::needUpdate()
 
 void DrawAreaWidget::codeEdit() {
 	if (pickedShapes.size() == 1) {
-        unique_ptr<DeleteAction> daction = make_unique<DeleteAction>();
+        unique_ptr<DeleteAction> daction(new DeleteAction);
 		foreach(shared_ptr<GeneralShape> sp, pickedShapes) {
 			daction->shapes.append(sp);
 			daction->indexOfShapes.append(shapes.indexOf(sp));
@@ -139,6 +140,7 @@ void DrawAreaWidget::codeEdit() {
 
 
 DrawAreaWidget::~DrawAreaWidget() {
+    saveToFile("./record.xml");
 	delete actionMoveToTop;
 	delete actionMoveToBottom;
 	delete actionSetBrush;
@@ -426,7 +428,32 @@ void DrawAreaWidget::open() {
 
 }
 
+void DrawAreaWidget::saveToFile(QString name)
+{
+    qSetGlobalQHashSeed(0);
+    QFile saveFile(name);
+    if (!saveFile.open(QFile::WriteOnly | QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
+        return;
+    QDomDocument doc;
+    QDomProcessingInstruction instruction; //添加处理命令
+    instruction = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+    doc.appendChild(instruction);
+    //添加根节点
 
+    Combo* tmp = new Combo;
+    tmp->shapes = shapes;
+    QDomElement draw = tmp->toElement();
+    //QDomElement draw=doc.createElement("draw");
+    draw.setAttribute("red", backcolor.red());
+    draw.setAttribute("green", backcolor.green());
+    draw.setAttribute("blue", backcolor.blue());
+    doc.appendChild(draw);
+
+    QTextStream out_stream(&saveFile);
+    doc.save(out_stream, 4); //缩进4格
+    saveFile.close();
+    delete tmp;
+}
 
 void DrawAreaWidget::saveAs() {
 	saved = false;
@@ -440,35 +467,14 @@ void DrawAreaWidget::saveAs() {
 	else
 		return;
 	if (files.isEmpty())    return;
-	QFile saveFile(files.at(0));
-	if (!saveFile.open(QFile::WriteOnly | QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
-		return;
-	QDomDocument doc;
-	QDomProcessingInstruction instruction; //添加处理命令
-	instruction = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
-	doc.appendChild(instruction);
-	//添加根节点
 
-	Combo* tmp = new Combo;
-	tmp->shapes = shapes;
-	QDomElement draw = tmp->toElement();
-	//QDomElement draw=doc.createElement("draw");
-	draw.setAttribute("red", backcolor.red());
-	draw.setAttribute("green", backcolor.green());
-	draw.setAttribute("blue", backcolor.blue());
-	doc.appendChild(draw);
-
-	QTextStream out_stream(&saveFile);
-	doc.save(out_stream, 4); //缩进4格
-	saveFile.close();
-
+    saveToFile(files[0]);
 	saved = true;
 	//changed=false;
 	saveIndex = undoStack.index();
 	filename = files.at(0);
-    delete tmp;
-	emit categoryChanged();
 
+	emit categoryChanged();
 }
 
 void DrawAreaWidget::save() {
@@ -489,28 +495,8 @@ void DrawAreaWidget::save() {
 		if (files.isEmpty())    return;
 
 		savefilename = files.at(0);
-	}
-	QFile saveFile(savefilename);
-	if (!saveFile.open(QFile::WriteOnly | QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
-		return;
-	QDomDocument doc;
-	QDomProcessingInstruction instruction; //添加处理命令
-	instruction = doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
-	doc.appendChild(instruction);
-	//添加根节点
-
-	Combo* tmp = new Combo;
-	tmp->shapes = shapes;
-	QDomElement draw = tmp->toElement();
-	//QDomElement draw=doc.createElement("draw");
-	draw.setAttribute("red", backcolor.red());
-	draw.setAttribute("green", backcolor.green());
-	draw.setAttribute("blue", backcolor.blue());
-	doc.appendChild(draw);
-
-	QTextStream out_stream(&saveFile);
-	doc.save(out_stream, 4); //缩进4格
-	saveFile.close();
+    }
+    saveToFile(savefilename);
 
 	saved = true;
 	//changed=false;
@@ -817,11 +803,33 @@ void DrawAreaWidget::mousePressEvent(QMouseEvent *event)
 
 void DrawAreaWidget::recordEvent(QMouseEvent *e)
 {
-#define out qDebug()
-    out << "=====";
-    out << e->pos();
-    out << e->flags();
-    out << e->type();
+    #define out qDebug()
+    auto write_to_file = [](QMouseEvent *e) {
+        out << "=====";
+        out << e->pos();
+        out << e->flags();
+        out << e->button();
+        out << e->modifiers();
+        out << e->type();
+    };
+    static int consecutive_move_cnt = 0;
+    static QMouseEvent last_e(*e);
+    if (e->type() == QEvent::MouseMove) {
+        consecutive_move_cnt++;
+        last_e = *e;
+    } else {
+        if (consecutive_move_cnt && consecutive_move_cnt % 20 != 1) {
+            // must record last move event
+            write_to_file(&last_e);
+        }
+        consecutive_move_cnt = 0;
+    }
+    if (consecutive_move_cnt > 0 && consecutive_move_cnt % 20 != 1) { // only record move 1st, 21st, 41st...
+        return;
+    }
+
+    write_to_file(e);
+
 }
 void DrawAreaWidget::addaction(AbstractAction* act) {
 	act->allShapes = &shapes;
@@ -929,6 +937,12 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 			endPoint = startPoint;
 			break;
 		}
+        if (m_ctrl) {
+            initIShapeEditor();
+            if (m_curIShapeEditor) {
+                m_curIShapeEditor->setHasPicked();
+            }
+        }
 		break;
 	}
     case customCategory: {
@@ -945,7 +959,7 @@ void DrawAreaWidget::mouseReleaseEvent(QMouseEvent *event)
 	emit categoryChanged();
 }
 void DrawAreaWidget::keyPressEvent(QKeyEvent *event) {
-	qDebug() << "DrawAreaWidget " << __FUNCTION__ << event->text() << event->key();
+//	qDebug() << "DrawAreaWidget " << __FUNCTION__ << event->text() << event->key();
 	if (m_bIsDuringOperation) return;
 	if (m_curIShapeEditor) {
 		if (m_curIShapeEditor->keyDown(event))
@@ -1106,6 +1120,7 @@ void DrawAreaWidget::Update() {
 }
 
 void DrawAreaWidget::setCategory(Category c, QString name) {
+    qDebug() << "setCategory " << c;
 	//setMouseTracking(false);
 	finishcurrentShape();
 	//currentLine->hide();
@@ -1325,6 +1340,10 @@ shared_ptr<Combo> DrawAreaWidget::fromFile(QString file)
 }
 
 void DrawAreaWidget::initIShapeEditor() {
+    if (pickedShapes.empty()) {
+        m_curIShapeEditor = nullptr;
+        return;
+    }
     updateIShapeEditor(pickedShapes, m_curIShapeEditor);
 	
 	m_curIShapeEditor->zoomRatio() = zoomRatio;

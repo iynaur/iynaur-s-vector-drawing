@@ -24,6 +24,10 @@ public:
 	void doScale(QPointF p);
 	void finishScale(QPointF p);
 	virtual void resetHasPicked();
+    virtual void setHasPicked() override
+    {
+        m_hasPicked = 1;
+    }
     void clear() override;
 
 	shared_ptr<GeneralShape> m_shape;
@@ -41,5 +45,4 @@ protected:
 	int m_hasPicked;
 
 };
-
 

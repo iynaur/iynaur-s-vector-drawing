@@ -67,6 +67,7 @@ public:
 
     //void pickedMove(qreal x,qreal y);
     void save();
+    void saveToFile(QString name);
     void saveAs();
     void open();
     //void add(QString line);
